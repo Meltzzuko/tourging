@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -9,6 +8,12 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import FigureImage from 'react-bootstrap/FigureImage'
+import { useState } from 'react';
+import axios from 'axios';
+import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom';
+import { storeUser } from '../helper';
+
 
 function Copyright(props: any) {
   return (
@@ -25,15 +30,42 @@ function Copyright(props: any) {
 
 const theme = createTheme();
 
+const initialUser = { identifier: '', password: ''};
+
 export default function SignInSide() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+    const [user, setUser] = useState(initialUser)
+    const navigate = useNavigate();
+
+    const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      console.log(user);
+      const url = "http://localhost:1337/api/auth/local"
+      try {
+        if (user.identifier && user.password) {
+          const {data} = await axios.post(url, user)
+          console.log(data)
+          if (data.jwt) {
+            storeUser(data)
+            toast.success('Login successful', {
+              hideProgressBar: true
+            })
+            setUser(initialUser)
+            navigate('/')
+          }
+    }}catch(err) {
+      toast.error("Invalid email or password", {
+        hideProgressBar: true
+      })
+    }}
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      const { name, value } = event.target;
+      setUser({
+      ...user,
+        [name]: value,
+      });
+    };
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -70,35 +102,37 @@ export default function SignInSide() {
                     เข้าสู่ระบบ
                 </Typography>
             </Box>
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                autoFocus
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-              >
-                เข้าสู่ระบบ
-              </Button>
+            <Box component="form" noValidate onSubmit={handleLogin} sx={{ mt: 1 }}>
+                <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="identifier"
+                    label="Email Address"
+                    name="identifier"
+                    autoComplete="email"
+                    onChange={handleChange}
+                    autoFocus
+                />
+                <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    autoComplete="current-password"
+                    onChange={handleChange}
+                />
+                <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{ mt: 3, mb: 2 }}
+                >
+                    เข้าสู่ระบบ
+                </Button>
               <Grid container>
                 <Grid item xs>
                   <Link href="#" variant="body2">

@@ -1,10 +1,11 @@
+import { ToastContainer } from 'react-toastify'
 import { BrowserRouter, Route, Routes, useLocation} from 'react-router-dom'
 import Homepage from './page/Home'
 import Indexpage from './page/Index'
 import LoginPage from './page/Login'
-import Similanpage from './page/One-day-trip/Similan'
 import RegisterPage from './page/Register'
 import UserStatusPage from './page/UserStatus'
+import LogoutPage from './page/Logout'
 
 
 function App() {
@@ -16,8 +17,9 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/userstatus" element={<UserStatusPage />} />
-        <Route path='/similan' element={<Similanpage />} />
+        <Route path="/logout" element={<LogoutPage />} />
       </Routes>
+      <ToastContainer/>
     </BrowserRouter>
   )
 }
