@@ -8,11 +8,11 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import FigureImage from 'react-bootstrap/FigureImage'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom';
-import { storeUser } from '../helper';
+import { storeUser, userData } from '../helper';
 
 
 function Copyright(props: any) {
@@ -65,6 +65,13 @@ export default function SignInSide() {
         [name]: value,
       });
     };
+
+    useEffect(() => {
+      const data = userData();
+      if(data.jwt) {
+        navigate('/')
+      }
+    });
 
 
   return (

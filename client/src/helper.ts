@@ -19,3 +19,21 @@ export const userData = () => {
     }
     return false
 }
+
+type Props = {
+    adminOnly?: boolean
+    children: JSX.Element
+  }
+  
+export const ProtectRoute = ({adminOnly, children}: Props) => {
+    const navigate = useNavigate()
+    const data = userData()
+
+    useEffect(() => {
+        if (!data.jwt) {
+            navigate('/login')
+        }
+    }, [])
+
+    return children
+}
