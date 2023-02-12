@@ -5,8 +5,10 @@ import UserNavbar from '../components/UserNavbar';
 import '../index.css'
 import FigureImage from 'react-bootstrap/FigureImage'
 import Typography from '@mui/material/Typography/Typography';
+import { useNavigate } from 'react-router-dom';
 
 const Indexpage = () => {
+    const navigate = useNavigate()
     return (
         <div >
             <UserNavbar/>
@@ -41,6 +43,9 @@ const Indexpage = () => {
                     type="submit"
                     variant="contained"
                     sx={{ mt: 3, mb: 2 }}
+                    onClick={() => {
+                        navigate('/home')
+                    }}
                 >
                     เข้าสู่หน้าเว็บไซต์
                 </Button>
