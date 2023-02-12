@@ -23,3 +23,8 @@
   bottom: 0;
   z-index: -1;
 }
+
+body {
+  background-image: url('https://i.imgur.com/WGh30Ok.png');
+  background-size: cover;
+}
