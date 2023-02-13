@@ -1,0 +1,61 @@
+{
+  "kind": "collectionType",
+  "collectionName": "user_tours",
+  "info": {
+    "singularName": "user-tour",
+    "pluralName": "user-tours",
+    "displayName": "user_tour",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "tour_start": {
+      "type": "date"
+    },
+    "shortdescrip": {
+      "type": "richtext",
+      "required": true
+    },
+    "Longdescription": {
+      "type": "richtext"
+    },
+    "price": {
+      "type": "integer"
+    },
+    "Title": {
+      "type": "string"
+    },
+    "category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::category.category",
+      "inversedBy": "user_tours"
+    },
+    "available_seat": {
+      "type": "integer"
+    },
+    "tour_end": {
+      "type": "date"
+    },
+    "review": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::review.review",
+      "inversedBy": "user_tours"
+    }
+  }
+}
