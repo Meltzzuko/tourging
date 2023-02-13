@@ -14,9 +14,9 @@
   "attributes": {
     "users_permissions_users": {
       "type": "relation",
-      "relation": "manyToMany",
+      "relation": "oneToMany",
       "target": "plugin::users-permissions.user",
-      "inversedBy": "payment_statuses"
+      "mappedBy": "payment_status"
     },
     "status": {
       "type": "boolean",

@@ -63,12 +63,6 @@
       "inversedBy": "users",
       "configurable": false
     },
-    "payment_statuses": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::payment-status.payment-status",
-      "mappedBy": "users_permissions_users"
-    },
     "review": {
       "type": "relation",
       "relation": "manyToOne",
@@ -79,6 +73,12 @@
       "type": "boolean",
       "default": false,
       "required": true
+    },
+    "payment_status": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::payment-status.payment-status",
+      "inversedBy": "users_permissions_users"
     }
   }
 }
