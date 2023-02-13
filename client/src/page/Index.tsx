@@ -24,7 +24,6 @@ const Indexpage = () => {
                     position: 'absolute' }}>
                     <source src="Phuket.mp4" type="video/mp4"/>
                 </video>
-
             <div className="box-container mt-5 border-dark" >
                 <Box display="flex" flexDirection="column" alignItems="center">
                     <FigureImage width={300} height={600} alt="171x180" src="logo.png" />
