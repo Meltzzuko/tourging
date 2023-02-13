@@ -1,6 +1,6 @@
 import UserNavbar from '../components/UserNavbar';
 import {Row,Col,Container, Button} from 'react-bootstrap';
-import Cardsimilan from '../components/CardTour';
+import CardTour from '../components/CardTour';
 
 
 const Homepage = () => {
@@ -10,7 +10,7 @@ const Homepage = () => {
             <Container>
                 <Row style={{ marginTop: "15px" }}>
                     <Col md={{ span: 6, offset: 4 }}>
-                        <Button href='/onedaytrip' style={{ marginRight: "15px" , border: "2px solid black" }} variant="light">ทัวร์ภูเก็ต One Day Trip</Button>
+                        <Button href='/onedaytrip' style={{ marginRight: "15px" , border: "2px solid black", }} variant="light">ทัวร์ภูเก็ต One Day Trip</Button>
                         <Button href='/manydaytrip' variant="light" style = {{border: "2px solid black"}}>ทัวร์ภูเก็ตพร้อมที่พัก</Button>
                     </Col>
                 </Row>
@@ -22,14 +22,15 @@ const Homepage = () => {
                             padding: "10px", 
                             fontSize: '18px',
                             fontWeight: "bold",
-                            textAlign: 'center'  }}>
+                            textAlign: 'center',
+                            border:"2px solid black"  }}>
                         ทัวร์ภูเก็ต One Day Trip
                     </Col>
                     <Col xs={6} md={9} style={{ display: "flex", alignItems: "center", justifyContent: "left" }}>
-                        <hr style={{ height: "2px", width: "80%", marginLeft: "5px", borderWidth: "5px",borderRadius:"20px" }} />
+                        <hr style={{ height: "2px", width: "80%", marginLeft: "5px", borderWidth: "5px",borderRadius:"20px", }} />
                     </Col>
                 </Row>
-                <Cardsimilan/>
+                <CardTour/>
                 <Row style={{ marginTop: "15px" , marginBottom: '15px'}}>
                     <Col xs={12} md={3} 
                         style={{ 
@@ -38,14 +39,15 @@ const Homepage = () => {
                             padding: "10px", 
                             fontSize: '18px',
                             fontWeight: "bold",
-                            textAlign: 'center'  }}>
+                            textAlign: 'center',
+                            border:"2px solid black"  }}>
                         ทัวร์ภูเก็ตพร้อมที่พัก
                     </Col>
                     <Col xs={6} md={9} style={{ display: "flex", alignItems: "center", justifyContent: "left" }}>
                         <hr style={{ height: "2px", width: "80%", marginLeft: "5px", borderWidth: "5px",borderRadius:"20px" }} />
                     </Col>
                 </Row>
-                <Cardsimilan/>
+                <CardTour/>
             </Container>
         </div>
 

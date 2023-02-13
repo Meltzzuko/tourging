@@ -24,7 +24,8 @@ const OneDayTripPage = () => {
                             padding: "10px", 
                             fontSize: '18px',
                             fontWeight: "bold",
-                            textAlign: 'center'  }}>
+                            textAlign: 'center',
+                            border:"2px solid black"  }}>
                         ทัวร์ภูเก็ต One Day Trip
                     </Col>
                     <Col xs={6} md={9} style={{ display: "flex", alignItems: "center", justifyContent: "left" }}>
