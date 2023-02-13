@@ -12,8 +12,8 @@ const ManyDayTripPage = () => {
             <Container>
                 <Row style={{ marginTop: "15px" }}>
                     <Col md={{ span: 6, offset: 4 }}>
-                        <Button href='/onedaytrip' style={{ marginRight: "15px" }} variant="light">ทัวร์ภูเก็ต One Day Trip</Button>
-                        <Button href='/manydaytrip' variant="light">ทัวร์ภูเก็ตพร้อมที่พัก</Button>
+                        <Button href='/onedaytrip' style={{ marginRight: "15px", border: "2px solid black"}} variant="light">ทัวร์ภูเก็ต One Day Trip</Button>
+                        <Button href='/manydaytrip' variant="light" style = {{border: "2px solid black"}}>ทัวร์ภูเก็ตพร้อมที่พัก</Button>
                     </Col>
                 </Row>
                 <Row style={{ marginTop: "15px" , marginBottom: '15px'}}>
