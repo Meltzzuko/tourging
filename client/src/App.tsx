@@ -19,7 +19,7 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/userstatus" element={<UserStatusPage />} />
         <Route path="/logout" element={<LogoutPage />} />
-        <Route path="/payment" element={<ProtectRoute><PaymentPage/></ProtectRoute>}/>
+        <Route path="/payment" element={<PaymentPage/>}/>
       </Routes>
       <ToastContainer/>
     </BrowserRouter>
