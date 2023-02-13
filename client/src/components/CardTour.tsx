@@ -1,25 +1,19 @@
-
-import * as React from 'react';
 import AspectRatio from '@mui/joy/AspectRatio';
 import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
 import Card from '@mui/joy/Card';
-import IconButton from '@mui/joy/IconButton';
 import Typography from '@mui/joy/Typography';
-import BookmarkAdd from '@mui/icons-material/BookmarkAddOutlined';
 
 
-
-
-function Cardsimilan() {
+function CardTour() {
   return (
     <>
-      <Card variant="outlined" sx={{ width: 320,backgroundColor: 'white' }}>
+      <Card variant="outlined" sx={{ width: 250,backgroundColor: 'white' }}>
       <Typography level="h2" fontSize="xl" fontWeight="xl" color='primary' sx={{ mb: 0.5 }}>
         เกาะสิมิลัน
       </Typography>
       
-      <AspectRatio minHeight="200px" maxHeight="250px" sx={{ my: 2 }}>
+      <AspectRatio minHeight="100px" maxHeight="150px" sx={{ my: 2 }}>
         <img
           src="https://i.imgur.com/i2yEcg4.png"
           srcSet="https://i.imgur.com/i2yEcg4.png 2x"
@@ -29,7 +23,6 @@ function Cardsimilan() {
       </AspectRatio>
       <Box sx={{ display: 'flex' }}>
         <div>
-          
           <Typography fontSize="lg" fontWeight="lg" color='success'>
             ราคา 1,900 บาท/ท่าน
           </Typography>
@@ -48,7 +41,8 @@ function Cardsimilan() {
       </Box>
     </Card>
     </>
+
   );
 }
 
-export default Cardsimilan;
+export default CardTour;

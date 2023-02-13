@@ -1,9 +1,11 @@
+import * as React from 'react';
 import UserNavbar from '../components/UserNavbar';
-import {Row,Col,Container, Button} from 'react-bootstrap';
-import Cardsimilan from '../components/CardTour';
+import {Card,Row,Col,Container,Navbar, Button} from 'react-bootstrap';
+import FigureImage from 'react-bootstrap/FigureImage'
+import CardTour from '../components/CardTour';
 
 
-const Homepage = () => {
+const ManyDayTripPage = () => {
     return (
         <div>
             <UserNavbar/>
@@ -23,32 +25,16 @@ const Homepage = () => {
                             fontSize: '18px',
                             fontWeight: "bold",
                             textAlign: 'center'  }}>
-                        ทัวร์ภูเก็ต One Day Trip
-                    </Col>
-                    <Col xs={6} md={9} style={{ display: "flex", alignItems: "center", justifyContent: "left" }}>
-                        <hr style={{ height: "2px", width: "80%", marginLeft: "5px", borderWidth: "5px",borderRadius:"20px" }} />
-                    </Col>
-                </Row>
-                <Cardsimilan/>
-                <Row style={{ marginTop: "15px" , marginBottom: '15px'}}>
-                    <Col xs={12} md={3} 
-                        style={{ 
-                            backgroundColor: "white", 
-                            borderRadius: "10px", 
-                            padding: "10px", 
-                            fontSize: '18px',
-                            fontWeight: "bold",
-                            textAlign: 'center'  }}>
                         ทัวร์ภูเก็ตพร้อมที่พัก
                     </Col>
                     <Col xs={6} md={9} style={{ display: "flex", alignItems: "center", justifyContent: "left" }}>
                         <hr style={{ height: "2px", width: "80%", marginLeft: "5px", borderWidth: "5px",borderRadius:"20px" }} />
                     </Col>
                 </Row>
-                <Cardsimilan/>
+                <CardTour/>
             </Container>
         </div>
 
     )
 }
-export default Homepage;
+export default ManyDayTripPage;

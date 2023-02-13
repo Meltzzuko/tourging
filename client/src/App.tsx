@@ -8,6 +8,8 @@ import UserStatusPage from './page/UserStatus'
 import LogoutPage from './page/Logout'
 import PaymentPage from './page/Payment'
 import { ProtectRoute } from './helper'
+import OneDayTripPage from './page/OneDayTrip'
+import ManyDayTripPage from './page/ManyDayTrip'
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
       <Routes>
         <Route index element={<Indexpage />} />
         <Route path="/home" element={<Homepage />} />
+          <Route path="/onedaytrip" element={<OneDayTripPage/>}/>
+          <Route path="/manydaytrip" element={<ManyDayTripPage />}/>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/userstatus" element={<UserStatusPage />} />
