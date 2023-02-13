@@ -2,7 +2,7 @@ import * as React from 'react';
 import UserNavbar from '../components/UserNavbar';
 import {Card,Row,Col,Container,Navbar, Button} from 'react-bootstrap';
 import FigureImage from 'react-bootstrap/FigureImage'
-import Cardsimilan from '../components/Cardsimilan';
+import CardTour from '../components/CardTour';
 
 
 const OneDayTripPage = () => {
@@ -31,7 +31,7 @@ const OneDayTripPage = () => {
                         <hr style={{ height: "2px", width: "80%", marginLeft: "5px", borderWidth: "5px",borderRadius:"20px" }} />
                     </Col>
                 </Row>
-                <Cardsimilan/>
+                <CardTour/>
             </Container>
         </div>
 
