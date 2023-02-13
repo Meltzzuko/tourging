@@ -73,12 +73,6 @@
       "type": "boolean",
       "default": false,
       "required": true
-    },
-    "payment_status": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::payment-status.payment-status",
-      "inversedBy": "users_permissions_users"
     }
   }
 }

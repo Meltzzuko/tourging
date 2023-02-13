@@ -12,16 +12,16 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "users_permissions_users": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "plugin::users-permissions.user",
-      "mappedBy": "payment_status"
-    },
     "status": {
       "type": "boolean",
       "default": false,
       "required": true
+    },
+    "user": {
+      "type": "string"
+    },
+    "tour_name": {
+      "type": "string"
     }
   }
 }
