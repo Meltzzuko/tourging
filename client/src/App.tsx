@@ -10,6 +10,7 @@ import PaymentPage from './page/Payment'
 import { ProtectRoute } from './helper'
 import OneDayTripPage from './page/OneDayTrip'
 import ManyDayTripPage from './page/ManyDayTrip'
+import Detailpage from './page/Detail'
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/home" element={<Homepage />} />
           <Route path="/onedaytrip" element={<OneDayTripPage/>}/>
           <Route path="/manydaytrip" element={<ManyDayTripPage />}/>
+          <Route path="/detail/:id" element={<Detailpage/>}/>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/userstatus" element={<UserStatusPage />} />

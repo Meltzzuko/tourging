@@ -1,6 +1,6 @@
 import { Box } from '@mui/system';
 import UserNavbar from '../components/UserNavbar';
-import CardspaymentSimilan from '../components/Cardpaymentsimilan';
+import CardPayment from '../components/CardPayment';
 import FigureImage from 'react-bootstrap/FigureImage'
 import Typography from '@mui/material/Typography/Typography';
 import '../payment.css'
@@ -10,7 +10,7 @@ const PaymentPage = () => {
         <div>
             <UserNavbar/>
             <div className="flexbox" >
-                <CardspaymentSimilan/>
+                <CardPayment/>
                 <div className="item">
                     <div className="content">
                     <Typography style={{ fontSize: 30, textAlign: "center", fontWeight: "700", marginTop: "30px" }} color='black'>สแกนเพื่อชำระเงิน</Typography>

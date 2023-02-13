@@ -3,9 +3,11 @@ import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
 import Card from '@mui/joy/Card';
 import Typography from '@mui/joy/Typography';
-
+import { useNavigate } from 'react-router-dom';
 
 function CardTour() {
+  const navigate = useNavigate();
+
   return (
     <>
       <Card variant="outlined" sx={{ width: 250,backgroundColor: 'white' }}>
@@ -35,6 +37,7 @@ function CardTour() {
           color="primary"
           aria-label="Explore Bahamas Islands"
           sx={{ ml: 'auto', fontWeight: 600 }}
+          onClick={() => navigate('/detail/similan')}
         >
           รายละเอียด
         </Button>
