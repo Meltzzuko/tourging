@@ -16,18 +16,6 @@
       "type": "string",
       "maxLength": 200
     },
-    "users_permissions_users": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "plugin::users-permissions.user",
-      "mappedBy": "review"
-    },
-    "user_tours": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::user-tour.user-tour",
-      "mappedBy": "review"
-    },
     "score": {
       "type": "integer",
       "min": 1,

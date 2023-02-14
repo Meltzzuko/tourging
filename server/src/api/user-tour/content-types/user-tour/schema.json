@@ -50,12 +50,6 @@
     },
     "tour_end": {
       "type": "date"
-    },
-    "review": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::review.review",
-      "inversedBy": "user_tours"
     }
   }
 }

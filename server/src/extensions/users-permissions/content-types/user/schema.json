@@ -63,12 +63,6 @@
       "inversedBy": "users",
       "configurable": false
     },
-    "review": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::review.review",
-      "inversedBy": "users_permissions_users"
-    },
     "admin": {
       "type": "boolean",
       "default": false,
