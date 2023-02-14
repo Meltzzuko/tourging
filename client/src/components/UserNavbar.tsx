@@ -25,12 +25,12 @@ function UserNavbar() {
             />
           </Navbar.Brand>
           <Nav className="justify-content-end">
-            <Nav.Link style={{marginRight: "10px"}} href="home"><h5>หน้าหลัก</h5></Nav.Link>
-            <Nav.Link style={{marginRight: "10px"}} href="userstatus"><h5>สถานะ</h5></Nav.Link>
+            <Nav.Link style={{marginRight: "10px"}} href="/home"><h5>หน้าหลัก</h5></Nav.Link>
+            <Nav.Link style={{marginRight: "10px"}} href="/userstatus"><h5>สถานะ</h5></Nav.Link>
             {!user && (
               <>
-                <Button href='login' style={{marginRight: "10px"}} size="lg" variant="outline-success">Sign in</Button>
-                <Button href='register' size="lg" variant="danger">Sign up</Button>
+                <Button href='/login' style={{marginRight: "10px"}} size="lg" variant="outline-success">Sign in</Button>
+                <Button href='/register' size="lg" variant="danger">Sign up</Button>
               </>
             )}
             {user && (
@@ -44,7 +44,7 @@ function UserNavbar() {
               >
                   <AccountCircle fontSize='large'/>
                 </IconButton>
-                <Button href='logout' size="lg" variant="danger">Logout</Button>
+                <Button href='/logout' size="lg" variant="danger">Logout</Button>
               </div>
               
             )}
