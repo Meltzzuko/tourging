@@ -1,14 +1,14 @@
 import UserNavbar from "../components/UserNavbar"
 import { useEffect } from 'react';
-import { Autocomplete, Button, requirePropFactory } from '@mui/material';
-import { Box, margin } from '@mui/system';
+import {Button} from '@mui/material';
+import { Box} from '@mui/system';
 import '../index.css'
 import FigureImage from 'react-bootstrap/FigureImage'
 import Typography from '@mui/material/Typography/Typography';
 import { useNavigate } from 'react-router-dom';
 import { Row, Col, Container} from "react-bootstrap";
-import { Grid } from "@mui/material";
 import Card from "@mui/joy/Card/Card";
+import TextField from '@mui/material/TextField';
 
 
 const Detailpage = () => {
@@ -18,7 +18,7 @@ const Detailpage = () => {
             <Container>
             <Row>
                 <Col xs={6} md={4} >
-                    <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" height="45%" marginTop="50px" marginBottom = "30px" padding-left = "50px" padding-right = "50px">
+                    <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" height="45%" marginTop="30px" marginBottom = "30px" padding-left = "50px" padding-right = "50px" >
                         <FigureImage  style={{ borderRadius: 20,  border: "2px solid black" }} width={400} height={250} alt="171x180" src="similan.png" /> 
                     </Box>
                     <Box>
@@ -37,7 +37,7 @@ const Detailpage = () => {
                     </Box>
                 </Col>
                 <Col xs={6} md={8}>
-                    <Card variant='outlined' sx = {{backgroundColor: 'white', marginTop: "56px"}}  padding-left = "50px" padding-right = "50px">
+                    <Card variant='outlined' sx = {{backgroundColor: 'white', marginTop: "35px"}}  padding-left = "50px" padding-right = "50px">
                         <Typography style={{ fontSize: 30, textAlign: "left", fontWeight: "bold", color: "black", textAlignLast: "center"}}>รายละเอียด</Typography>
                         <Typography style={{ fontSize: 20, textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>จำนวนสูงสุด: 10</Typography>
                         <Typography style={{ fontSize: 20, textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>จำนวนคงเหลือ: 3</Typography>
@@ -53,6 +53,37 @@ const Detailpage = () => {
                         <Typography>.</Typography>
                         <Typography>.</Typography>
                         <Typography>.</Typography>
+                       
+                        <Row xs={3} md={2} lg={3}>
+                            <Col>
+                                <Typography style={{ fontSize: 22, textAlign: "left", fontWeight: "bold", color: "black", textAlignLast: "right",marginTop:"10px"}}>วันเดินทาง</Typography>
+                            </Col>
+                            <Col>
+                                <TextField
+                                    id="date"
+                                    label="วันเดินทาง"
+                                    type="date"
+                                    defaultValue="2017-05-24"
+                                    sx={{ width: 220 }}
+                                    InputLabelProps={{
+                                    shrink: true,
+                                        }}
+                                />
+                            </Col>
+                            
+                        </Row>
+                        <Row xs="auto" style={{marginTop:"10px",marginLeft:"140px"}}>
+                            <Col>
+                            <Typography style={{ fontSize: 22, textAlign: "left", fontWeight: "bold", color: "black", textAlignLast: "right",marginTop:"10px"}}>จำนวนคน</Typography>
+                            </Col>
+                            <Col maginTop="10px"><TextField id="outlined-basic"  variant="outlined" sx={{height:"5px", width:"60px"}} /></Col>
+                            <Col><Typography style={{ fontSize: 22,  fontWeight: "bold", color: "black", marginTop:"10px"}}>คน</Typography></Col>
+                            <Col><Typography style={{ fontSize: 22,  fontWeight: "bold", color: "red", marginTop:"10px"}}>1900 บาท</Typography></Col>
+                            <Col >
+                                <Button variant="contained" color="primary" size="large" sx={{maginTop:"150px",marginLeft:"50px"}}>จอง package</Button>
+                            </Col>
+                        </Row>
+                        <br/>                       
                     </Card>
                 </Col>
             </Row>
