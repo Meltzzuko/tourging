@@ -6,17 +6,15 @@ import FigureImage from 'react-bootstrap/FigureImage'
 import Button from '@mui/material/Button';
 
 
-
-
 function CardTourstatus() {
     return(
         <>
-            <Card variant='outlined' sx={{ maxWidth: 1050,  backgroundColor:"white" }}>
+            <Card variant='solid' sx={{ maxWidth: 1050,  backgroundColor:"white" }}>
                 <Container>
                     <Row>
                         <Col xs={6} md={4}>
                             <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" height="100%">
-                                <FigureImage  style={{ borderRadius: 20,  border: "2px solid black" }} width={400} height={300} alt="171x180" src="similan.png" /> 
+                                <FigureImage  style={{ borderRadius: 20,  border: "2px solid black" }} width={400} height={300} alt="171x180" src="https://i.imgur.com/JAMlaNo.png" /> 
                             </Box>
                         </Col>
                         <Col xs={12} md={8}>
