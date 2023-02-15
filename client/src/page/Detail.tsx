@@ -54,7 +54,7 @@ const Detailpage = () => {
                         <Typography>.</Typography>
                         <Typography>.</Typography>
                        
-                        <Row xs={3} md={2} lg={3}>
+                        <Row xs={6} md={2} lg={3}>
                             <Col>
                                 <Typography style={{ fontSize: 22, textAlign: "left", fontWeight: "bold", color: "black", textAlignLast: "right",marginTop:"10px"}}>วันเดินทาง</Typography>
                             </Col>
@@ -74,13 +74,15 @@ const Detailpage = () => {
                         </Row>
                         <Row xs="auto" style={{marginTop:"10px",marginLeft:"140px"}}>
                             <Col>
-                            <Typography style={{ fontSize: 22, textAlign: "left", fontWeight: "bold", color: "black", textAlignLast: "right",marginTop:"10px"}}>จำนวนคน</Typography>
+                            <Typography style={{ fontSize: 22, textAlign: "left", fontWeight: "bold", color: "black", textAlignLast: "right",marginTop:"10px" ,marginRight:"8px"}}>จำนวนคน</Typography>
                             </Col>
-                            <Col maginTop="10px"><TextField id="outlined-basic"  variant="outlined" sx={{height:"5px", width:"60px"}} /></Col>
+                            <Col maginTop="10px">
+                                <Box marginTop={2}><input type="number" min="1" /></Box>
+                            </Col>
                             <Col><Typography style={{ fontSize: 22,  fontWeight: "bold", color: "black", marginTop:"10px"}}>คน</Typography></Col>
                             <Col><Typography style={{ fontSize: 22,  fontWeight: "bold", color: "red", marginTop:"10px"}}>1900 บาท</Typography></Col>
                             <Col >
-                                <Button variant="contained" color="primary" size="large" sx={{maginTop:"150px",marginLeft:"50px"}}>จอง package</Button>
+                                <Button variant="contained" color="primary" size="medium">จอง package</Button>
                             </Col>
                         </Row>
                         <br/>                       
