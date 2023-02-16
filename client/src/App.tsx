@@ -11,6 +11,7 @@ import { ProtectRoute } from './helper'
 import OneDayTripPage from './page/OneDayTrip'
 import ManyDayTripPage from './page/ManyDayTrip'
 import Detailpage from './page/Detail'
+import ReviewPage from './page/Review'
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/onedaytrip" element={<OneDayTripPage/>}/>
           <Route path="/manydaytrip" element={<ManyDayTripPage />}/>
           <Route path="/detail/:id" element={<Detailpage/>}/>
+            <Route path="/detail/:id/review" element={<ReviewPage/>}/>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/userstatus" element={<UserStatusPage />} />
