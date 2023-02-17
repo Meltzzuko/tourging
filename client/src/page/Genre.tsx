@@ -22,6 +22,8 @@ const GenrePage = () => {
         fetchData()
     }, [params.type])
 
+    const headtitle = params.type==="One-day" ? "ทัวร์ภูเก็ต One Day Trip" : "ทัวร์ภูเก็ตพร้อมที่พัก"
+
     return (
         <div>
             <UserNavbar/>
@@ -42,7 +44,7 @@ const GenrePage = () => {
                             fontWeight: "bold",
                             textAlign: 'center',
                             border:"2px solid black"  }}>
-                        ทัวร์ภูเก็ตพร้อมที่พัก
+                        {headtitle}
                     </Col>
                     <Col xs={6} md={9} style={{ display: "flex", alignItems: "center", justifyContent: "left" }}>
                         <hr style={{ height: "2px", width: "80%", marginLeft: "5px", borderWidth: "5px",borderRadius:"20px" }} />
