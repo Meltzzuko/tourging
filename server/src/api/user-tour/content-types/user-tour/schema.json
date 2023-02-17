@@ -26,10 +26,6 @@
     "tour_start": {
       "type": "date"
     },
-    "shortdescrip": {
-      "type": "richtext",
-      "required": true
-    },
     "Longdescription": {
       "type": "richtext"
     },
@@ -50,6 +46,9 @@
     },
     "tour_end": {
       "type": "date"
+    },
+    "vehicle": {
+      "type": "string"
     }
   }
 }
