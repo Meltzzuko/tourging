@@ -4,28 +4,28 @@ import CardTour from '../components/CardTour';
 import { useEffect,useState } from 'react';
 import Tour from '../models/tour';
 import { Grid } from '@mui/material';
+import Repo from '../repositories'
 
 
 const Homepage = () => {
-  const [data, setData] = useState<Tour[]>([]);
+  const [tourdata, setTourData] = useState<Tour[]>([]);
+
+  const fetchData = async () => {
+    const res = await Repo.Tourdata.getAll()
+    if(res) {
+        setTourData(res)
+    }
+  }
 
   useEffect(() => {
-    fetch('http://localhost:1337/api/user-tours?populate=*')
-      .then(response => response.json())
-      .then(data => {
-        setData(data.data);
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-      });
-  }, []);
-    // console.log(data)
+    fetchData()
+  }, [])
 
-    const onedaytrip = data.filter(
+    const onedaytrip = tourdata.filter(
       tour => tour.attributes.category.data.attributes.type === "One-day"
       );
 
-    const manydaytrip = data.filter(
+    const manydaytrip = tourdata.filter(
       tour => tour.attributes.category.data.attributes.type === "Many-day"
     )
 
