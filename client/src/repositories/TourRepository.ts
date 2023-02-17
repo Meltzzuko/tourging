@@ -14,6 +14,13 @@ export class TourRepository implements IRepository<Tours>{
     async get(id: string): Promise<Tours[] | null> {
         const resp = await fetch(`${this.urlPrefix}&filters[id][$eq]=${id}`);
         const data = await resp.json();
+        return data.data;
+    }
+
+    async getCategory(type: string): Promise<Tours[] | null> {
+        const resp = await fetch(`${this.urlPrefix}&filters[category][type][$eq]=${type}`)
+        const data = await resp.json()
         return data.data
     }
+
   }
