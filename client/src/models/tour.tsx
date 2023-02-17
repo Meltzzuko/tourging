@@ -5,6 +5,9 @@ export default interface Tours{
         Longdescription: string;
         price: number;
         available_seat: number;
+        tour_start: string;
+        tour_end: string | null;
+        vehicle: string | null;
         image: {
             data: {
                 attributes: {
