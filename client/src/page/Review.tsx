@@ -8,11 +8,17 @@ import Button from '@mui/material/Button';
 import UserNavbar from '../components/UserNavbar';
 import StarIcon from '@mui/icons-material/Star';
 import CardReview from '../components/CardReview';
+import CardComment from '../components/CardComment';
+
+import AppBar from '@mui/material/AppBar';
 
 const ReviewPage = () => {
     return (
         <div>
             <UserNavbar/>
+            <Typography style={{ fontSize: 35, fontWeight: "bold", color: "black", textAlignLast: "center",marginTop:"40px"}}>Review & Comment</Typography>
+            <CardReview/>
+            <CardComment/>              
         </div>
     )
 }
