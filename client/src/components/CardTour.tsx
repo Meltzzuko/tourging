@@ -44,7 +44,7 @@ const CardTour = (props:Props) => {
           color="primary"
           aria-label="Explore Bahamas Islands"
           sx={{ ml: 'auto', fontWeight: 600 }}
-          onClick={() => navigate('/detail/similan')}
+          onClick={() => navigate(`/detail/${props.Tours.id}`)}
         >
           รายละเอียด
         </Button>
