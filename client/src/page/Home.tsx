@@ -35,8 +35,8 @@ const Homepage = () => {
             <Container>
                 <Row style={{ marginTop: "15px" }}>
                     <Col md={{ span: 6, offset: 4 }}>
-                        <Button href='/onedaytrip' style={{ marginRight: "15px" , border: "2px solid black", }} variant="light">ทัวร์ภูเก็ต One Day Trip</Button>
-                        <Button href='/manydaytrip' variant="light" style = {{border: "2px solid black"}}>ทัวร์ภูเก็ตพร้อมที่พัก</Button>
+                        <Button href='/genre/One-day' style={{ marginRight: "15px" , border: "2px solid black", }} variant="light">ทัวร์ภูเก็ต One Day Trip</Button>
+                        <Button href='/genre/Many-day' variant="light" style = {{border: "2px solid black"}}>ทัวร์ภูเก็ตพร้อมที่พัก</Button>
                     </Col>
                 </Row>
                 <Row style={{ marginTop: "15px" , marginBottom: '15px'}}>
