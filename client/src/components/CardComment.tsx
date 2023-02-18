@@ -42,7 +42,7 @@ function CardComment() {
                                 </Col>
                                     <Col xs={3} md={2} sx={{ display: 'flex', justifyContent: 'center' }}>
                                         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                                            <Button variant="contained" color="primary" size="large" sx={{marginTop:"45px"}}>โพส</Button>
+                                            <Button variant="contained" color="primary" size="large" sx={{marginTop:"45px"}}>โพสต์</Button>
                                         </Box>
                                     </Col>
                             </Row>

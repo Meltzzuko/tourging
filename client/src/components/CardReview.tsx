@@ -14,11 +14,11 @@ function CardReview() {
                     <Card  variant="outlined" sx={{ width: 250 , marginLeft: 15, marginTop:5, backgroundColor:'white', border:3 }} size='lg'>
                         <Row xs="2" style={{marginTop:"5px"}}>
                             <Col xs='3'>
-                                <Avatar variant='outlined' sx={{}}>RE</Avatar>
+                                <Avatar variant='outlined'>RE</Avatar>
                                 <StarIcon style={{color:"yellow",marginTop:"6px", marginLeft:'15'}}/>
                             </Col>  
                             <Col xs='6'>
-                                <Typography>re</Typography>
+                                <Typography style={{fontWeight: "bold", color: "black"}}>Re</Typography>
                                 <Typography>2/17/2023</Typography>
                                 <Typography style={{marginTop:"1px"}}>9/10 คะแนน</Typography>
                             </Col>
