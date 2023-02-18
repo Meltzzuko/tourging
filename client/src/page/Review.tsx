@@ -18,7 +18,9 @@ const ReviewPage = () => {
             <UserNavbar/>
             <Typography style={{ fontSize: 35, fontWeight: "bold", color: "black", textAlignLast: "center",marginTop:"40px"}}>Review & Comment</Typography>
             <CardReview/>
-            <CardComment/>              
+            <AppBar position='fixed' color='transparent' sx={{padding:"90px",marginTop:"80px"}}>
+                    <CardComment/>
+            </AppBar>              
         </div>
     )
 }
