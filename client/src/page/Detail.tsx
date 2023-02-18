@@ -23,7 +23,7 @@ const Detailpage = () => {
 
     const fetchData = async () => {
         try {
-            const res = await Repo.Tourdata.get(params.id as string);
+            const res = await Repo.Tourdata.getTour(params.id as string);
             if(res) {
                 setTourData(res)
             }
@@ -50,6 +50,7 @@ const Detailpage = () => {
     const LinkToPayment = () => {
         navigate(`/detail/${params.id}/payment`,
         {state: {
+            tour_id : tourdata[0].id,
             tourdata: data,
             selected_date : selectedTourDate,
             quantity : quantity,
@@ -111,7 +112,7 @@ const Detailpage = () => {
                             </Col>
                         </Row>
 
-                        {data?.category.data.attributes.type === "Many-day" &&
+                        {data?.category?.data.attributes.type === "Many-day" &&
                             <Row 
                                 xs="auto" 
                                 style={{ marginLeft: '100px'}}
@@ -156,8 +157,9 @@ const Detailpage = () => {
                                         onBlur={(e) => {
                                             if (e.target.value === '') {
                                                 setQuantity(1);
-                                            }
-                                        }}
+                                            }else if (parseInt(e.target.value) > (data?.available_seat as number)) {
+                                                setQuantity(data?.available_seat as number);
+                                        }}}
                                     />
                                 </Box>
                             </Col>
