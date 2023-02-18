@@ -153,6 +153,11 @@ const Detailpage = () => {
                                         max={data?.available_seat}
                                         value={quantity}
                                         onChange={(e) => setQuantity(parseInt(e.target.value))}
+                                        onBlur={(e) => {
+                                            if (e.target.value === '') {
+                                                setQuantity(1);
+                                            }
+                                        }}
                                     />
                                 </Box>
                             </Col>
@@ -163,7 +168,7 @@ const Detailpage = () => {
                             </Col>
                             <Col>
                                 <Typography style={{ fontSize: 22,  fontWeight: "bold", color: "red", marginTop:"10px"}}>
-                                    {total_price} บาท
+                                    {Number.isNaN(total_price) ? "0" : total_price } บาท
                                 </Typography>
                             </Col>
                         </Row>
