@@ -23,9 +23,6 @@
         "audios"
       ]
     },
-    "tour_start": {
-      "type": "date"
-    },
     "Longdescription": {
       "type": "richtext"
     },
@@ -44,11 +41,14 @@
     "available_seat": {
       "type": "integer"
     },
-    "tour_end": {
-      "type": "date"
-    },
     "vehicle": {
       "type": "string"
+    },
+    "tour_date": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::tour-date.tour-date",
+      "inversedBy": "user_tours"
     }
   }
 }
