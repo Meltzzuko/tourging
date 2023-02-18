@@ -48,7 +48,14 @@ const Detailpage = () => {
         navigate(`/detail/${params.id}/review`);
     } 
     const LinkToPayment = () => {
-        navigate(`/detail/${params.id}/payment`)
+        navigate(`/detail/${params.id}/payment`,
+        {state: {
+            tourdata: data,
+            selected_date : selectedTourDate,
+            quantity : quantity,
+            total: total_price,
+        }}
+        )
     } 
 
     const total_price = data?.price as number * quantity;
