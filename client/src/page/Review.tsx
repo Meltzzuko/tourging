@@ -11,12 +11,17 @@ import CardReview from '../components/CardReview';
 import CardComment from '../components/CardComment';
 
 import AppBar from '@mui/material/AppBar';
+import { colors } from '@mui/material';
 
 const ReviewPage = () => {
     return (
         <div>
             <UserNavbar/>
-            <Typography style={{ fontSize: 35, fontWeight: "bold", color: "black", textAlignLast: "center",marginTop:"40px"}}>Review & Comment</Typography>
+            <Box sx={{display: 'flex' ,justifyContent: 'center'}} >
+                <Card variant="outlined" sx={{ width: 300 , marginLeft: 15, marginTop:4, backgroundColor:'white', border:3}}>
+                    <Typography style={{ fontSize: 24, fontWeight: "bold", color: "black", textAlignLast: "center"}}>Review & Comment</Typography>
+                </Card>
+            </Box>
             <CardReview/>
             <AppBar position='fixed' color='transparent' sx={{padding:"90px",marginTop:"80px"}}>
                     <CardComment/>
