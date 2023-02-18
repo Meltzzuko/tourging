@@ -21,11 +21,11 @@ function App() {
           <Route path="/genre/:type" element={<GenrePage/>}/>
           <Route path="/detail/:id" element={<Detailpage/>}/>
             <Route path="/detail/:id/review" element={<ReviewPage/>}/>
+            <Route path="/detail/:id/payment" element={<PaymentPage/>}/>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/userstatus" element={<UserStatusPage />} />
         <Route path="/logout" element={<LogoutPage />} />
-        <Route path="/payment" element={<PaymentPage/>}/>
       </Routes>
       <ToastContainer/>
     </BrowserRouter>
