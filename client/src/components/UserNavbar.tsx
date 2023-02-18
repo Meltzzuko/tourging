@@ -5,6 +5,8 @@ import Button from 'react-bootstrap/Button';
 import { userData } from '../helper';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import IconButton from '@mui/material/IconButton';
+import { AppBar } from '@mui/material';
+import App from '../App';
 
 
 function UserNavbar() {
@@ -13,6 +15,7 @@ function UserNavbar() {
 
   return (
     <>
+      <AppBar position='sticky' color='transparent'>
       <Navbar bg="light" variant="light">
         <Container>
         <Navbar.Brand href="/">
@@ -51,6 +54,7 @@ function UserNavbar() {
           </Nav>
         </Container>
       </Navbar>
+      </AppBar>
     </>
   );
 }
