@@ -22,6 +22,21 @@
     },
     "tour_name": {
       "type": "string"
+    },
+    "tour_start": {
+      "type": "date"
+    },
+    "tour_end": {
+      "type": "date"
+    },
+    "quantity": {
+      "type": "integer"
+    },
+    "total_price": {
+      "type": "integer"
+    },
+    "image_url": {
+      "type": "string"
     }
   }
 }
