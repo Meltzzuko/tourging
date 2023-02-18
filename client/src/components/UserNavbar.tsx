@@ -7,7 +7,6 @@ import { userData } from '../helper';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import IconButton from '@mui/material/IconButton';
 import { AppBar } from '@mui/material';
-import App from '../App';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
@@ -15,6 +14,8 @@ import DialogContent from '@mui/material/DialogContent';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
+import { Col, Row } from 'react-bootstrap';
+import UploadFileIcon from '@mui/icons-material/UploadFile';
 
 function UserNavbar() {
   const user = userData();
@@ -87,7 +88,7 @@ function UserNavbar() {
                   <AccountCircle fontSize='large'/>
                 </IconButton>
                 <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Profile Sitting</DialogTitle>
+                <DialogTitle sx={{textAlign:"center", color:"black"}}>Profile Sitting</DialogTitle>
                 <DialogContent>
 
                           <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
@@ -100,10 +101,16 @@ function UserNavbar() {
                         onChange={handleImageChange}
                         style={{ display: 'none' }}
                       />
+                      <DialogTitle sx={{textAlign:"center", color:"black"}}>เปลี่ยนรูปโปรไฟล์</DialogTitle>
                       <label htmlFor="contained-button-file">
-                        <Button variant="contained" onClick={handleClick} style={{ marginTop:'2' }}>
-                          Change Profile Picture
-                        </Button>
+                        <Row>
+                            <Col>
+                            <UploadFileIcon style={{marginRight:"10"}}/>
+                            <Button variant="secondary" onClick={handleClick} style={{ marginTop:'2' }}>
+                              อัพโหลดรูปภาพ
+                            </Button>
+                          </Col>
+                        </Row>
                       </label>
                     </DialogContent>
                     <DialogActions>
