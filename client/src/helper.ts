@@ -21,11 +21,10 @@ export const userData = () => {
 }
 
 type Props = {
-    adminOnly?: boolean
     children: JSX.Element
   }
   
-export const ProtectRoute = ({adminOnly, children}: Props) => {
+export const ProtectRoute = ({children}: Props) => {
     const navigate = useNavigate()
     const data = userData()
 
