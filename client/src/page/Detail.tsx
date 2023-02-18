@@ -38,7 +38,9 @@ const Detailpage = () => {
     
     const handleTourDateChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedTourDate(e.target.value)
-        setIsValid(Boolean(e.target.value))
+        if (data?.available_seat !== 0){
+            setIsValid(Boolean(e.target.value))
+        }  
     }
     
     const data = tourdata.length > 0 ? tourdata[0].attributes : null;
