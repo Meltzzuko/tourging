@@ -21,10 +21,10 @@ function App() {
           <Route path="/genre/:type" element={<GenrePage/>}/>
           <Route path="/detail/:id" element={<Detailpage/>}/>
             <Route path="/detail/:id/review" element={<ReviewPage/>}/>
-            <Route path="/detail/:id/payment" element={<PaymentPage/>}/>
+            <Route path="/detail/:id/payment" element={<ProtectRoute><PaymentPage/></ProtectRoute>}/>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/userstatus" element={<UserStatusPage />} />
+        <Route path="/userstatus" element={<ProtectRoute><UserStatusPage /></ProtectRoute>} />
         <Route path="/logout" element={<LogoutPage />} />
       </Routes>
       <ToastContainer/>
