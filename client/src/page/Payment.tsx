@@ -1,17 +1,57 @@
 import { Box } from '@mui/system';
+import {Button} from '@mui/material';
 import UserNavbar from '../components/UserNavbar';
-import CardPayment from '../components/CardPayment';
 import FigureImage from 'react-bootstrap/FigureImage'
 import Typography from '@mui/material/Typography/Typography';
 import '../payment.css'
-import { useLocation } from 'react-router-dom';
-
+import { useNavigate,useLocation } from 'react-router-dom';
+import Repo from '../repositories'
+import payment from '../models/payment';
+import { userData } from '../helper';
+import Tours from '../models/tour';
+import Tourseat from '../models/tourseat';
 
 const PaymentPage = () => {
     const location = useLocation();
-    const { tourdata ,selected_date ,quantity ,total} = location.state;
+    const navigate = useNavigate();
+    const userdata = userData();
 
+    let username:string = userdata.username
+    username = username ? username.trimEnd() : username
+
+    const {tour_id ,tourdata ,selected_date ,quantity ,total} = location.state;
+
+    const tour_end = (selected_date === tourdata.tour_date.data.attributes.first_trip ? 
+                    tourdata.tour_date.data.attributes.first_trip_end : tourdata.tour_date.data.attributes.second_trip_end)
+    
     const tourimg = `http://localhost:1337${tourdata.image.data.attributes.formats.thumbnail.url}`
+
+    const newPayment: payment = {
+        data : {
+          status: false,
+          user: username,
+          tour_name: tourdata.Title,
+          tour_start: selected_date,
+          tour_end: tour_end,
+          quantity: quantity,
+          total_price: total,
+          image_url: tourimg
+        }
+      }
+
+    const available_seat = tourdata.available_seat - quantity
+
+    const updateSeat : Tourseat = {
+        data : {
+            available_seat: available_seat
+        }
+    }
+
+    const handleBooking  = async () => {
+        await Repo.Paymentdata.createPayment(newPayment)
+        await Repo.Tourdata.updateTour(tour_id,updateSeat)
+        navigate(`/userstatus`)
+    }
 
     return(
         <div>
@@ -20,7 +60,7 @@ const PaymentPage = () => {
                 <div className="item">
                     <div className="content">
                         <Typography style={{ fontSize: 30, textAlign: "left", fontWeight: "800" }} color='black'>การชำระเงิน</Typography>
-                        <Typography style={{ fontSize: 26, textAlign: "center", fontWeight: "bold", color: "#0147AB"}}>ทัวร์เกาะสิมิลัน</Typography>
+                        <Typography style={{ fontSize: 26, textAlign: "center", fontWeight: "bold", color: "#0147AB"}}>{tourdata.Title}</Typography>
                         <Box display="flex" flexDirection="column" alignItems="center">
                             <FigureImage  style={{ borderRadius: 10,  border: "2px solid black" }} width={300} height={300} alt="171x180" src={tourimg} /> 
                         </Box>
@@ -54,13 +94,16 @@ const PaymentPage = () => {
                     <div className="content">
                     <Typography style={{ fontSize: 24, textAlign: "center", fontWeight: "700", marginTop: "10px" }} color='black'>สแกนเพื่อชำระเงิน</Typography>
                     <Box display="flex" flexDirection="column" alignItems="center">
-                        <FigureImage  style={{ borderRadius: 10,  border: "2px solid black", marginTop: "10px" }} width={170} height={175}  src="../../public/QR-code.png" /> 
+                        <FigureImage  style={{ borderRadius: 10,  border: "2px solid black", marginTop: "10px" }} width={170} height={175}  src="/QR-code.png" /> 
                     </Box>
-                    <FigureImage  style={{ marginTop: "19px", paddingLeft: 70 }} width={260} height={210} alt="171x180" src="../../public/K-bank.png" /> 
+                    <FigureImage  style={{ marginTop: "19px", paddingLeft: 70 }} width={260} height={210} alt="171x180" src="/K-bank.png" /> 
                     <Box display="flex" flexDirection="column" alignItems="center">
                         <Typography style={{ fontSize: 16, textAlign: "center", fontWeight: "700", marginTop: "5px" }} color='black'>กรุณาโทรยืนยันเพื่อแจ้งการจอง</Typography>
                         <Typography style={{ fontSize: 16, textAlign: "center", fontWeight: "700", marginTop: "5px" }} color='black'>และการชำระเงิน</Typography>
                         <Typography style={{ fontSize: 16, textAlign: "center", fontWeight: "700", marginTop: "5px", marginBottom: "10px" }} color='black'>Tel : 020-599-6363</Typography>
+                        <Button onClick={handleBooking} variant="contained" color="primary" size="large">
+                            ยืนยันการจอง
+                        </Button>
                     </Box>
                     </div>
                 </div>
