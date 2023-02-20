@@ -37,6 +37,9 @@
     },
     "image_url": {
       "type": "string"
+    },
+    "tour_type": {
+      "type": "string"
     }
   }
 }
