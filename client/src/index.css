@@ -4,7 +4,7 @@
 }
 
 .box-container {
-  background-color:rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.8);
   border: 1px solid black;
   border-radius: 10%;
   padding: 2vw;
@@ -18,7 +18,7 @@
   height: 60vh;
 }
 
-.back-video{
+.back-video {
   position: absolute;
   right: 0;
   bottom: 0;
@@ -39,5 +39,11 @@ body {
   }
   body {
     font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .box-container {
+    height: 80vh;
   }
 }
