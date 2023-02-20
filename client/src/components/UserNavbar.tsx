@@ -19,8 +19,6 @@ import UploadFileIcon from '@mui/icons-material/UploadFile';
 
 function UserNavbar() {
   const user = userData();
-  console.log(user);
-
   const [open, setOpen] = useState(false);
   const [image, setImage] = useState('');
  
