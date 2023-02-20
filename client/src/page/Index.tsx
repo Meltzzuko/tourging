@@ -15,7 +15,7 @@ const Indexpage = () => {
             <div>
                 <video autoPlay loop muted className='back-video' 
                 style={{
-                    height: '100%',
+                    height: '140%',
                     width: '100%',
                     left: '50%',
                     top: '50%',
