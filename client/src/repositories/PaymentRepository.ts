@@ -2,14 +2,15 @@ import payment from "../models/payment"
 import { IRepository } from "./IRepository"
 import axios from "axios"
 import { userData } from "../helper";
+import paymentStatus from "../models/paymentStatus";
 
 const user = userData()
 
-export class PaymentRepository implements IRepository<payment>{
+export class PaymentRepository implements IRepository<payment | paymentStatus>{
     urlPrefix = "http://localhost:1337/api/payment-statuses"
     token = user.jwt
 
-    async getPayment(user: string | number): Promise<payment[] | null> {
+    async getPayment(user: string | number): Promise<paymentStatus[] | null> {
         const res = await fetch(`${this.urlPrefix}?populate=*&filters[user][$eq]=${user}`,{
             method: "GET",
             headers: {
