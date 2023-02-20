@@ -25,12 +25,14 @@ const PaymentPage = () => {
                     tourdata.tour_date.data.attributes.first_trip_end : tourdata.tour_date.data.attributes.second_trip_end)
     
     const tourimg = `http://localhost:1337${tourdata.image.data.attributes.formats.thumbnail.url}`
+    const tour_type = tourdata.category.data.attributes.type === "One-day" ? "ทัวร์ภูเก็ต One Day Trip" : "ทัวร์ภูเก็ตพร้อมที่พัก"
 
     const newPayment: payment = {
         data : {
           status: false,
           user: username,
           tour_name: tourdata.Title,
+          tour_type: tour_type,
           tour_start: selected_date,
           tour_end: tour_end,
           quantity: quantity,
@@ -68,7 +70,7 @@ const PaymentPage = () => {
                             รายละเอียดการจอง
                         </Typography>
                         <Typography style={{fontSize : 20, textAlign : "left", paddingLeft: 10, fontWeight: "550" }} >
-                            ประเภททัวร์ : {tourdata.category.data.attributes.type === "One-day" ? "ทัวร์ภูเก็ต One Day Trip" : "ทัวร์ภูเก็ตพร้อมที่พัก"}
+                            ประเภททัวร์ : {tour_type}
                         </Typography>
                         <Typography style={{fontSize : 20, textAlign : "left", paddingLeft: 10, fontWeight: "550" }} >
                             จำนวนผู้จอง : {quantity} ท่าน
