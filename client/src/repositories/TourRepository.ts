@@ -17,10 +17,16 @@ export class TourRepository implements IRepository<Tours | Tourseat>{
         return data.data;
     }
 
-    async getTour(id: string): Promise<Tours[] | null> {
+    async getTourById(id: string): Promise<Tours[] | null> {
         const resp = await fetch(`${this.urlPrefix}&filters[id][$eq]=${id}`);
         const data = await resp.json();
         return data.data;
+    }
+
+    async getTourByTitle(title: string): Promise<Tours[] | null> {
+        const resp = await fetch(`${this.urlPrefix}ู&filters[title][$eq]=${title}`)
+        const data = await resp.json()
+        return data.data
     }
 
     async getCategory(type: string): Promise<Tours[] | null> {
@@ -28,6 +34,7 @@ export class TourRepository implements IRepository<Tours | Tourseat>{
         const data = await resp.json()
         return data.data
     }
+
 
     async updateTour(id: string | number, data: Tourseat): Promise<Tourseat> {
         const resp = await fetch(`http://localhost:1337/api/user-tours/${id}`, {

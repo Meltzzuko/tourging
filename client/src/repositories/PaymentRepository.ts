@@ -34,4 +34,15 @@ export class PaymentRepository implements IRepository<payment | paymentStatus>{
         const data_res = await resp.json()
         return data_res;
     }
+
+    async deletePayment(id: string | number): Promise<void> {
+        const resp = await fetch(`${this.urlPrefix}/${id}`, {
+            method: "DELETE",
+            headers: {
+                "Authorization": `Bearer ${this.token}`,
+            }
+        })
+        const data_res = await resp.json()
+        return data_res
+    }
 }
