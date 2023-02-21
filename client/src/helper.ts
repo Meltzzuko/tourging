@@ -1,5 +1,5 @@
 import React ,{ useEffect } from "react"
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 
 export const storeUser = (data:any) => {
     localStorage.setItem(
@@ -35,4 +35,14 @@ export const ProtectRoute = ({children}: Props) => {
     }, [])
 
     return children
+}
+
+export const ScrollToTop = () => {
+    const {pathname} = useLocation()
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [pathname])
+    
+    return null
 }

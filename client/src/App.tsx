@@ -1,5 +1,5 @@
 import { ToastContainer } from 'react-toastify'
-import { BrowserRouter, Route, Routes, useNavigate} from 'react-router-dom'
+import { BrowserRouter, Route, Routes, } from 'react-router-dom'
 import Homepage from './page/Home'
 import Indexpage from './page/Index'
 import LoginPage from './page/Login'
@@ -7,7 +7,7 @@ import RegisterPage from './page/Register'
 import UserStatusPage from './page/UserStatus'
 import LogoutPage from './page/Logout'
 import PaymentPage from './page/Payment'
-import { ProtectRoute } from './helper'
+import { ProtectRoute , ScrollToTop } from './helper'
 import GenrePage from './page/Genre'
 import Detailpage from './page/Detail'
 import ReviewPage from './page/Review'
@@ -15,6 +15,7 @@ import ReviewPage from './page/Review'
 function App() {
   return (
     <BrowserRouter>
+    <ScrollToTop/>
       <Routes>
         <Route index element={<Indexpage />} />
         <Route path="/home" element={<Homepage />} />
