@@ -23,7 +23,7 @@ const Detailpage = () => {
 
     const fetchData = async () => {
         try {
-            const res = await Repo.Tourdata.getTour(params.id as string);
+            const res = await Repo.Tourdata.getTourById(params.id as string);
             if(res) {
                 setTourData(res)
             }
