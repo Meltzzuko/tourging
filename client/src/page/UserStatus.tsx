@@ -7,9 +7,14 @@ import Repo from "../repositories"
 import paymentStatus from "../models/paymentStatus";
 import { useState, useEffect } from "react";
 import { userData } from "../helper";
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 
 const UserStatusPage = () => {
     const [paymentStatus, setPaymentStatus] = useState<paymentStatus[]>([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [statusPerPage, setStatusPerPage] = useState(2);
+
     const userdata = userData();
 
     let username:string = userdata.username
@@ -29,6 +34,17 @@ const UserStatusPage = () => {
     useEffect(() => {
         fetchData();
     },[]);
+
+    const lastStatusIndex = currentPage * statusPerPage;
+    const firstStatusIndex = lastStatusIndex - statusPerPage;
+    const paymentData = paymentStatus.sort((a, b) => b.id - a.id)
+    const currentData = paymentData.slice(firstStatusIndex, lastStatusIndex);
+    const paginateValue = Math.ceil(paymentStatus.length/statusPerPage); 
+
+    const handlePaginationChange = (event: React.ChangeEvent<unknown>, value: number) => {
+        setCurrentPage(value);
+        console.log(currentPage)
+      };
 
     return (
         <div>
@@ -53,15 +69,28 @@ const UserStatusPage = () => {
                 <Row>
                 <Col md={{ span: 12, offset: 12 }}>
                     <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" height="100%" bgcolor="white" sx={{borderRadius: 8}}>
-                    {paymentStatus.sort((a, b) => b.id - a.id).map((item) => (
-                        <div key={item.id}>
-                            <CardTourstatus payment_status={item} />
-                            <hr style={{  height: "5px", width: "80%", marginLeft: "5px", borderWidth: "5px",borderRadius:"5px",color:"#002B5C" }} />
-                        </div>
-                    ))}
-                        </Box> 
+                        {currentData.map((item) => (
+                            <div key={item.id}>
+                                <CardTourstatus payment_status={item} />
+                                <hr style={{  height: "5px", width: "100%", marginLeft: "5px", borderWidth: "5px",borderRadius:"5px",color:"#002B5C" }} />
+                            </div>
+                        ))}
+                        <Stack spacing={2}>
+                            <Pagination 
+                                count={paginateValue} 
+                                size="large" 
+                                color="primary"
+                                showFirstButton
+                                showLastButton
+                                page={currentPage}
+                                onChange={handlePaginationChange} 
+                            />
+                        </Stack>
+                        <hr style={{  height: "5px", width: "100%", marginLeft: "5px", borderWidth: "5px",borderRadius:"5px",color:"#002B5C" }} />
+                    </Box> 
                 </Col>
                 </Row>
+
             </Container>   
         </div>
     )

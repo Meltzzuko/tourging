@@ -5,14 +5,56 @@ import {Row,Col,Container, } from 'react-bootstrap';
 import FigureImage from 'react-bootstrap/FigureImage'
 import Button from '@mui/material/Button';
 import paymentStatus from '../models/paymentStatus';
+import Repo from '../repositories';
+import { useState, useEffect } from 'react';
+import { Dialog, DialogActions, DialogContent, DialogTitle, IconButton} from "@mui/material"
+import { Close } from '@mui/icons-material';
+import Tours from '../models/tour';
+import Tourseat from '../models/tourseat';
+
 
 interface Props {
     payment_status: paymentStatus
 }
 
 function CardTourstatus(props: Props) {
+    const [popup, setPopup] = useState(false);
+    const [tourdata,setTourData] = useState<Tours[]>([])
     const paymentData = props.payment_status.attributes
+    const title = paymentData.tour_name
     const tourimg = paymentData.image_url
+
+    const tour = tourdata.length > 0 ? tourdata[0].attributes : null
+    
+    const seat = tour?.available_seat as number + paymentData.quantity
+
+    const updateSeat : Tourseat = {
+        data : {
+            available_seat: seat
+        }
+    }
+
+    const fetchData = async () => {
+        try {
+            const res = await Repo.Tourdata.getTourByTitle(title);
+            if(res) {
+                setTourData(res)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        fetchData()
+    }, [])
+
+    const ConfirmCancle = async () => {
+        await Repo.Paymentdata.deletePayment(props.payment_status.id)
+        await Repo.Tourdata.updateTour(tourdata[0].id,updateSeat)
+        setPopup(false)
+        window.location.reload()
+    };
 
     return(
         <>
@@ -29,7 +71,7 @@ function CardTourstatus(props: Props) {
                             <Typography style={{ fontSize: 20, textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>รายละเอียดการจองทัวร์</Typography>
                             <Typography style={{ fontSize: 20, textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>ประเภททัวร์ : {paymentData.tour_type}</Typography>
                             <Typography style={{ fontSize: 20, textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>จำนวนผู้จอง : {paymentData.quantity} ท่าน</Typography>
-                            <Typography style={{ fontSize: 20, textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>ระยะเวลา : {paymentData.tour_start}</Typography>
+                            <Typography style={{ fontSize: 20, textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>เดินทาง : {paymentData.tour_start}</Typography>
                             <Typography style={{ fontSize: 20, textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>กลับ : {paymentData.tour_end === null ? paymentData.tour_start : paymentData.tour_end }</Typography>
                             <Typography style={{ fontSize: 20, textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>ราคารวม : {paymentData.total_price} บาท</Typography>
                             <Typography style={{ fontSize: 18, textAlign: "left", fontWeight: "bold", color: "red"}}>*หากไม่ยกเลิกการจองเกิน 3 วันก่อนเดินทางจะไม่มีการคืนค่าธรรมเนียม</Typography>
@@ -55,6 +97,7 @@ function CardTourstatus(props: Props) {
                                     variant="contained" 
                                     color="error"
                                     style={{marginTop: 15}}
+                                    onClick={() => setPopup(true)}
                                 >
                                     ยกเลิกการจอง
                                 </Button>
@@ -63,6 +106,48 @@ function CardTourstatus(props: Props) {
                     </Row>
                 </Container>
             </Card>
+
+            <Dialog PaperProps={{ sx: { width: "50%", maxHeight: "100%" , borderRadius: "30px"} }} open={popup} onClose={() => setPopup(false)}>
+                <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <Typography style={{ fontSize: 20, fontWeight: "bold", color: "black"}}>ยืนยันยกเลิกการจอง</Typography>
+                    <IconButton onClick={() => setPopup(false)}>
+                        <Close />
+                    </IconButton>
+                </DialogTitle>
+                <DialogContent dividers>
+                    <Typography style={{ fontSize: 15, fontWeight: "bold", color: "black"}}>
+                        คุณกำลังจะยกเลิกการจอง "{paymentData.tour_name}" ซึ่งมีรายละเอียดดังนี้
+                    </Typography>
+                    <Container style={{ marginTop : 20}}>
+                        <Row>
+                            <Col>
+                                <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" height="100%" >
+                                    <FigureImage  style={{ borderRadius: 20,  border: "2px solid black" }} width={240} height={180} alt="171x180" src={tourimg} /> 
+                                </Box>
+                            </Col>
+                            <Col>
+                                <Typography style={{ fontSize: 15, textAlign: "left", fontWeight: "bold", color: "black"}}>{paymentData.tour_name}</Typography>
+                                <Typography style={{ fontSize: 15, textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>รายละเอียดการจองทัวร์</Typography>
+                                <Typography style={{ fontSize: 15, textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>ประเภททัวร์ : {paymentData.tour_type}</Typography>
+                                <Typography style={{ fontSize: 15, textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>จำนวนผู้จอง : {paymentData.quantity} ท่าน</Typography>
+                                <Typography style={{ fontSize: 15, textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>เดินทาง : {paymentData.tour_start}</Typography>
+                                <Typography style={{ fontSize: 15, textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>กลับ : {paymentData.tour_end === null ? paymentData.tour_start : paymentData.tour_end }</Typography>
+                                <Typography style={{ fontSize: 15, textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>ราคารวม : {paymentData.total_price} บาท</Typography>                
+                            </Col>
+                        </Row>
+                    </Container>
+                </DialogContent>
+                <DialogActions>
+                    <Button
+                        variant = "contained"
+                        color="success"
+                        onClick={ConfirmCancle}
+                        style={{marginRight: 20}}
+                    >
+                    ยืนยัน
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </>
 
     );
