@@ -24,10 +24,10 @@ const Indexpage = () => {
                     position: 'absolute' }}>
                     <source src="Phuket.mp4" type="video/mp4"/>
                 </video>
-            <div className="box-container mt-5 border-dark" >
+            <div className="box-container mt-5 border-dark">
                 <Box display="flex" flexDirection="column" alignItems="center">
-                    <FigureImage width={300} height={600} alt="171x180" src="logo.png" />
-                        <Box height={20} />
+                    <FigureImage width={400} height={600} alt="171x180" src="logo.png" />
+                        <Box height={30} />
                     <Typography component="h1" variant="h5">
                         หากคุณกำลังหาบริษัทที่จัดทำทัวร์ท่องเที่ยวในภูเก็ต 
                         และต้องการได้รับบริการที่ดี สถานที่พักคุณภาพ วิวสวยๆในราคา
