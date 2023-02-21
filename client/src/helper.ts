@@ -6,7 +6,7 @@ export const storeUser = (data:any) => {
         'user', 
         JSON.stringify({
             username: data.user.username,
-            admin: data.user.admin,
+            avatar : data.user.avatar,
             jwt: data.jwt,
         })
     )
