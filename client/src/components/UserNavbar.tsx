@@ -16,6 +16,7 @@ import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import { Col, Row } from 'react-bootstrap';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
+import '../UserNavbar.css'
 
 function UserNavbar() {
   const user = userData();
@@ -65,12 +66,12 @@ function UserNavbar() {
             />
           </Navbar.Brand>
           <Nav className="justify-content-end">
-            <Nav.Link style={{marginRight: "10px"}} href="/home"><h5>หน้าหลัก</h5></Nav.Link>
-            <Nav.Link style={{marginRight: "10px"}} href="/userstatus"><h5>สถานะ</h5></Nav.Link>
+            <Nav.Link style={{marginRight: "10px"}} href="/home"><h5 style={{ fontSize: "0.9rem"}}>หน้าหลัก</h5></Nav.Link>
+            <Nav.Link style={{marginRight: "10px"}} href="/userstatus"><h5 style={{ fontSize: "0.9rem"}}>สถานะ</h5></Nav.Link>
             {!user && (
               <>
-                <Button href='/login' style={{marginRight: "10px"}} size="lg" variant="outline-success">Sign in</Button>
-                <Button href='/register' size="lg" variant="danger">Sign up</Button>
+                <Button href='/login' style={{marginRight: "10px", fontSize: "1rem"}} size="sm" variant="outline-success">Sign in</Button>
+                <Button href='/register' size="sm" variant="danger" style={{ fontSize: "1rem"}}>Sign up</Button>
               </>
             )}
             {user && (
@@ -81,7 +82,7 @@ function UserNavbar() {
                 aria-haspopup="true"
                 color="inherit"
                 onClick={handleClick}
-                sx={{ mr: 2 }}
+                sx={{ mr: 1 }}
               >
                   <AccountCircle fontSize='large'/>
                 </IconButton>
@@ -117,7 +118,7 @@ function UserNavbar() {
                     </DialogActions>
   
                 </Dialog>
-                <Button href='/logout' size="lg" variant="danger">Logout</Button>
+                <Button href='/logout' size="sm" variant="danger" >Logout</Button>
               </div>
               
             )}
