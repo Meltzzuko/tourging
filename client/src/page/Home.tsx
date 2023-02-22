@@ -34,9 +34,9 @@ const Homepage = () => {
             <UserNavbar/>
             <Container>
                 <Row style={{ marginTop: "15px" }}>
-                    <Col md={{ span: 6, offset: 4 }}>
-                        <Button href='/genre/One-day' style={{ marginRight: "15px" , border: "2px solid black", }} variant="light">ทัวร์ภูเก็ต One Day Trip</Button>
-                        <Button href='/genre/Many-day' variant="light" style = {{border: "2px solid black"}}>ทัวร์ภูเก็ตพร้อมที่พัก</Button>
+                    <Col md={{ span: 6, offset: 4 }} style={{ display: "flex" }}>
+                        <Button href='/genre/One-day' style={{ marginRight: "15px" , border: "2px solid black", borderRadius:"1.5rem", fontSize:"0.9rem" , boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.85)", backgroundColor:"rgb(29, 63, 92)" }}>ทัวร์ภูเก็ต One Day Trip</Button>
+                        <Button href='/genre/Many-day' style = {{border: "2px solid black", borderRadius:"1.5rem", fontSize:"0.9rem", boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.85)", backgroundColor:"rgb(29, 63, 92)"}}>ทัวร์ภูเก็ตพร้อมที่พัก</Button>
                     </Col>
                 </Row>
                 <Row style={{ marginTop: "15px" , marginBottom: '15px'}}>
