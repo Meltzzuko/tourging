@@ -37,18 +37,18 @@ const CardTour = (props:Props) => {
           </Typography>
           <Typography level="body3" color='danger'>เหลือ {item.available_seat} ที่</Typography>
         </div>
-        <Button 
+      </Box>
+      <Button 
           href="similan"
           variant="outlined"
           size="sm"
           color="primary"
           aria-label="Explore Bahamas Islands"
-          sx={{ ml: 'auto', fontWeight: 600 }}
+          sx={{ ml: 'auto', fontWeight: 600, color:"purple"}}
           onClick={() => navigate(`/detail/${props.Tours.id}`)}
         >
           รายละเอียด
         </Button>
-      </Box>
     </Card>
     </>
 
