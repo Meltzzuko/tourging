@@ -28,4 +28,15 @@ export class ReviewRepository implements IRepository<Review | Postreview>{
         const data_res = await resp.json()
         return data_res;
     }
+
+    async deleteReview(review_id: string | number): Promise<void> {
+        const resp = await fetch(`${this.urlPrefix}/${review_id}`, {
+            method: "DELETE",
+            headers: {
+                "Authorization": `Bearer ${this.token}`,
+            }
+        })
+        const data = await resp.json()
+        return data.data;
+    }
 }

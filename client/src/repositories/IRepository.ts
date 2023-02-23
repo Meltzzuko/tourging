@@ -14,4 +14,5 @@ export interface IRepository<T> {
     // Review
     getReview?(tour_id: string|number): Promise<T[] | null>
     createReview?(data: T): Promise<T>;
+    deleteReview?(review_id: string|number): Promise<void>;
 }
