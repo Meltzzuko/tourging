@@ -4,16 +4,14 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 import { userData } from '../helper';
-import AccountCircle from '@mui/icons-material/AccountCircle';
+import { Avatar } from '@mui/joy';
 import IconButton from '@mui/material/IconButton';
 import { AppBar } from '@mui/material';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
-import Avatar from '@mui/material/Avatar';
 import { Col, Row } from 'react-bootstrap';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 import '../UserNavbar.css'
@@ -23,8 +21,6 @@ function UserNavbar() {
   const [open, setOpen] = useState(false);
   const [image, setImage] = useState('');
  
-
-
   const handleClick = () => {
     setOpen(true);
   };
@@ -34,18 +30,13 @@ function UserNavbar() {
   };
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // Update the image state with the selected file
     if (event.target.files && event.target.files.length > 0) {
-      // Convert the selected file to a URL
       const url = URL.createObjectURL(event.target.files[0]);
-  
-      // Update the image state with the URL
       setImage(url);
     }
   };
 
   const handleSave = () => {
-      // Do something with the name, email, and image values
       console.log( `Image: ${image}`);
       setOpen(false);
     };
@@ -84,7 +75,7 @@ function UserNavbar() {
                 onClick={handleClick}
                 sx={{ mr: 1 }}
               >
-                  <AccountCircle fontSize='large'/>
+                  <Avatar src={user.avatar}/>
                 </IconButton>
                 <Dialog open={open} onClose={handleClose}>
                 <DialogTitle sx={{textAlign:"center", color:"black"}}>Profile Sitting</DialogTitle>
