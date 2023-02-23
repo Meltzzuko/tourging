@@ -5,9 +5,13 @@ import Card from '@mui/joy/Card';
 import Typography from '@mui/joy/Typography';
 import { useNavigate } from 'react-router-dom';
 import Tour from '../models/tour';
+
+
 interface Props {
   Tours: Tour;
 }
+
+
 const CardTour = (props: Props) => {
   const navigate = useNavigate();
   const item = props.Tours.attributes;

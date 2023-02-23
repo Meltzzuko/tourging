@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-import { Button, requirePropFactory } from '@mui/material';
+import { Button } from '@mui/material';
 import { Box } from '@mui/system';
 import UserNavbar from '../components/UserNavbar';
 import '../index.css'
@@ -8,7 +7,9 @@ import Typography from '@mui/material/Typography/Typography';
 import { useNavigate } from 'react-router-dom';
 
 const Indexpage = () => {
+
     const navigate = useNavigate()
+
     return (
         <div >
             <UserNavbar/>

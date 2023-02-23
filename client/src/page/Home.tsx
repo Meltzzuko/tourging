@@ -6,23 +6,30 @@ import Tour from '../models/tour';
 import { Grid } from '@mui/material';
 import Repo from '../repositories';
 import '../Home.css';
+
+
 const Homepage = () => {
   const [tourdata, setTourData] = useState<Tour[]>([]);
+  
   const fetchData = async () => {
     const res = await Repo.Tourdata.getAll()
     if(res) {
         setTourData(res)
     }
   }
+  
   useEffect(() => {
     fetchData()
   }, [])
+
   const onedaytrip = tourdata.filter(
     tour => tour.attributes.category.data.attributes.type === "One-day"
   );
+
   const manydaytrip = tourdata.filter(
     tour => tour.attributes.category.data.attributes.type === "Many-day"
   );
+
   return (
     <div className="homepage">
       <UserNavbar/>
