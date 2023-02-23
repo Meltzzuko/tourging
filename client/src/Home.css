@@ -1,0 +1,173 @@
+
+/* Homepage CSS */
+.homepage {
+    margin-bottom: 2vw;
+  }
+  
+  .homepage button {
+    font-size: 2vw;
+    padding: 10px;
+    border: 2px solid black;
+  }
+  
+  .homepage .section-title {
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 0.5px 10px;
+    font-size: 3vw;
+    font-weight: bold;
+    text-align: left;
+    margin: 0 -10px;
+  }
+  
+  .homepage hr {
+    height: 2px;
+    width: 100%;
+    margin-left: 5px;
+    border-width: 5px;
+    border-radius: 20px;
+  }
+  
+  .homepage .grid {
+    margin-top: 15px;
+  }
+  
+  .homepage .section-title-2 {
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 2vw;
+    font-weight: bold;
+    text-align: center;
+    margin: 0 -10px;
+  }
+  
+  .homepage hr.section-line {
+    height: 2px;
+    width: 200%;
+    margin-left: 5px;
+    border-width: 5px;
+    border-radius: 20px;
+    margin: 0 -10px;
+  }
+  
+  /* Responsive styling */
+   @media (max-width: 576px) { /* Extra small devices (phones) */
+    .homepage {
+      margin-bottom: 4vw;
+    }
+    
+    .homepage button {
+      font-size: 4vw;
+    }
+    
+    .homepage .section-title {
+      height: 5vh;
+      font-size: 4vw;
+      padding: 2px;
+      margin-left: 1vw;
+      
+    }
+    
+    .homepage hr {
+      height: 2px;
+      width: 280%;
+      margin-left: -10%;
+      border-width: 5px;
+      border-radius: 20px;
+    }
+    
+    .homepage .section-title-2 {
+      font-size: 5vw;
+    }
+    
+    .homepage hr.section-line {
+      height: 2px;
+      width: 10px;
+      margin-left: -50%;
+      border-width: 5px;
+      border-radius: 20px;
+    }
+  }
+  
+  @media (min-width: 576px) and (max-width: 768px) { /* Small devices (tablets) */
+    .homepage button {
+      font-size: 2.5vw;
+    }
+    
+    .homepage .section-title {
+      font-size: 2vw;
+    }
+    
+    .homepage hr {
+      height: 2000px;
+      width: 200%;
+      margin-left: 10px;
+      border-width: 5px;
+      border-radius: 20px;
+    }
+    
+    .homepage .section-title-2 {
+      font-size: 3.5vw;
+    }
+    
+    .homepage hr.section-line {
+      height: 2px;
+      width: 220%;
+      margin-left: 10px;
+      border-width: 5px;
+      border-radius: 20px;
+    }
+  }
+  
+  @media (min-width: 768px) and (max-width: 1024px) {
+    .homepage button {
+      font-size: 1.2vh;
+    }
+  
+    .homepage .section-title {
+      font-size: 2vh;
+      
+    }
+  
+    .homepage hr {
+      height: 2px;
+      width: 100%;
+      margin-left: 5px;
+      border-width: 4px;
+      border-radius: 20px;
+    }
+  
+    .homepage .section-title-2 {
+      font-size: 8vh;
+    }
+  
+    .homepage hr.section-line {
+      height: 2px;
+      width: 100%;
+      margin-left: 5px;
+      border-width: 4px;
+      border-radius: 20px;
+    }
+  }
+  
+  @media (min-width: 1200px) {
+    .homepage button {
+      font-size: 1.2vw;
+    }
+  
+    .homepage .section-title {
+      font-size: 1.8vw;
+    }
+  
+    .homepage hr {
+      border-width: 6px;
+      width: 100%;
+    }
+  
+    .homepage .section-title-2 {
+      font-size: 3vw;
+    }
+  }
