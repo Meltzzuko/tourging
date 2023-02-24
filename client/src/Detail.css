@@ -1,0 +1,190 @@
+/* desktop styles */
+
+
+.detailcontainer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, auto);
+    gap: 20px;
+    padding: 10px;
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .first {
+    grid-area: 1 / 1 / 2 / 2;
+    margin-top: 50px;
+  }
+  
+  .second {
+    grid-area: 2 / 1 / 2 / 1;
+  }
+  
+  .third {
+    grid-area: 1 / 2 / 3 / 3;
+    justify-self: end;
+    align-self: start;
+  }
+
+  @media screen and (max-width: 950px) {
+    .detailcontainer {
+      display: block;
+      height: 100vh;
+    }
+  
+    .first {
+      height: 30%;
+      width: 100%;
+    }
+  
+    .second {
+      height: 30%;
+      width: 100%;
+    }
+  
+    .third {
+      height: 50%;
+      width: 100%;
+      margin-top: 20px;
+    }
+    
+  }
+
+  @media screen and (max-width: 768px) {
+    .detailcontainer {
+      display: block;
+      height: 100vh;
+    }
+  
+    .first {
+      height: 30%;
+      width: 100%;
+    }
+  
+    .second {
+      height: 30%;
+      width: 100%;
+    }
+  
+    .third {
+      height: 50%;
+      width: 100%;
+      margin-top: 20px;
+    }
+    
+  }
+
+
+  @media screen and (max-width: 415px) {
+    .detailcontainer {
+      display: block;
+      height: 100vh;
+    }
+  
+    .first {
+      height: 24%;
+      width: 100%;
+      margin-top: 30%;
+    }
+  
+    .second {
+      height: 28%;
+      width: 100%;
+    }
+  
+    .third {
+      height: 50%;
+      width: 100%;
+      margin-top: 20px;
+    }
+    
+  }
+
+  @media screen and (max-width: 395px) {
+    .detailcontainer {
+      display: block;
+      height: 100vh;
+    }
+  
+    .first {
+      height: 28%;
+      width: 100%;
+    }
+  
+    .second {
+      height: 33%;
+      width: 100%;
+    }
+  
+    .third {
+      height: 50%;
+      width: 100%;
+      margin-top: 20px;
+      justify-self: center;
+    }
+    
+    .button-container {
+    justify-content: center;
+    margin-top: 20px;
+  }
+}
+  
+  @media screen and (max-width: 376px) {
+    .detailcontainer {
+      display: block;
+      height: 100vh;
+    }
+  
+    .first {
+      height: 28%;
+      width: 100%;
+    }
+  
+    .second {
+      height: 40%;
+      width: 100%;
+    }
+  
+    .third {
+      height: 50%;
+      width: 100%;
+      margin-top: 20px;
+    }
+    
+   
+  }
+
+  @media screen and (max-width: 290px) {
+    .detailcontainer {
+      display: block;
+      height: 100vh;
+    }
+  
+    .first {
+      height: 25%;
+      width: 100%;
+    }
+  
+    .second {
+      height: 40%;
+      width: 100%;
+    }
+  
+    .third {
+      height: 50%;
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    body {
+      background-size: cover;
+    }
+    
+   
+  }
+  
+
+  

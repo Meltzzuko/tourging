@@ -11,6 +11,7 @@ import Card from "@mui/joy/Card/Card";
 import Tours from "../models/tour";
 import Repo from '../repositories'
 import ReactMarkdown from "react-markdown";
+import '../Detail.css'
 
 
 const Detailpage = () => {
@@ -66,12 +67,14 @@ const Detailpage = () => {
     return (
         <div>
             <UserNavbar/>
-            <Container>
-            <Row>
-                <Col xs={6} md={4} >
+            
+            <div className="detailcontainer">
+                <div className="first">
                     <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" height="45%" marginTop="30px" marginBottom = "30px" padding-left = "50px" padding-right = "50px" >
                         <FigureImage  style={{ borderRadius: 20,  border: "2px solid black" }} width={400} height={250} alt="171x180" src={tourimg} /> 
                     </Box>
+                </div>
+                <div className="second">
                     <Box>
                         <Card variant='outlined' sx = {{backgroundColor: 'white'}}>
                             <Col>
@@ -85,13 +88,15 @@ const Detailpage = () => {
                             </Col>
                         </Card>
                     </Box>
-                </Col>
-                <Col xs={6} md={8}>
+                    </div>
+                
+                <div className="third">
                 <Card variant='outlined' sx = {{backgroundColor: 'white', marginTop: "35px"}}  padding-left = "50px" padding-right = "50px">
                         <Typography style={{ fontSize: 30, textAlign: "left", fontWeight: "bold", color: "black", textAlignLast: "center"}}>รายละเอียด</Typography>
-                        <ReactMarkdown>{data?.Longdescription as string}</ReactMarkdown>
-                       
-                        <Row xs={6} md={2} lg={3} style={{marginLeft: "70px"}}>
+                          
+                                <ReactMarkdown>{data?.Longdescription as string}</ReactMarkdown>
+                        
+                        <Row xs="auto" style={{marginLeft: '8px'}} className="justify-content-md-center">
                             <Col>
                                 <Typography style={{ fontSize: 22, textAlign: "left", fontWeight: "bold", color: "black", textAlignLast: "right",marginTop:"10px"}}>วันเดินทาง</Typography>
                             </Col>
@@ -176,18 +181,25 @@ const Detailpage = () => {
                                 </Typography>
                             </Col>
                         </Row>
+                       
                         <Row xs="auto" style={{marginTop: "25px"}} className="justify-content-md-center">
                             <Col >
-                                <Button disabled={!isValid} onClick={LinkToPayment} variant="contained" color="primary" size="large">
+                                
+                                <Button disabled={!isValid} onClick={LinkToPayment} className="button-container" variant="contained" color="primary" size="large">
                                     จอง package
                                 </Button>
+                              
+
                             </Col>
+                            
                         </Row>
+
+                        
                         <br/>                       
                     </Card>
-                </Col>
-            </Row>
-            </Container>              
+                </div>
+            
+            </div>              
         </div>
         
     )
