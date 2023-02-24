@@ -93,9 +93,9 @@ const Detailpage = () => {
                 <div className="third">
                 <Card variant='outlined' sx = {{backgroundColor: 'white', marginTop: "35px"}}  padding-left = "50px" padding-right = "50px">
                         <Typography style={{ fontSize: 30, textAlign: "left", fontWeight: "bold", color: "black", textAlignLast: "center"}}>รายละเอียด</Typography>
-                          
+                            <Box width="100%" height="50vh"sx={{overflow:"auto"}}>
                                 <ReactMarkdown>{data?.Longdescription as string}</ReactMarkdown>
-                        
+                            </Box>
                         <Row xs="auto" style={{marginLeft: '8px'}} className="justify-content-md-center">
                             <Col>
                                 <Typography style={{ fontSize: 22, textAlign: "left", fontWeight: "bold", color: "black", textAlignLast: "right",marginTop:"10px"}}>วันเดินทาง</Typography>
