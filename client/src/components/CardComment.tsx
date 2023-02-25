@@ -20,7 +20,7 @@ interface Props {
 
 function CardComment(props: Props) {
     const [commentText, setCommentText] = useState('');
-    const [scoreReview, setScoreReview] = useState('1');
+    const [scoreReview, setScoreReview] = useState(1);
     const tour_data = props.tourdata ? props.tourdata : null
     const user = props.user
 
@@ -29,7 +29,7 @@ function CardComment(props: Props) {
     }
 
     const handleScoreReview = (e : ChangeEvent<HTMLInputElement>) => {
-        setScoreReview(e.target.value);
+        setScoreReview(parseInt(e.target.value));
     }
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -46,7 +46,7 @@ function CardComment(props: Props) {
             tour_id : tour_data?.id as number,
             tour_name: tour_data?.attributes.Title as string,
             author: user.username,
-            score: parseInt(scoreReview),
+            score: scoreReview,
             avatar : user.avatar,
             comment : commentText,
             date: formattedDate
@@ -76,6 +76,13 @@ function CardComment(props: Props) {
                                         value={scoreReview}
                                         onChange={handleScoreReview}
                                         style={{width: "50px",marginLeft:"10px"}}
+                                        onBlur={(e) => {
+                                            if (e.target.value === '') {
+                                                setScoreReview(1);
+                                            } else if (parseInt(e.target.value) > 10) {
+                                                setScoreReview(10);
+                                            }
+                                        }}
                                         required  
                                     />
                                     </Typography> 
