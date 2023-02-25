@@ -40,6 +40,10 @@
     },
     "tour_type": {
       "type": "string"
+    },
+    "paylater": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

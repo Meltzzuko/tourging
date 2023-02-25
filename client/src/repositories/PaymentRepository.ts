@@ -1,12 +1,11 @@
-import payment from "../models/payment"
+import payment, { updatePayment } from "../models/payment"
 import { IRepository } from "./IRepository"
-import axios from "axios"
 import { userData } from "../helper";
 import paymentStatus from "../models/paymentStatus";
 
-const user = userData()
+const user = userData() 
 
-export class PaymentRepository implements IRepository<payment | paymentStatus>{
+export class PaymentRepository implements IRepository<payment | paymentStatus | updatePayment>{
     urlPrefix = "http://localhost:1337/api/payment-statuses"
     token = user.jwt
 
@@ -41,6 +40,20 @@ export class PaymentRepository implements IRepository<payment | paymentStatus>{
             headers: {
                 "Authorization": `Bearer ${this.token}`,
             }
+        })
+        const data_res = await resp.json()
+        return data_res
+    }
+
+   async updatePayment(id: string | number, data: updatePayment): Promise<updatePayment> {
+        const resp = await fetch(`${this.urlPrefix}/${id}`, {
+            method: "PUT",
+            headers : {
+                "Authorization": `Bearer ${this.token}`,
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
         })
         const data_res = await resp.json()
         return data_res
