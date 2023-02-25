@@ -32,9 +32,9 @@ function CardReview(props: Props) {
     }
 
     return (
-        <Box sx={{ display: 'flex' }}>
-            <Row>
-                <Card  variant="outlined" sx={{ width: 270 , marginLeft: 15, marginTop:5, backgroundColor:'white', border:3 }} size='lg'>
+        <Box sx={{ display: 'flex'}}>
+            <Row style={{display:"flex", justifyContent:"center"}}>
+                <Card  variant="outlined" sx={{ width: 270 , marginLeft:'4.65rem', marginTop:5, backgroundColor:'white', border:3 }} size='lg'>
                     <Row xs="2" style={{marginTop:"5px"}}>
                         <Col xs='3'>
                             <Avatar src={avatar_img}/>
