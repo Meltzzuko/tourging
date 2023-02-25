@@ -26,7 +26,7 @@ const CardTour = (props: Props) => {
       </AspectRatio>
       <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <Typography fontSize="lg" fontWeight="lg" color="success" sx={{ mt: 2 }}>
-          ราคา {item.price} บาท/ท่าน
+          ราคา {item.price.toLocaleString()} บาท/ท่าน
         </Typography>
         <Typography level="body3" color="danger" sx={{ mt: 1, mb: 2 }}>
           เหลือ {item.available_seat} ที่

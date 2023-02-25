@@ -103,8 +103,8 @@ function CardTourstatus(props: Props) {
                             <Typography style={{  textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>จำนวนผู้จอง : {paymentData.quantity} ท่าน</Typography>
                             <Typography style={{  textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>เดินทาง : {paymentData.tour_start}</Typography>
                             <Typography style={{  textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>กลับ : {paymentData.tour_end === null ? paymentData.tour_start : paymentData.tour_end }</Typography>
-                            <Typography style={{  textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>ราคารวม : {paymentData.total_price} บาท</Typography>
-                            <Typography style={{  textAlign: "left", fontWeight: "bold", color: "red"}}>*หากไม่ยกเลิกการจองเกิน 3 วันก่อนเดินทางจะไม่มีการคืนค่าธรรมเนียม</Typography>
+                            <Typography style={{  textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>ราคารวม : {paymentData.total_price.toLocaleString()} บาท</Typography>
+                            <Typography style={{  fontSize: 15,textAlign: "left", fontWeight: "bold", color: "red"}}>*หากไม่ยกเลิกการจอง 3 วันก่อนเดินทางจะไม่มีการคืนค่าธรรมเนียมและไม่สามารถยกเลิกการจองได้</Typography>
                         </Col>
                         <Col>
                             <Box 

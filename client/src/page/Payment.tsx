@@ -94,7 +94,7 @@ const PaymentPage = () => {
                             </Typography>
                         }
                         <Typography style={{fontSize : 20, textAlign : "left", paddingLeft: 10, fontWeight: "550" }} >
-                            ราคารวม : {total} บาท
+                            ราคารวม : {total.toLocaleString()} บาท
                         </Typography>
                         <br/>
                     </div>
