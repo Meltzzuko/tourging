@@ -1,0 +1,49 @@
+{
+  "kind": "collectionType",
+  "collectionName": "payment_statuses",
+  "info": {
+    "singularName": "payment-status",
+    "pluralName": "payment-statuses",
+    "displayName": "payment_status",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "status": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "user": {
+      "type": "string"
+    },
+    "tour_name": {
+      "type": "string"
+    },
+    "tour_start": {
+      "type": "date"
+    },
+    "tour_end": {
+      "type": "date"
+    },
+    "quantity": {
+      "type": "integer"
+    },
+    "total_price": {
+      "type": "integer"
+    },
+    "image_url": {
+      "type": "string"
+    },
+    "tour_type": {
+      "type": "string"
+    },
+    "paylater": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

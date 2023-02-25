@@ -1,0 +1,47 @@
+.card {
+    width: 100%;
+    max-width: 400px;
+    background-color: white;
+  }
+  
+  .card h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1976d2;
+    margin-bottom: 0.5rem;
+  }
+  
+  .card img {
+    min-height: 100px;
+    max-height: 150px;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .card .box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .card .box p {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #4caf50;
+    margin-top: 2rem;
+  }
+  
+  .card .box span {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #f44336;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .card button {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+  }
+  
