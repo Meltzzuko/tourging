@@ -12,6 +12,7 @@ import { Close } from '@mui/icons-material';
 import Tours from '../models/tour';
 import Tourseat from '../models/tourseat';
 import payment, { updatePayment } from '../models/payment';
+import '../UserStatus.css'
 
 
 interface Props {
@@ -87,7 +88,7 @@ function CardTourstatus(props: Props) {
 
     return(
         <>
-            <Card variant='solid' sx={{ maxWidth: 1050,  backgroundColor:"white" }}>
+            <Card variant='solid' sx={{ maxWidth: 1050,  backgroundColor:"white" }} className="card">
                 <Container>
                     <Row>
                         <Col xs={6} md={4}>
@@ -96,14 +97,14 @@ function CardTourstatus(props: Props) {
                             </Box>
                         </Col>
                         <Col xs={5}>
-                            <Typography style={{ fontSize: 20, textAlign: "left", fontWeight: "bold", color: "black"}}>{paymentData.tour_name}</Typography>
-                            <Typography style={{ fontSize: 20, textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>รายละเอียดการจองทัวร์</Typography>
-                            <Typography style={{ fontSize: 20, textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>ประเภททัวร์ : {paymentData.tour_type}</Typography>
-                            <Typography style={{ fontSize: 20, textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>จำนวนผู้จอง : {paymentData.quantity} ท่าน</Typography>
-                            <Typography style={{ fontSize: 20, textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>เดินทาง : {paymentData.tour_start}</Typography>
-                            <Typography style={{ fontSize: 20, textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>กลับ : {paymentData.tour_end === null ? paymentData.tour_start : paymentData.tour_end }</Typography>
-                            <Typography style={{ fontSize: 20, textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>ราคารวม : {paymentData.total_price} บาท</Typography>
-                            <Typography style={{ fontSize: 18, textAlign: "left", fontWeight: "bold", color: "red"}}>*หากไม่ยกเลิกการจองเกิน 3 วันก่อนเดินทางจะไม่มีการคืนค่าธรรมเนียม</Typography>
+                            <Typography style={{  textAlign: "left", fontWeight: "bold", color: "black"}}>{paymentData.tour_name}</Typography>
+                            <Typography style={{  textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>รายละเอียดการจองทัวร์</Typography>
+                            <Typography style={{  textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>ประเภททัวร์ : {paymentData.tour_type}</Typography>
+                            <Typography style={{  textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>จำนวนผู้จอง : {paymentData.quantity} ท่าน</Typography>
+                            <Typography style={{  textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>เดินทาง : {paymentData.tour_start}</Typography>
+                            <Typography style={{  textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>กลับ : {paymentData.tour_end === null ? paymentData.tour_start : paymentData.tour_end }</Typography>
+                            <Typography style={{  textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>ราคารวม : {paymentData.total_price} บาท</Typography>
+                            <Typography style={{  textAlign: "left", fontWeight: "bold", color: "red"}}>*หากไม่ยกเลิกการจองเกิน 3 วันก่อนเดินทางจะไม่มีการคืนค่าธรรมเนียม</Typography>
                         </Col>
                         <Col>
                             <Box 
@@ -111,18 +112,19 @@ function CardTourstatus(props: Props) {
                                 flexDirection="column" 
                                 alignItems="center" 
                                 justifyContent="center"
-                                marginTop={10}
+                                marginTop={"5vw"}
                             >
 
                                 {paymentData.status &&
                                     <div style={{ textAlign: 'center'}}>
-                                        <Typography style={{ fontSize: 26, textAlign: "left", fontWeight: "bold", color: "green" , marginTop:'16%'}}>
+                                        <Typography style={{ fontSize: 20, textAlign: "left", fontWeight: "bold", color: "green" , marginTop:'16%'}}>
                                         ชำระเงินเสร็จสิ้น
                                         </Typography>
                                         {showCancelButton && (
                                             <Button 
                                             variant="contained" 
                                             color="error"
+                                            className="my-button"
                                             style={{marginTop: 15}}
                                             onClick={() => setPaymentPopup(true)}
                                             >
@@ -152,13 +154,14 @@ function CardTourstatus(props: Props) {
 
                                 {!paymentData.status && !paymentData.paylater &&
                                     <div style={{textAlign: 'center'}}>
-                                        <Typography style={{ fontSize: 20, textAlign: "left", fontWeight: "bold", color: "red"}}>
+                                        <Typography style={{ fontSize: 20,  textAlign: "left", fontWeight: "bold", color: "red"}}>
                                         กำลังยืนยันการชำระเงิน
                                         </Typography>
 
                                         <Button 
                                         variant="contained" 
                                         color="error"
+                                        className="my-button"
                                         style={{marginTop: 15}}
                                         onClick={() => setPopup(true)}
                                         >

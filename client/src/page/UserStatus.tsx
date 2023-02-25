@@ -9,6 +9,7 @@ import { useState, useEffect } from "react";
 import { userData } from "../helper";
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
+import '../UserStatus.css'
 
 const UserStatusPage = () => {
     const [paymentStatus, setPaymentStatus] = useState<paymentStatus[]>([]);
@@ -51,7 +52,7 @@ const UserStatusPage = () => {
             <UserNavbar/>
             <Container>
                 <Row style={{ marginTop: "15px",marginBottom: '15px'}}>
-                <Col xs={12} md={3}
+                <Col xs={12} md={3} className="col-size"
                 style={{ 
                     backgroundColor: "white", 
                     borderRadius: "10px", 
