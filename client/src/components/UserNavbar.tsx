@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, FormEvent } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -13,34 +13,76 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import Box from '@mui/material/Box';
 import { Col, Row } from 'react-bootstrap';
-import UploadFileIcon from '@mui/icons-material/UploadFile';
 import '../UserNavbar.css'
 
 function UserNavbar() {
   const user = userData();
-  const [open, setOpen] = useState(false);
-  const [image, setImage] = useState('');
- 
-  const handleClick = () => {
-    setOpen(true);
-  };
+  const [popup, setPopup] = useState(false);
+  const [file, setFile] = useState<File | null>(null);
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
-      const url = URL.createObjectURL(event.target.files[0]);
-      setImage(url);
+      setFile(event.target.files[0]);
     }
   };
 
-  const handleSave = () => {
-      console.log( `Image: ${image}`);
-      setOpen(false);
-    };
+  const updateImage = async () => {
+    const userInfo = await fetch('http://localhost:1337/api/users/me?populate=*', {
+      headers :{
+        "Authorization" : `Bearer ${user.jwt}`
+      }
+    })
 
+    const data = await userInfo.json();
+    const userString = localStorage.getItem('user');
+    const info = JSON.parse(userString as string);
+
+    info.avatar = `http://localhost:1337${data.image.formats.thumbnail.url}`;
+    localStorage.setItem('user', JSON.stringify(info));
+
+    const updateAvatar = {
+      avatar : info.avatar
+    }
+
+    await fetch(`http://localhost:1337/api/users/${user.id}`, {
+      method : 'PUT',
+      headers :{
+        "Authorization" : `Bearer ${user.jwt}`,
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(updateAvatar)
+    })
+  }
+
+  const handleSaveClick = async () => {
+    if (!file) {
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('files', file);
+    formData.append('refId', user.id);
+    formData.append('ref', 'plugin::users-permissions.user');
+    formData.append('field', 'image');
+
+    try {
+      const response = await fetch('http://localhost:1337/api/upload',{
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${user.jwt}`,
+        },
+        body: formData,
+      });
+      await updateImage()
+      
+    } catch (error) {
+      console.log(error);
+    }
+
+    setFile(null);
+    setPopup(false);
+  };
 
   return (
     <>
@@ -72,46 +114,32 @@ function UserNavbar() {
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
                 color="inherit"
-                onClick={handleClick}
                 sx={{ mr: 1 }}
+                onClick={() => setPopup(true)}
               >
                   <Avatar src={user.avatar}/>
                 </IconButton>
-                <Dialog open={open} onClose={handleClose}>
-                <DialogTitle sx={{textAlign:"center", color:"black"}}>Profile Sitting</DialogTitle>
-                <DialogContent>
-
-                          <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
-                              <Avatar sx={{ width: 128, height: 128 }} src={image} />
-                          </Box>
-                            <input
-                        accept="image/*"
-                        id="contained-button-file"
-                        type="file"
-                        onChange={handleImageChange}
-                        style={{ display: 'none' }}
-                      />
-                      <DialogTitle sx={{textAlign:"center", color:"black"}}>เปลี่ยนรูปโปรไฟล์</DialogTitle>
-                      <label htmlFor="contained-button-file">
-                        <Row>
-                            <Col>
-                            <UploadFileIcon style={{marginRight:"10"}}/>
-                            <Button variant="secondary" onClick={handleClick} style={{ marginTop:'2' }}>
-                              อัพโหลดรูปภาพ
-                            </Button>
-                          </Col>
-                        </Row>
-                      </label>
-                    </DialogContent>
-                    <DialogActions>
-                      <Button onClick={handleClose}>Cancel</Button>
-                      <Button onClick={handleSave}>Save</Button>
-                    </DialogActions>
-  
+                <Dialog open={popup} onClose={() => setPopup(false)}>
+                  <DialogTitle sx={{textAlign:"center", color:"black"}}>สวัสดี, {user.username}</DialogTitle>
+                  <DialogContent>
+                    <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
+                        <Avatar sx={{ width: 128, height: 128 }} src={user.avatar} />
+                    </Box>
+                    <DialogTitle sx={{textAlign:"center", color:"black"}}>เปลี่ยนรูปโปรไฟล์</DialogTitle>
+                    <Row className="text-center">
+                      <Col>
+                        <input type="file" className="form-control" id="customFile" onChange={handleFileChange} />
+                      </Col>
+                    </Row>
+                  </DialogContent>
+                  <DialogActions>
+                    <Button variant='success' onClick={handleSaveClick}>Save</Button>
+                    <Button variant='danger' onClick={() => setPopup(false)}>Cancel</Button>
+                  </DialogActions>
                 </Dialog>
                 <Button href='/logout' size="sm" variant="danger" >Logout</Button>
               </div>
-              
+    
             )}
           </Nav>
         </Container>
