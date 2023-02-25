@@ -1,7 +1,6 @@
 import CardTourstatus from "../components/CardTourstatus"
 import UserNavbar from '../components/UserNavbar';
 import {Row,Col,Container} from 'react-bootstrap';
-import { Grid } from '@mui/material';
 import { Box } from '@mui/system';
 import Repo from "../repositories"
 import paymentStatus from "../models/paymentStatus";
@@ -44,7 +43,6 @@ const UserStatusPage = () => {
 
     const handlePaginationChange = (event: React.ChangeEvent<unknown>, value: number) => {
         setCurrentPage(value);
-        console.log(currentPage)
       };
 
     return (

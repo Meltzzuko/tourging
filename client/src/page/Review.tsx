@@ -1,4 +1,4 @@
-import { Box } from '@mui/system';
+import { Box, Container } from '@mui/system';
 import Card from '@mui/joy/Card';
 import Typography from '@mui/material/Typography/Typography';
 import UserNavbar from '../components/UserNavbar';
@@ -14,6 +14,9 @@ import Tours from '../models/tour';
 import { userData } from '../helper';
 import paymentStatus from '../models/paymentStatus';
 import * as React from 'react';
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
+import { Row, Col } from 'react-bootstrap';
 
 const user = userData();
 
@@ -21,8 +24,11 @@ const ReviewPage = () => {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [tourdata, setTourdata] = useState<Tours[]>([]);
   const [paymentData,setPaymentData] = useState<paymentStatus[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [reviewPerPage, setReviewPerPage] = useState(3);
 
   const params = useParams();
+
 
   const fetchData = async () => {
     try {
@@ -51,6 +57,16 @@ const ReviewPage = () => {
       fetchData();
   },[params.id]);
 
+  const lastReviewIndex = currentPage * reviewPerPage;
+  const firstReviewIndex = lastReviewIndex - reviewPerPage;
+  const reviewData = reviews.sort((a, b) => b.id - a.id)
+  const currentData = reviewData.slice(firstReviewIndex, lastReviewIndex);
+  const paginateValue = Math.ceil(reviews.length/reviewPerPage);
+
+  const handlePaginationChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    setCurrentPage(value);
+  };
+
   return (
     <React.Fragment>
       <UserNavbar/>
@@ -60,17 +76,36 @@ const ReviewPage = () => {
         </Card>
       </Box>
       <Grid container spacing={{ xs: 2, md: 0 }} columns={{ xs: 2, sm: 8, md: 12, lg: 15, xl: 10}} >
-        {reviews.map((item, index) => 
+        {currentData.map((item, index) => 
           <Grid item xs={4} sm={4} md={4} lg={4} xl={4} key={index}>
             <CardReview reviewData={item} user={user}/>
           </Grid>
         )}
-        {Array.isArray(IsPaid) && IsPaid.length > 0 &&
-        <AppBar position="sticky" color='transparent' sx={{top: 'auto',bottom: 0}}>
-          <CardComment tourdata={tourdata[0]} user={user} />
-        </AppBar>
-      }         
       </Grid>
+      <Container>
+        <Row>
+          <Col>
+          <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" height="100%" bgcolor="white" sx={{borderRadius: 8}} marginTop='1%' marginBottom='1%'>
+            <Stack spacing={2}>
+              <Pagination 
+                  count={paginateValue} 
+                  size="large" 
+                  color="primary"
+                  showFirstButton
+                  showLastButton
+                  page={currentPage}
+                  onChange={handlePaginationChange} 
+              />
+            </Stack>
+          </Box>
+          </Col>
+        </Row>
+      </Container>
+        {Array.isArray(IsPaid) && IsPaid.length > 0 &&
+          <AppBar position="sticky" color='transparent' sx={{top: 'auto',bottom: 0}}>
+            <CardComment tourdata={tourdata[0]} user={user} />
+          </AppBar>
+        }
     </React.Fragment>
   )
 }
