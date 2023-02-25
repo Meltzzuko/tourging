@@ -177,15 +177,15 @@ function CardTourstatus(props: Props) {
                 </Container>
             </Card>
 
-            <Dialog PaperProps={{ sx: { width: "50%", maxHeight: "100%" , borderRadius: "30px"} }} open={popup} onClose={() => setPopup(false)}>
+            <Dialog className="dialog-cancel" PaperProps={{ sx: { width: { xs: "80%", sm: "60%", md: "40%", lg: "30%" }, maxHeight: "100%" , borderRadius: "30px"} }} open={popup} onClose={() => setPopup(false)}>
                 <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Typography style={{ fontSize: 20, fontWeight: "bold", color: "black"}}>ยืนยันยกเลิกการจอง</Typography>
                     <IconButton onClick={() => setPopup(false)}>
                         <Close />
                     </IconButton>
                 </DialogTitle>
-                <DialogContent dividers>
-                    <Typography style={{ fontSize: 15, fontWeight: "bold", color: "black"}}>
+                <DialogContent dividers className="card">
+                    <Typography style={{ fontWeight: "bold", color: "black"}}>
                         คุณกำลังจะยกเลิกการจอง "{paymentData.tour_name}" ซึ่งมีรายละเอียดดังนี้
                     </Typography>
                     <Container style={{ marginTop : 20}}>
@@ -196,13 +196,13 @@ function CardTourstatus(props: Props) {
                                 </Box>
                             </Col>
                             <Col>
-                                <Typography style={{ fontSize: 15, textAlign: "left", fontWeight: "bold", color: "black"}}>{paymentData.tour_name}</Typography>
-                                <Typography style={{ fontSize: 15, textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>รายละเอียดการจองทัวร์</Typography>
-                                <Typography style={{ fontSize: 15, textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>ประเภททัวร์ : {paymentData.tour_type}</Typography>
-                                <Typography style={{ fontSize: 15, textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>จำนวนผู้จอง : {paymentData.quantity} ท่าน</Typography>
-                                <Typography style={{ fontSize: 15, textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>เดินทาง : {paymentData.tour_start}</Typography>
-                                <Typography style={{ fontSize: 15, textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>กลับ : {paymentData.tour_end === null ? paymentData.tour_start : paymentData.tour_end }</Typography>
-                                <Typography style={{ fontSize: 15, textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>ราคารวม : {paymentData.total_price} บาท</Typography>                
+                                <Typography style={{ textAlign: "left", fontWeight: "bold", color: "black"}}>{paymentData.tour_name}</Typography>
+                                <Typography style={{ textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>รายละเอียดการจองทัวร์</Typography>
+                                <Typography style={{ textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>ประเภททัวร์ : {paymentData.tour_type}</Typography>
+                                <Typography style={{ textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>จำนวนผู้จอง : {paymentData.quantity} ท่าน</Typography>
+                                <Typography style={{ textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>เดินทาง : {paymentData.tour_start}</Typography>
+                                <Typography style={{ textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>กลับ : {paymentData.tour_end === null ? paymentData.tour_start : paymentData.tour_end }</Typography>
+                                <Typography style={{ textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>ราคารวม : {paymentData.total_price} บาท</Typography>                
                             </Col>
                         </Row>
                     </Container>
@@ -219,9 +219,9 @@ function CardTourstatus(props: Props) {
                 </DialogActions>
             </Dialog>
 
-            <Dialog PaperProps={{ sx: { width: "30%", maxHeight: "100%" , borderRadius: "30px"} }} open={paymentPopup} onClose={() => setPaymentPopup(false)}>
+            <Dialog className="dialog-payment" PaperProps={{ sx: { width: { xs: "80%", sm: "60%", md: "40%", lg: "30%" }, maxHeight: "100%" , borderRadius: "30px"} }} open={paymentPopup} onClose={() => setPaymentPopup(false)}>
                 <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <Typography style={{ fontSize: 20, fontWeight: "bold", color: "black"}}>รายละเอียดการชำระเงิน</Typography>
+                    <Typography style={{ fontSize: 18, fontWeight: "bold", color: "black"}}>รายละเอียดการชำระเงิน</Typography>
                     <IconButton onClick={() => setPaymentPopup(false)}>
                         <Close />
                     </IconButton>
@@ -234,9 +234,9 @@ function CardTourstatus(props: Props) {
                                     <FigureImage  style={{ borderRadius: 20,  border: "2px solid black" }} width={171} height={180} alt="171x180" src="/QR-code.png" /> 
                                 </Box>
                                 <FigureImage  style={{paddingLeft: 40 }} width={260} height={210} alt="171x180" src="/K-bank.png" /> 
-                                <Typography style={{ fontSize: 16, textAlign: "center", fontWeight: "700", marginTop: "5px" }} color='black'>กรุณาโทรยืนยันเพื่อแจ้งการจอง</Typography>
-                                <Typography style={{ fontSize: 16, textAlign: "center", fontWeight: "700", marginTop: "5px" }} color='black'>และการชำระเงิน</Typography>
-                                <Typography style={{ fontSize: 16, textAlign: "center", fontWeight: "700", marginTop: "5px", marginBottom: "10px" }} color='black'>Tel : 020-599-6363</Typography>
+                                <Typography style={{ fontSize: 15, textAlign: "center", fontWeight: "700", marginTop: "5px" }} color='black'>กรุณาโทรยืนยันเพื่อแจ้งการจอง</Typography>
+                                <Typography style={{ fontSize: 15, textAlign: "center", fontWeight: "700", marginTop: "5px" }} color='black'>และการชำระเงิน</Typography>
+                                <Typography style={{ fontSize: 15, textAlign: "center", fontWeight: "700", marginTop: "5px", marginBottom: "10px" }} color='black'>Tel : 020-599-6363</Typography>
                             </Col>
                         </Row>
                     </Container>
