@@ -233,7 +233,7 @@ function CardTourstatus(props: Props) {
                                 <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" height="50%" >
                                     <FigureImage  style={{ borderRadius: 20,  border: "2px solid black" }} width={171} height={180} alt="171x180" src="/QR-code.png" /> 
                                 </Box>
-                                <FigureImage  style={{paddingLeft: 40 }} width={260} height={210} alt="171x180" src="/K-bank.png" /> 
+                                <FigureImage  style={{paddingLeft: 40 }} width={260} height={210} alt="171x180" src="/K-bank2.png" /> 
                                 <Typography style={{ fontSize: 15, textAlign: "center", fontWeight: "700", marginTop: "5px" }} color='black'>กรุณาโทรยืนยันเพื่อแจ้งการจอง</Typography>
                                 <Typography style={{ fontSize: 15, textAlign: "center", fontWeight: "700", marginTop: "5px" }} color='black'>และการชำระเงิน</Typography>
                                 <Typography style={{ fontSize: 15, textAlign: "center", fontWeight: "700", marginTop: "5px", marginBottom: "10px" }} color='black'>Tel : 020-599-6363</Typography>
