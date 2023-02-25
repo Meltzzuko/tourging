@@ -8,8 +8,8 @@ import { useNavigate,useLocation } from 'react-router-dom';
 import Repo from '../repositories'
 import payment from '../models/payment';
 import { userData } from '../helper';
-import Tours from '../models/tour';
 import Tourseat from '../models/tourseat';
+import { Row, Col } from 'react-bootstrap';
 
 const PaymentPage = () => {
     const location = useLocation();
@@ -30,6 +30,7 @@ const PaymentPage = () => {
     const newPayment: payment = {
         data : {
           status: false,
+          paylater: false,
           user: username,
           tour_name: tourdata.Title,
           tour_type: tour_type,
@@ -52,6 +53,12 @@ const PaymentPage = () => {
     const handleBooking  = async () => {
         await Repo.Paymentdata.createPayment(newPayment)
         await Repo.Tourdata.updateTour(tour_id,updateSeat)
+        navigate(`/userstatus`)
+    }
+
+    const handlePayLater = async () => {
+        newPayment.data.paylater = true
+        await Repo.Paymentdata.createPayment(newPayment)
         navigate(`/userstatus`)
     }
 
@@ -103,9 +110,18 @@ const PaymentPage = () => {
                         <Typography style={{ fontSize: 16, textAlign: "center", fontWeight: "700", marginTop: "5px" }} color='black'>กรุณาโทรยืนยันเพื่อแจ้งการจอง</Typography>
                         <Typography style={{ fontSize: 16, textAlign: "center", fontWeight: "700", marginTop: "5px" }} color='black'>และการชำระเงิน</Typography>
                         <Typography style={{ fontSize: 16, textAlign: "center", fontWeight: "700", marginTop: "5px", marginBottom: "10px" }} color='black'>Tel : 020-599-6363</Typography>
-                        <Button onClick={handleBooking} variant="contained" color="primary" size="large">
-                            ยืนยันการจอง
-                        </Button>
+                        <Row>
+                            <Col md='auto'>
+                                <Button onClick={handleBooking}  variant="contained" color="primary" size="small">
+                                ยืนยันการจอง
+                                </Button>
+                            </Col>
+                            <Col>
+                                <Button onClick={handlePayLater} variant="contained" color="primary" size="small">
+                                จ่ายภายหลัง
+                                </Button>
+                            </Col>
+                        </Row>
                     </Box>
                     </div>
                 </div>

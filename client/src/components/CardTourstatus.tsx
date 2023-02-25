@@ -11,6 +11,7 @@ import { Dialog, DialogActions, DialogContent, DialogTitle, IconButton} from "@m
 import { Close } from '@mui/icons-material';
 import Tours from '../models/tour';
 import Tourseat from '../models/tourseat';
+import payment, { updatePayment } from '../models/payment';
 
 
 interface Props {
@@ -19,14 +20,20 @@ interface Props {
 
 function CardTourstatus(props: Props) {
     const [popup, setPopup] = useState(false);
+    const [paymentPopup, setPaymentPopup] = useState(false);
     const [tourdata,setTourData] = useState<Tours[]>([])
+    const [showCancelButton, setShowCancelButton] = useState(false);
+
     const paymentData = props.payment_status.attributes
     const title = paymentData.tour_name
     const tourimg = paymentData.image_url
 
+    const bookingDateString = paymentData.tour_start
+    const bookingDate = new Date(bookingDateString);
+
     const tour = tourdata.length > 0 ? tourdata[0].attributes : null
     
-    const seat = tour?.available_seat as number + paymentData.quantity
+    let seat = tour?.available_seat as number + paymentData.quantity
 
     const updateSeat : Tourseat = {
         data : {
@@ -49,12 +56,34 @@ function CardTourstatus(props: Props) {
         fetchData()
     }, [])
 
+    useEffect(() => {
+        const currentDate = new Date();
+        const timeDiff = bookingDate.getTime() - currentDate.getTime()         
+        const daysDiff = timeDiff / (1000 * 3600 * 24);
+        setShowCancelButton(daysDiff > 2);
+      }, [bookingDate]);
+
     const ConfirmCancle = async () => {
         await Repo.Paymentdata.deletePayment(props.payment_status.id)
         await Repo.Tourdata.updateTour(tourdata[0].id,updateSeat)
         setPopup(false)
         window.location.reload()
     };
+
+    const updatePaylater : updatePayment = {
+        data : {
+            paylater : false
+        }
+    }
+
+    const ConfirmPayment = async () => {
+        await Repo.Paymentdata.updatePayment(props.payment_status.id,updatePaylater)
+        updateSeat.data.available_seat = tour?.available_seat as number - paymentData.quantity
+        await Repo.Tourdata.updateTour(tourdata[0].id,updateSeat)
+
+        setPaymentPopup(false)
+        window.location.reload()
+    }
 
     return(
         <>
@@ -84,23 +113,61 @@ function CardTourstatus(props: Props) {
                                 justifyContent="center"
                                 marginTop={10}
                             >
-                                {paymentData.status ? 
-                                    <Typography style={{ fontSize: 20, textAlign: "left", fontWeight: "bold", color: "green"}}>
-                                    ชำระเงินเสร็จสิ้น
-                                    </Typography>
-                                    :
-                                    <Typography style={{ fontSize: 20, textAlign: "left", fontWeight: "bold", color: "red"}}>
-                                    กำลังยืนยันการชำระเงิน
-                                    </Typography>
+
+                                {paymentData.status &&
+                                    <div style={{ textAlign: 'center'}}>
+                                        <Typography style={{ fontSize: 26, textAlign: "left", fontWeight: "bold", color: "green" , marginTop:'16%'}}>
+                                        ชำระเงินเสร็จสิ้น
+                                        </Typography>
+                                        {showCancelButton && (
+                                            <Button 
+                                            variant="contained" 
+                                            color="error"
+                                            style={{marginTop: 15}}
+                                            onClick={() => setPaymentPopup(true)}
+                                            >
+                                                ยกเลิกการจอง
+                                            </Button>
+                                        )}
+                                    </div>
+                                    
                                 }
-                                <Button 
-                                    variant="contained" 
-                                    color="error"
-                                    style={{marginTop: 15}}
-                                    onClick={() => setPopup(true)}
-                                >
-                                    ยกเลิกการจอง
-                                </Button>
+
+                                {!paymentData.status && paymentData.paylater &&
+                                    <div style={{ textAlign:'center'}}>
+                                        <Typography style={{ fontSize: 20, textAlign: "left", fontWeight: "bold", color: "red"}}>
+                                        รอการชำระเงิน
+                                        </Typography>
+
+                                        <Button 
+                                        variant="contained" 
+                                        color="error"
+                                        style={{marginTop: 15}}
+                                        onClick={() => setPaymentPopup(true)}
+                                        >
+                                            ดำเนินการชำระเงิน
+                                        </Button>
+                                    </div>
+                                }
+
+                                {!paymentData.status && !paymentData.paylater &&
+                                    <div style={{textAlign: 'center'}}>
+                                        <Typography style={{ fontSize: 20, textAlign: "left", fontWeight: "bold", color: "red"}}>
+                                        กำลังยืนยันการชำระเงิน
+                                        </Typography>
+
+                                        <Button 
+                                        variant="contained" 
+                                        color="error"
+                                        style={{marginTop: 15}}
+                                        onClick={() => setPopup(true)}
+                                        >
+                                            ยกเลิกการจอง
+                                        </Button>
+                                    </div>
+                                    
+                                }                 
+                                           
                             </Box>
                         </Col>
                     </Row>
@@ -144,7 +211,40 @@ function CardTourstatus(props: Props) {
                         onClick={ConfirmCancle}
                         style={{marginRight: 20}}
                     >
-                    ยืนยัน
+                    ยกเลิกการจอง
+                    </Button>
+                </DialogActions>
+            </Dialog>
+
+            <Dialog PaperProps={{ sx: { width: "30%", maxHeight: "100%" , borderRadius: "30px"} }} open={paymentPopup} onClose={() => setPaymentPopup(false)}>
+                <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <Typography style={{ fontSize: 20, fontWeight: "bold", color: "black"}}>รายละเอียดการชำระเงิน</Typography>
+                    <IconButton onClick={() => setPaymentPopup(false)}>
+                        <Close />
+                    </IconButton>
+                </DialogTitle>
+                <DialogContent dividers>
+                    <Container style={{ marginTop : 20 ,textAlign : 'center'}}>
+                        <Row>
+                            <Col>
+                                <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" height="50%" >
+                                    <FigureImage  style={{ borderRadius: 20,  border: "2px solid black" }} width={171} height={180} alt="171x180" src="/QR-code.png" /> 
+                                </Box>
+                                <FigureImage  style={{paddingLeft: 40 }} width={260} height={210} alt="171x180" src="/K-bank.png" /> 
+                                <Typography style={{ fontSize: 16, textAlign: "center", fontWeight: "700", marginTop: "5px" }} color='black'>กรุณาโทรยืนยันเพื่อแจ้งการจอง</Typography>
+                                <Typography style={{ fontSize: 16, textAlign: "center", fontWeight: "700", marginTop: "5px" }} color='black'>และการชำระเงิน</Typography>
+                                <Typography style={{ fontSize: 16, textAlign: "center", fontWeight: "700", marginTop: "5px", marginBottom: "10px" }} color='black'>Tel : 020-599-6363</Typography>
+                            </Col>
+                        </Row>
+                    </Container>
+                </DialogContent>
+                <DialogActions style={{ justifyContent: 'center' }}>
+                    <Button
+                        variant = "contained"
+                        color="success"
+                        onClick={ConfirmPayment}
+                    >
+                    ชำระเงินเสร็จสิ้น
                     </Button>
                 </DialogActions>
             </Dialog>
