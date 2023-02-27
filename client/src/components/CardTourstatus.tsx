@@ -177,7 +177,7 @@ function CardTourstatus(props: Props) {
                 </Container>
             </Card>
 
-            <Dialog className="dialog-cancel" PaperProps={{ sx: { width: { xs: "80%", sm: "60%", md: "40%", lg: "30%" }, maxHeight: "100%" , borderRadius: "30px"} }} open={popup} onClose={() => setPopup(false)}>
+            <Dialog className="dialog-cancel" PaperProps={{ sx: { width: { xs: "80%", sm: "60%", md: "40%", lg: "75%" }, maxHeight: "100%" , borderRadius: "30px"} }} open={popup} onClose={() => setPopup(false)}>
                 <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Typography style={{ fontSize: 20, fontWeight: "bold", color: "black"}}>ยืนยันยกเลิกการจอง</Typography>
                     <IconButton onClick={() => setPopup(false)}>
