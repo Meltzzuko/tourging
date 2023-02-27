@@ -14,6 +14,7 @@ interface Props {
     tourdata : Tours
     user : {
         username : string
+        jwt : string
         avatar : string
     }
 }
@@ -34,7 +35,7 @@ function CardComment(props: Props) {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        await Repo.Reviewdata.createReview(newReview)
+        await Repo.Reviewdata.createReview(newReview,user.jwt)
         window.location.reload()
     }
 

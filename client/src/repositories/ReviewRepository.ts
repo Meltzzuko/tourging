@@ -3,11 +3,8 @@ import { IRepository } from "./IRepository";
 import { userData } from "../helper";
 import Postreview from "../models/postreview";
 
-const user = userData()
-
 export class ReviewRepository implements IRepository<Review | Postreview>{
     urlPrefix = "http://localhost:1337/api/reviews"
-    token = user.jwt
 
     async getReview(tour_id: string | number): Promise<Review[] | null> {
         const res = await fetch(`${this.urlPrefix}?filters[tour_id][$eq]=${tour_id}`);
@@ -15,11 +12,11 @@ export class ReviewRepository implements IRepository<Review | Postreview>{
         return data.data;
     }
 
-    async createReview(data: Postreview): Promise<Postreview> {
+    async createReview(data: Postreview, token: string): Promise<Postreview> {
         const resp = await fetch(`${this.urlPrefix}`, {
             method: "POST",
             headers: { 
-                "Authorization": `Bearer ${this.token}`,
+                "Authorization": `Bearer ${token}`,
                 "Accept": "application/json",
                 "Content-Type": "application/json"
             },
@@ -29,11 +26,11 @@ export class ReviewRepository implements IRepository<Review | Postreview>{
         return data_res;
     }
 
-    async deleteReview(review_id: string | number): Promise<void> {
+    async deleteReview(review_id: string | number, token: string): Promise<void> {
         const resp = await fetch(`${this.urlPrefix}/${review_id}`, {
             method: "DELETE",
             headers: {
-                "Authorization": `Bearer ${this.token}`,
+                "Authorization": `Bearer ${token}`,
             }
         })
         const data = await resp.json()

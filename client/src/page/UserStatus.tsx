@@ -22,7 +22,7 @@ const UserStatusPage = () => {
 
     const fetchData = async () => {
         try {
-            const res = await Repo.Paymentdata.getPayment(username);
+            const res = await Repo.Paymentdata.getPayment(username,userdata.jwt);
             if(res) {
                 setPaymentStatus(res)
             }

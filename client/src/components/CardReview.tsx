@@ -16,6 +16,7 @@ interface Props {
     reviewData: Review
     user : {
         username : string
+        jwt: string
         avatar : string
     }
 }
@@ -27,7 +28,7 @@ function CardReview(props: Props) {
     const user = props.user
 
     const handleDelete = async () => {
-        await Repo.Reviewdata.deleteReview(props.reviewData.id)
+        await Repo.Reviewdata.deleteReview(props.reviewData.id,user.jwt)
         window.location.reload()
     }
 

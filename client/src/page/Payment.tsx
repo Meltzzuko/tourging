@@ -51,14 +51,14 @@ const PaymentPage = () => {
     }
 
     const handleBooking  = async () => {
-        await Repo.Paymentdata.createPayment(newPayment)
+        await Repo.Paymentdata.createPayment(newPayment,userdata.jwt)
         await Repo.Tourdata.updateTour(tour_id,updateSeat)
         navigate(`/userstatus`)
     }
 
     const handlePayLater = async () => {
         newPayment.data.paylater = true
-        await Repo.Paymentdata.createPayment(newPayment)
+        await Repo.Paymentdata.createPayment(newPayment,userdata.jwt)
         navigate(`/userstatus`)
     }
 

@@ -7,14 +7,14 @@ export interface IRepository<T> {
     updateTour?(id: string|number, data : T) : Promise<T>;
 
     // Payment
-    getPayment?(user: string | number) : Promise<T[] | null>;
-    createPayment?(data: T): Promise<T>;
-    deletePayment?(id: string|number): Promise<void>;
-    updatePayment?(id: string|number, data: T): Promise<T>;
+    getPayment?(user: string | number, token : string) : Promise<T[] | null>;
+    createPayment?(data: T, token : string): Promise<T>;
+    deletePayment?(id: string|number , token : string): Promise<void>;
+    updatePayment?(id: string|number, data: T , token: string): Promise<T>;
 
 
     // Review
     getReview?(tour_id: string|number): Promise<T[] | null>
-    createReview?(data: T): Promise<T>;
-    deleteReview?(review_id: string|number): Promise<void>;
+    createReview?(data: T, token: string): Promise<T>;
+    deleteReview?(review_id: string|number, token: string): Promise<void>;
 }

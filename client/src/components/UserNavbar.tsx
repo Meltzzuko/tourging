@@ -12,6 +12,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import Box from '@mui/material/Box';
+import CryptoJS from 'crypto-js';
 import { Col, Row } from 'react-bootstrap';
 import '../UserNavbar.css'
 
@@ -34,11 +35,19 @@ function UserNavbar() {
     })
 
     const data = await userInfo.json();
-    const userString = localStorage.getItem('user');
-    const info = JSON.parse(userString as string);
+    const encryptedData = localStorage.getItem('user');
+    const secretKey = ''
+    let info;
+    if (encryptedData) {
+        const bytes = CryptoJS.AES.decrypt(encryptedData, secretKey);
+        info = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+    }
 
     info.avatar = `http://localhost:1337${data.image.formats.thumbnail.url}`;
-    localStorage.setItem('user', JSON.stringify(info));
+
+    const updatedEncryptedData = CryptoJS.AES.encrypt(JSON.stringify(info), secretKey).toString();
+
+    localStorage.setItem('user', updatedEncryptedData)
 
     const updateAvatar = {
       avatar : info.avatar

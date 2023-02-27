@@ -3,28 +3,25 @@ import { IRepository } from "./IRepository"
 import { userData } from "../helper";
 import paymentStatus from "../models/paymentStatus";
 
-const user = userData() 
-
 export class PaymentRepository implements IRepository<payment | paymentStatus | updatePayment>{
     urlPrefix = "http://localhost:1337/api/payment-statuses"
-    token = user.jwt
 
-    async getPayment(user: string | number): Promise<paymentStatus[] | null> {
+    async getPayment(user: string | number, token : string): Promise<paymentStatus[] | null> {
         const res = await fetch(`${this.urlPrefix}?populate=*&filters[user][$eq]=${user}`,{
             method: "GET",
             headers: {
-                "Authorization": `Bearer ${this.token}`
+                "Authorization": `Bearer ${token}`
             }
         })
         const data = await res.json()
         return data.data
     }
 
-    async createPayment(data: payment): Promise<payment> {
+    async createPayment(data: payment, token: string): Promise<payment> {
         const resp = await fetch(`${this.urlPrefix}`, {
             method: "POST",
             headers: { 
-                "Authorization": `Bearer ${this.token}`,
+                "Authorization": `Bearer ${token}`,
                 "Accept": "application/json",
                 "Content-Type": "application/json"
             },
@@ -34,22 +31,22 @@ export class PaymentRepository implements IRepository<payment | paymentStatus | 
         return data_res;
     }
 
-    async deletePayment(id: string | number): Promise<void> {
+    async deletePayment(id: string | number, token : string): Promise<void> {
         const resp = await fetch(`${this.urlPrefix}/${id}`, {
             method: "DELETE",
             headers: {
-                "Authorization": `Bearer ${this.token}`,
+                "Authorization": `Bearer ${token}`,
             }
         })
         const data_res = await resp.json()
         return data_res
     }
 
-   async updatePayment(id: string | number, data: updatePayment): Promise<updatePayment> {
+   async updatePayment(id: string | number, data: updatePayment, token: string): Promise<updatePayment> {
         const resp = await fetch(`${this.urlPrefix}/${id}`, {
             method: "PUT",
             headers : {
-                "Authorization": `Bearer ${this.token}`,
+                "Authorization": `Bearer ${token}`,
                 "Accept": "application/json",
                 "Content-Type": "application/json"
             },

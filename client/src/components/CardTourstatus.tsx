@@ -11,6 +11,7 @@ import { Dialog, DialogActions, DialogContent, DialogTitle, IconButton} from "@m
 import { Close } from '@mui/icons-material';
 import Tours from '../models/tour';
 import Tourseat from '../models/tourseat';
+import { userData } from '../helper';
 import payment, { updatePayment } from '../models/payment';
 import '../UserStatus.css'
 
@@ -24,6 +25,7 @@ function CardTourstatus(props: Props) {
     const [paymentPopup, setPaymentPopup] = useState(false);
     const [tourdata,setTourData] = useState<Tours[]>([])
     const [showCancelButton, setShowCancelButton] = useState(false);
+    const user = userData();
 
     const paymentData = props.payment_status.attributes
     const title = paymentData.tour_name
@@ -65,7 +67,7 @@ function CardTourstatus(props: Props) {
       }, [bookingDate]);
 
     const ConfirmCancle = async () => {
-        await Repo.Paymentdata.deletePayment(props.payment_status.id)
+        await Repo.Paymentdata.deletePayment(props.payment_status.id,user.jwt)
         await Repo.Tourdata.updateTour(tourdata[0].id,updateSeat)
         setPopup(false)
         window.location.reload()
@@ -78,7 +80,7 @@ function CardTourstatus(props: Props) {
     }
 
     const ConfirmPayment = async () => {
-        await Repo.Paymentdata.updatePayment(props.payment_status.id,updatePaylater)
+        await Repo.Paymentdata.updatePayment(props.payment_status.id,updatePaylater,user.jwt)
         updateSeat.data.available_seat = tour?.available_seat as number - paymentData.quantity
         await Repo.Tourdata.updateTour(tourdata[0].id,updateSeat)
 

@@ -18,8 +18,6 @@ import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import { Row, Col } from 'react-bootstrap';
 
-const user = userData();
-
 const ReviewPage = () => {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [tourdata, setTourdata] = useState<Tours[]>([]);
@@ -27,14 +25,18 @@ const ReviewPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [reviewPerPage, setReviewPerPage] = useState(3);
 
-  const params = useParams();
+  const user = userData();
 
+  const params = useParams();
 
   const fetchData = async () => {
     try {
         const res = await Repo.Reviewdata.getReview(params.id as string);
         const res2 = await Repo.Tourdata.getTourById(params.id as string);
-        const res3 = await Repo.Paymentdata.getPayment(user.username.trimEnd())
+        let res3
+        try {
+          res3 = await Repo.Paymentdata.getPayment(user.username.trimEnd(),user.jwt)
+        } catch {}
         if(res) {
             setReviews(res)
         }
