@@ -1,7 +1,6 @@
 import CardTourstatus from "../components/CardTourstatus"
 import UserNavbar from '../components/UserNavbar';
 import {Row,Col,Container} from 'react-bootstrap';
-import { Grid } from '@mui/material';
 import { Box } from '@mui/system';
 import Repo from "../repositories"
 import paymentStatus from "../models/paymentStatus";
@@ -9,6 +8,7 @@ import { useState, useEffect } from "react";
 import { userData } from "../helper";
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
+import '../UserStatus.css'
 
 const UserStatusPage = () => {
     const [paymentStatus, setPaymentStatus] = useState<paymentStatus[]>([]);
@@ -43,7 +43,6 @@ const UserStatusPage = () => {
 
     const handlePaginationChange = (event: React.ChangeEvent<unknown>, value: number) => {
         setCurrentPage(value);
-        console.log(currentPage)
       };
 
     return (
@@ -51,7 +50,7 @@ const UserStatusPage = () => {
             <UserNavbar/>
             <Container>
                 <Row style={{ marginTop: "15px",marginBottom: '15px'}}>
-                <Col xs={12} md={3}
+                <Col xs={12} md={3} className="col-size"
                 style={{ 
                     backgroundColor: "white", 
                     borderRadius: "10px", 

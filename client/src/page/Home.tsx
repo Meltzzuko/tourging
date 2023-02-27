@@ -1,15 +1,20 @@
 import UserNavbar from '../components/UserNavbar';
 import {Row,Col,Container, Button} from 'react-bootstrap';
+import Stack from '@mui/material/Stack';
+import Pagination from '@mui/material/Pagination';
 import CardTour from '../components/CardTour';
 import { useEffect,useState } from 'react';
 import Tour from '../models/tour';
-import { Grid } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import Repo from '../repositories';
 import '../Home.css';
 
 
 const Homepage = () => {
   const [tourdata, setTourData] = useState<Tour[]>([]);
+  const [currentOnedayPage, setCurrentOneDayPage] = useState(1);
+  const [currentManydayPage, setCurrentManyDayPage] = useState(1);
+  const [dataPerPage, setDataPerPage] = useState(4);
   
   const fetchData = async () => {
     const res = await Repo.Tourdata.getAll()
@@ -29,6 +34,26 @@ const Homepage = () => {
   const manydaytrip = tourdata.filter(
     tour => tour.attributes.category.data.attributes.type === "Many-day"
   );
+
+  const lastOneDayIndex = currentOnedayPage * dataPerPage;
+  const firstOneDayIndex = lastOneDayIndex - dataPerPage;;
+  const lastManyDayIndex = currentManydayPage * dataPerPage;
+  const firstManyDayIndex = lastManyDayIndex - dataPerPage;
+  
+  const OneDayData = onedaytrip.slice(firstOneDayIndex, lastOneDayIndex);
+  const ManyDayData = manydaytrip.slice(firstManyDayIndex, lastManyDayIndex)
+
+  const paginateOneValue = Math.ceil(onedaytrip.length/dataPerPage);
+  const paginateManyValue = Math.ceil(manydaytrip.length/dataPerPage); 
+
+  const handlePaginationOneChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    setCurrentOneDayPage(value);
+  };
+
+  const handlePaginationManyChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    setCurrentManyDayPage(value);
+  };
+
 
   return (
     <div className="homepage">
@@ -55,14 +80,27 @@ const Homepage = () => {
         </Row>
         </center>
         <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 2, sm: 8, md: 12, lg: 12, xl: 10}}>
-          {onedaytrip.map((item, index) => 
+          {OneDayData.map((item, index) => 
             <Grid item xs={2} sm={4} md={4} lg={3} xl={2} key={index}>
               <CardTour Tours={item} />
             </Grid>
           )}
         </Grid>
+        <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" height="100%" bgcolor="white" sx={{borderRadius: 8}} marginTop='1%' marginBottom='1%'>
+          <Stack spacing={2}>
+                <Pagination 
+                    count={paginateOneValue} 
+                    size="large" 
+                    color="primary"
+                    showFirstButton
+                    showLastButton
+                    page={currentOnedayPage}
+                    onChange={handlePaginationOneChange} 
+                />
+            </Stack>
+        </Box>
         <center>
-      <Row style={{ marginTop: "15px" , marginBottom: '15px'}}>
+      <Row style={{ marginTop: "70px" , marginBottom: '15px'}}>
           <Col xs={11} md={3} className="section-title"style={{ marginBottom:'3vh' }}>
             <center>ทัวร์ภูเก็ต พร้อมที่พัก</center>
           </Col>
@@ -72,12 +110,25 @@ const Homepage = () => {
       </Row>
       </center>
       <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 2, sm: 8, md: 12, lg: 12, xl: 10}}>
-        {manydaytrip.map((item, index) => 
+        {ManyDayData.map((item, index) => 
           <Grid item xs={2} sm={4} md={4} lg={3} xl={2} key={index}>
             <CardTour Tours={item} />
           </Grid>
         )}
       </Grid>
+      <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" height="100%" bgcolor="white" sx={{borderRadius: 8}} marginTop='1%' marginBottom='1%'>
+          <Stack spacing={2}>
+                <Pagination 
+                    count={paginateManyValue} 
+                    size="large" 
+                    color="primary"
+                    showFirstButton
+                    showLastButton
+                    page={currentManydayPage}
+                    onChange={handlePaginationManyChange} 
+                />
+            </Stack>
+        </Box>
       </Container>
     </div>
     )

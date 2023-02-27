@@ -6,7 +6,7 @@ import '../index.css'
 import FigureImage from 'react-bootstrap/FigureImage'
 import Typography from '@mui/material/Typography/Typography';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Row, Col, Container, Form} from "react-bootstrap";
+import { Row, Col, Form} from "react-bootstrap";
 import Card from "@mui/joy/Card/Card";
 import Tours from "../models/tour";
 import Repo from '../repositories'
@@ -81,7 +81,7 @@ const Detailpage = () => {
                                 <Typography style={{ fontSize: 30, textAlign: "left", fontWeight: "bold", color: "black", textAlignLast: "center"}}>รายละเอียด</Typography>
                                 <Typography style={{ fontSize: 20, textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>จำนวนคงเหลือ: {data?.available_seat}</Typography>
                                 <Typography style={{ fontSize: 20, textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>วิธีการเดินทางระหว่างท่องเที่ยว: {data?.vehicle}</Typography>
-                                <Typography style={{ fontSize: 20, textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>ราคาต่อท่าน: {data?.price} บาท</Typography>
+                                <Typography style={{ fontSize: 20, textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>ราคาต่อท่าน: {data?.price.toLocaleString()} บาท</Typography>
                                 <div style={{ display: "flex", justifyContent: "center", marginTop: "30px"}}>
                                     <Button onClick={LinkToReview} variant="contained" style={{ backgroundColor: "black", color: "white" }} >Review/Coments</Button>
                                 </div>
@@ -177,19 +177,16 @@ const Detailpage = () => {
                             </Col>
                             <Col>
                                 <Typography style={{ fontSize: 22,  fontWeight: "bold", color: "red", marginTop:"10px"}}>
-                                    {Number.isNaN(total_price) ? "0" : total_price } บาท
+                                    {Number.isNaN(total_price) ? "0" : total_price.toLocaleString() } บาท
                                 </Typography>
                             </Col>
                         </Row>
                        
                         <Row xs="auto" style={{marginTop: "25px"}} className="justify-content-md-center">
-                            <Col >
-                                
+                            <Col > 
                                 <Button disabled={!isValid} onClick={LinkToPayment} className="button-container" variant="contained" color="primary" size="large">
                                     จอง package
                                 </Button>
-                              
-
                             </Col>
                             
                         </Row>

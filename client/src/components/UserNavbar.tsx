@@ -82,6 +82,7 @@ function UserNavbar() {
 
     setFile(null);
     setPopup(false);
+    window.location.reload();
   };
 
   return (

@@ -1,0 +1,52 @@
+form {
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .card {
+    float: left;
+    width: 100%;
+    margin-right: 20px;
+  }
+
+  .card p {
+    font-size: 18px;
+  }
+
+  .card img {
+    width: 100%;
+  }
+
+  .col-size {
+    font-size: 20px ;
+  }
+
+
+  /* Media query for mobile devices */
+  @media only screen and (max-width: 768px) {
+    .card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 12px !important;
+    }
+
+    .card p {
+        font-size: 10px;
+      }
+
+    .col-size {
+      width: 50% !important;
+      font-size: 15px ;
+    }
+
+    .dialog-cancel {
+      max-height: 55%;
+    }
+
+    .dialog-payment {
+      max-height: 80%;
+    }
+
+}
