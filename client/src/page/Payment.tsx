@@ -68,7 +68,7 @@ const PaymentPage = () => {
             <div className="flexbox" >
                 <div className="item">
                     <div className="content">
-                        <Typography style={{ fontSize: 30, textAlign: "left", fontWeight: "800" }} color='black'>การชำระเงิน</Typography>
+                        <Typography style={{ fontSize: 30, textAlign: "center", fontWeight: "800" }} color='black'>การชำระเงิน</Typography>
                         <Typography style={{ fontSize: 26, textAlign: "center", fontWeight: "bold", color: "#0147AB"}}>{tourdata.Title}</Typography>
                         <Box display="flex" flexDirection="column" alignItems="center">
                             <FigureImage  style={{ borderRadius: 10,  border: "2px solid black" }} width={300} height={300} alt="171x180" src={tourimg} /> 
@@ -105,21 +105,23 @@ const PaymentPage = () => {
                     <Box display="flex" flexDirection="column" alignItems="center">
                         <FigureImage  style={{ borderRadius: 10,  border: "2px solid black", marginTop: "10px" }} width={170} height={175}  src="/QR-code.png" /> 
                     </Box>
+                    <center>
                     <FigureImage style={{paddingLeft: 40 }} width={260} height={210} alt="171x180" src="/K-bank2.png" /> 
+                    </center>
                     <Box display="flex" flexDirection="column" alignItems="center">
                         <Typography style={{ fontSize: 16, textAlign: "center", fontWeight: "700", marginTop: "5px" }} color='black'>กรุณาโทรยืนยันเพื่อแจ้งการจอง</Typography>
                         <Typography style={{ fontSize: 16, textAlign: "center", fontWeight: "700", marginTop: "5px" }} color='black'>และการชำระเงิน</Typography>
                         <Typography style={{ fontSize: 16, textAlign: "center", fontWeight: "700", marginTop: "5px", marginBottom: "10px" }} color='black'>Tel : 020-599-6363</Typography>
                         <Row>
                             <Col md='auto'>
-                                <Button onClick={handleBooking}  variant="contained" color="primary" size="small">
+                            <div className="button-container">
+                            <Button onClick={handleBooking}style={{marginRight:"2vw" }} variant="contained" color="primary" size="small">
                                 ยืนยันการจอง
-                                </Button>
-                            </Col>
-                            <Col>
-                                <Button onClick={handlePayLater} variant="contained" color="primary" size="small">
+                            </Button>
+                            <Button onClick={handlePayLater} variant="contained" color="primary" size="small">
                                 จ่ายภายหลัง
-                                </Button>
+                            </Button>
+                            </div>
                             </Col>
                         </Row>
                     </Box>
