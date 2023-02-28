@@ -114,14 +114,12 @@ const PaymentPage = () => {
                         <Typography style={{ fontSize: 16, textAlign: "center", fontWeight: "700", marginTop: "5px", marginBottom: "10px" }} color='black'>Tel : 020-599-6363</Typography>
                         <Row>
                             <Col md='auto'>
-                            <div className="button-container">
                             <Button onClick={handleBooking}style={{marginRight:"2vw" }} variant="contained" color="primary" size="small">
                                 ยืนยันการจอง
                             </Button>
                             <Button onClick={handlePayLater} variant="contained" color="primary" size="small">
                                 จ่ายภายหลัง
                             </Button>
-                            </div>
                             </Col>
                         </Row>
                     </Box>
