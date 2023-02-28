@@ -77,9 +77,9 @@ const ReviewPage = () => {
           <Typography style={{ fontSize: 24, fontWeight: "bold", color: "black", textAlignLast: "center"}}>Review & Comment</Typography>
         </Card>
       </Box>
-      <Grid container spacing={{ xs: 2, md: 0 }} columns={{ xs: 2, sm: 8, md: 12, lg: 15, xl: 10}} >
+      <Grid container spacing={{ xs: 1, md: 0 }} columns={{ xs: 2, sm: 8, md: 12, lg: 15, xl: 10}} >
         {currentData.map((item, index) => 
-          <Grid item xs={4} sm={4} md={4} lg={4} xl={4} key={index}>
+          <Grid item xs={1} sm={4} md={4} lg={4} xl={2} key={index}>
             <CardReview reviewData={item} user={user}/>
           </Grid>
         )}
