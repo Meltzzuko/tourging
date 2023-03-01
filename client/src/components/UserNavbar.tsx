@@ -15,11 +15,16 @@ import Box from '@mui/material/Box';
 import CryptoJS from 'crypto-js';
 import { Col, Row } from 'react-bootstrap';
 import '../UserNavbar.css'
+import { useMediaQuery } from '@mui/material';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { NavDropdown } from 'react-bootstrap';
 
 function UserNavbar() {
   const user = userData();
   const [popup, setPopup] = useState(false);
   const [file, setFile] = useState<File | null>(null);
+  const isMobile = useMediaQuery('(max-width:600px)');
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
@@ -109,27 +114,72 @@ function UserNavbar() {
             />
           </Navbar.Brand>
           <Nav className="justify-content-end">
-            <Nav.Link style={{marginRight: "10px"}} href="/home"><h5 style={{ fontSize: "0.9rem"}}>หน้าหลัก</h5></Nav.Link>
-            <Nav.Link style={{marginRight: "10px"}} href="/userstatus"><h5 style={{ fontSize: "0.9rem"}}>สถานะ</h5></Nav.Link>
-            {!user && (
+            { !isMobile && 
               <>
-                <Button href='/login' style={{marginRight: "10px", fontSize: "1rem"}} size="sm" variant="outline-success">Sign in</Button>
-                <Button href='/register' size="sm" variant="danger" style={{ fontSize: "1rem"}}>Sign up</Button>
+                <Nav.Link style={{marginRight: "10px"}} href="/home"><h5 style={{ fontSize: "0.9rem"}}>หน้าหลัก</h5></Nav.Link>
+              <Nav.Link style={{marginRight: "10px"}} href="/userstatus"><h5 style={{ fontSize: "0.9rem"}}>สถานะ</h5></Nav.Link>
+              {!user && (
+                <>
+                  <Button href='/login' style={{marginRight: "10px", fontSize: "1rem"}} size="sm" variant="outline-success">Sign in</Button>
+                  <Button href='/register' size="sm" variant="danger" style={{ fontSize: "1rem"}}>Sign up</Button>
+                </>
+              )}
+              {user && (
+                <div>
+                  <IconButton
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  color="inherit"
+                  sx={{ mr: 1 }}
+                  onClick={() => setPopup(true)}
+                >
+                    <Avatar src={user.avatar}/>
+                  </IconButton>
+                  <Button href='/logout' size="sm" variant="danger" >Logout</Button>
+                </div>
+              )}
               </>
-            )}
-            {user && (
-              <div>
-                <IconButton
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                color="inherit"
-                sx={{ mr: 1 }}
-                onClick={() => setPopup(true)}
-              >
-                  <Avatar src={user.avatar}/>
-                </IconButton>
-                <Dialog open={popup} onClose={() => setPopup(false)}>
+            }
+            { isMobile &&
+              <>
+                <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
+                <Navbar.Collapse id="responsive-navbar-nav"></Navbar.Collapse>
+                <Nav className="me-auto">
+          
+                  {!user && (
+                    <>
+                      <Nav.Link style={{marginRight: "10px"}} href="/home"><h5 style={{ fontSize: "0.9rem"}}>หน้าหลัก</h5></Nav.Link>
+                      <Nav.Link style={{marginRight: "10px"}} href="/userstatus" ><h5 style={{ fontSize: "0.9rem"}} >สถานะ</h5></Nav.Link>
+                      <Button href='/login' style={{marginRight: "10px", fontSize: "1rem"}} size="sm" variant="outline-success">Sign in</Button>
+                      <Button href='/register' size="sm" variant="danger" style={{ fontSize: "1rem"}}>Sign up</Button>
+                                        
+                    </>
+                    
+                  )}
+                  {user && (
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                      <IconButton
+                        aria-label="account of current user"
+                        aria-controls="menu-appbar"
+                        aria-haspopup="true"
+                        color="inherit"
+                        sx={{ mr: 1 }}
+                        onClick={() => setPopup(true)}
+                      >
+                      <Avatar sx={{ width: 32, height: 32, mr: 1 }} src={user.avatar}/>
+                      </IconButton>
+                      <NavDropdown title={<FontAwesomeIcon icon={faBars} />} align="end">
+                        <NavDropdown.Item style={{marginRight: "10px"}} href="/home"><h5 style={{ fontSize: "0.9rem"}}>หน้าหลัก</h5></NavDropdown.Item>
+                        <NavDropdown.Item style={{marginRight: "10px"}} href="/userstatus"><h5 style={{ fontSize: "0.9rem"}}>สถานะ</h5></NavDropdown.Item>
+                        <NavDropdown.Item href="/logout" style={{color:"red"}} >Logout</NavDropdown.Item>
+                      </NavDropdown>
+                    </div>
+                  )}
+                </Nav>
+              </>
+            }
+              <Dialog open={popup} onClose={() => setPopup(false)}>
                   <DialogTitle sx={{textAlign:"center", color:"black"}}>สวัสดี, {user.username}</DialogTitle>
                   <DialogContent>
                     <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
@@ -146,11 +196,7 @@ function UserNavbar() {
                     <Button variant='success' onClick={handleSaveClick}>Save</Button>
                     <Button variant='danger' onClick={() => setPopup(false)}>Cancel</Button>
                   </DialogActions>
-                </Dialog>
-                <Button href='/logout' size="sm" variant="danger" >Logout</Button>
-              </div>
-    
-            )}
+              </Dialog>
           </Nav>
         </Container>
       </Navbar>
