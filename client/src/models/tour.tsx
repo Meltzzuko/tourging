@@ -9,11 +9,7 @@ export default interface Tours{
         image: {
             data: {
                 attributes: {
-                    formats: {
-                        thumbnail: {
-                            url: string;
-                        }
-                    }
+                    url: string;
                 }
             }
         }

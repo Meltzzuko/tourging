@@ -45,7 +45,7 @@ const Detailpage = () => {
     }
     
     const data = tourdata.length > 0 ? tourdata[0].attributes : null;
-    const tourimg = `http://localhost:1337${data?.image.data.attributes.formats.thumbnail.url}`
+    const tourimg = `http://localhost:1337${data?.image.data.attributes.url}`
 
     const LinkToReview = () => {
         navigate(`/detail/${params.id}/review`);
