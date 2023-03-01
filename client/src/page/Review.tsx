@@ -17,6 +17,8 @@ import * as React from 'react';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import { Row, Col } from 'react-bootstrap';
+import { useMediaQuery } from '@mui/material';
+
 
 const ReviewPage = () => {
   const [reviews, setReviews] = useState<Review[]>([]);
@@ -24,6 +26,7 @@ const ReviewPage = () => {
   const [paymentData,setPaymentData] = useState<paymentStatus[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [reviewPerPage, setReviewPerPage] = useState(3);
+  const isMobile = useMediaQuery('(max-width:600px)');
 
   const user = userData();
 
@@ -59,6 +62,11 @@ const ReviewPage = () => {
       fetchData();
   },[params.id]);
 
+  useEffect(() => {
+    const review_responsive = isMobile ? 2 : 3;
+    setReviewPerPage(review_responsive);
+  }, [isMobile]);
+
   const lastReviewIndex = currentPage * reviewPerPage;
   const firstReviewIndex = lastReviewIndex - reviewPerPage;
   const reviewData = reviews.sort((a, b) => b.id - a.id)
@@ -77,9 +85,9 @@ const ReviewPage = () => {
           <Typography style={{ fontSize: 24, fontWeight: "bold", color: "black", textAlignLast: "center"}}>Review & Comment</Typography>
         </Card>
       </Box>
-      <Grid container spacing={{ xs: 1, md: 0 }} columns={{ xs: 2, sm: 8, md: 12, lg: 15, xl: 10}} >
+      <Grid container spacing={{ xs: 2, md: 0 }} columns={{ xs: 2, sm: 8, md: 12, lg: 15, xl: 10}} className="review-container">
         {currentData.map((item, index) => 
-          <Grid item xs={1} sm={4} md={4} lg={4} xl={2} key={index}>
+          <Grid item xs={4} sm={4} md={4} lg={4} xl={4} key={index}>
             <CardReview reviewData={item} user={user}/>
           </Grid>
         )}

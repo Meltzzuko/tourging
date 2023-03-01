@@ -9,6 +9,8 @@ import Repo from '../repositories';
 import Postreview from '../models/postreview';
 import { format } from 'date-fns';
 import Tours from '../models/tour';
+import './CardComment.css';
+
 
 interface Props {
     tourdata : Tours
@@ -56,18 +58,18 @@ function CardComment(props: Props) {
 
     return(
         <Box sx={{ display: 'flex', justifyContent: 'center'}}>
-            <Card variant="outlined" sx={{ width: 1100,backgroundColor: 'white'}}>
-                <Container>
-                    <form onSubmit={handleSubmit}>
-                        <Row>
-                            <Col xs={3} md={4}>
-                            <Typography style={{ fontSize: 22, fontWeight: "bold", color: "black", textAlignLast: "left",marginLeft:"20px",marginBottom:"10px"}}>โปรดให้คะแนนเกี่ยวกับประสบการณ์ที่คุณได้รับ</Typography>
+        <Card variant="outlined" sx={{ width: "90%", maxWidth: 1100, backgroundColor: 'white'}}>
+            <Container>
+                <form onSubmit={handleSubmit}>
+                    <Row sx={{ flexDirection: { xs: "column", md: "row" } }}>
+                        <Col xs={12} md={4} sx={{ order: { xs: 2, md: 1 } }}>
+                            <Typography sx={{ fontSize: { xs: 18, md: 22 }, fontWeight: "bold", color: "black", textAlignLast: "left", marginLeft: { xs: "20px", md: "0px" }, marginBottom:"10px"}}>โปรดให้คะแนนเกี่ยวกับประสบการณ์ที่คุณได้รับ</Typography>
                             <Row>
                                 <Col xs="auto">
-                                    <StarIcon style={{color:"yellow", marginLeft: '10px',marginTop:'10px'}}/>
+                                    <StarIcon style={{color:"yellow", marginLeft: '5px',marginTop:'10px'}}/>
                                 </Col>
                                 <Col>
-                                <Typography style={{ fontSize: 22, fontWeight: "bold", color: "black", textAlignLast: "left"}}>
+                                    <Typography sx={{ fontSize: { xs: 18, md: 22 }, fontWeight: "bold", color: "black", textAlignLast: "left"}}>
                                     คะแนนเต็ม 10 :  
                                     <input 
                                         type="number" 
@@ -89,11 +91,11 @@ function CardComment(props: Props) {
                                     </Typography> 
                                 </Col>
                             </Row>
-                            </Col>
-                            <Col xs={2} md={6}>
+                        </Col>
+                        <Col xs={12} md={6} sx={{ order: { xs: 1, md: 2 } }}>
                             <TextField
                                 id="filled-multiline-static"
-                                sx={{ width: 550 }}
+                                sx={{ width: "100%" }}
                                 multiline
                                 rows={4}
                                 label="เพิ่มความคิดเห็นของคุณ"
@@ -102,17 +104,17 @@ function CardComment(props: Props) {
                                 onChange={handleCommentText}
                                 required
                                 />
-                            </Col>
-                                <Col xs={3} md={2} sx={{ display: 'flex', justifyContent: 'center' }}>
-                                    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                                        <Button type="submit" variant="contained" color="primary" size="large" sx={{marginTop:"45px"}}>โพสต์</Button>
-                                    </Box>
-                                </Col>
-                        </Row>
-                    </form>
-                </Container>
-            </Card>
-        </Box>
+                        </Col>
+                        <Col xs={12} md={2} sx={{ order: { xs: 3, md: 3 }, display: 'flex', justifyContent: 'center' }}>
+                            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                                <Button type="submit" variant="contained" color="primary" size="large" sx={{marginTop: { xs: "15px", md: "45px" }}} >โพสต์</Button>
+                            </Box>
+                        </Col>
+                    </Row>
+                </form>
+            </Container>
+        </Card>
+    </Box>    
     );
 }
 
