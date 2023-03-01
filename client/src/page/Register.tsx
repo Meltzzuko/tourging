@@ -47,18 +47,19 @@ export default function RegisterPage() {
             navigate('/login', { replace: true })
         }
       }catch(err) {
-        toast.error("Invalid email or password", {
+        toast.error("Username or Email has already exist.", {
           hideProgressBar: true
         })
       }}
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = event.target;
-        setUser({
+      const { name, value } = event.target;
+      const trimmedValue = value.trim();
+      setUser({
         ...user,
-          [name]: value,
-        });
-      };
+        [name]: trimmedValue,
+      });
+    };
 
     useEffect(() => {
       const data = userData();
