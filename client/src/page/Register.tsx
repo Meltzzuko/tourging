@@ -100,7 +100,7 @@ export default function RegisterPage() {
                 <FigureImage width={300} height={300} alt="171x180" src="logo.png" />
                 <Box height={20} />
                 <Typography component="h1" variant="h5">
-                    สมัครสมาชิก
+                    Register
                 </Typography>
             </Box>
             <Box component="form" noValidate onSubmit={handleSignup} sx={{ mt: 1 }}>
