@@ -11,6 +11,8 @@ import { ProtectRoute , ScrollToTop } from './helper'
 import GenrePage from './page/Genre'
 import Detailpage from './page/Detail'
 import ReviewPage from './page/Review'
+import ForgotPasswordPage from './page/ForgotPassword'
+import ResetPasswordPage from './page/ResetPassword'
 
 function App() {
   return (
@@ -27,6 +29,8 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/userstatus" element={<ProtectRoute><UserStatusPage /></ProtectRoute>} />
         <Route path="/logout" element={<LogoutPage />} />
+        <Route path="/forgot_password" element={<ForgotPasswordPage/>}/>
+        <Route path="/reset_password" element={<ResetPasswordPage/>}/>
       </Routes>
       <ToastContainer/>
     </BrowserRouter>
