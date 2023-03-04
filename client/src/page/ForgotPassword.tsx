@@ -8,11 +8,11 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import FigureImage from 'react-bootstrap/FigureImage'
-import { useState, useEffect } from 'react';
+import { useCallback,useState, useEffect,} from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify'
-import { useNavigate } from 'react-router-dom';
-import { storeUser, userData } from '../helper';
+import { useNavigate,} from 'react-router-dom';
+import {  userData } from '../helper';
 
 
 function Copyright(props: any) {
@@ -30,41 +30,43 @@ function Copyright(props: any) {
 
 const theme = createTheme();
 
-const initialUser = { identifier: '', password: ''};
+const initialUser = { email: ''};
 
-export default function SignInSide() {
+export default function ForgotPasswordPage() {
     const [user, setUser] = useState(initialUser)
+    const [disabled, setDisabled] = useState(false);
+    const [countdown, setCountdown] = useState(60);
     const navigate = useNavigate();
 
-    const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
-      event.preventDefault();
-      console.log(user);
-      const url = "http://localhost:1337/api/auth/local"
-      try {
-        if (user.identifier && user.password) {
-          const {data} = await axios.post(url, user)
-          console.log(data)
-          if (data.jwt) {
-            storeUser(data)
-            toast.success('Login successful', {
-              hideProgressBar: true
-            })
-            setUser(initialUser)
-            navigate('/')
+    const handleSendMail = useCallback(async () => {
+        const url = "http://localhost:1337/api/auth/forgot-password";
+        try {
+          if (user.email) {
+            const res = await axios.post(url, user);
+            if (res.data.ok) {
+              toast.success("Link for reset password has been send to your email", {
+                hideProgressBar: true,
+              });
+              setUser(initialUser);
+            }
           }
-    }}catch(err) {
-      toast.error("Invalid email or password", {
-        hideProgressBar: true
-      })
-    }}
+        } catch (err) {
+          toast.error("Something wrong", {
+            hideProgressBar: true,
+          });
+        }
+      }, [user]);
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      const { name, value } = event.target;
-      setUser({
-      ...user,
-        [name]: value,
-      });
-    };
+    const handleChange = useCallback(
+        (event: React.ChangeEvent<HTMLInputElement>) => {
+          const { name, value } = event.target;
+          setUser({
+            ...user,
+            [name]: value,
+          });
+        },
+        [user]
+      );
 
     useEffect(() => {
       const data = userData();
@@ -72,6 +74,24 @@ export default function SignInSide() {
         navigate('/')
       }
     });
+  
+    useEffect(() => {
+      let timer: NodeJS.Timeout;
+      if (disabled && countdown > 0) {
+        timer = setTimeout(() => {
+          setCountdown(countdown - 1);
+        }, 1000);
+      } else if (disabled && countdown === 0) {
+        setDisabled(false);
+        setCountdown(60);
+      }
+      return () => clearTimeout(timer);
+    }, [disabled, countdown]);
+  
+    const handleClick = useCallback(() => {
+        setDisabled(true);
+        handleSendMail();
+      }, [handleSendMail]);
 
 
   return (
@@ -106,53 +126,41 @@ export default function SignInSide() {
                 <FigureImage width={300} height={300} alt="171x180" src="logo.png" />
                 <Box height={20} />
                 <Typography component="h1" variant="h5">
-                    เข้าสู่ระบบ
+                    Forgot your password?
                 </Typography>
             </Box>
-            <Box component="form" noValidate onSubmit={handleLogin} sx={{ mt: 1 }}>
+            <Box component="form" noValidate onSubmit={handleSendMail} sx={{ mt: 1 }}>
                 <TextField
                     margin="normal"
                     required
                     fullWidth
-                    id="identifier"
+                    id="email"
                     label="Email Address"
-                    name="identifier"
+                    name="email"
                     autoComplete="email"
                     onChange={handleChange}
                     autoFocus
-                />
-                <TextField
-                    margin="normal"
-                    required
-                    fullWidth
-                    name="password"
-                    label="Password"
-                    type="password"
-                    id="password"
-                    autoComplete="current-password"
-                    onChange={handleChange}
                 />
                 <Button
                     type="submit"
                     fullWidth
                     variant="contained"
                     sx={{ mt: 3, mb: 2 }}
-                >
-                    เข้าสู่ระบบ
+                    disabled={disabled}
+                    onClick={handleClick}
+                    >
+                    {disabled ? `Resend in ${countdown}s` : "Send Email for reset password"}
                 </Button>
-              <Grid container>
+            <Grid container>
                 <Grid item xs>
-                  <Link href="forgot_password" variant="body2">
-                    ลืมรหัสผ่าน?
-                  </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="register" variant="body2">
+                <Link href="register" variant="body2">
                     {"สมัครสมาชิก"}
-                  </Link>
+                </Link>
                 </Grid>
-              </Grid>
-              <Copyright sx={{ mt: 5 }} />
+            </Grid>
+            <Copyright sx={{ mt: 5 }} />
             </Box>
           </Box>
         </Grid>
