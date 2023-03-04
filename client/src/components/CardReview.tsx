@@ -9,7 +9,6 @@ import { DeleteForever, Close } from '@mui/icons-material';
 import Repo from '../repositories'
 import { Dialog, DialogActions, DialogContent, DialogTitle, IconButton} from "@mui/material"
 import { useState } from "react";
-import FigureImage from 'react-bootstrap/esm/FigureImage';
 import Button from '@mui/material/Button';
 
 interface Props {
@@ -19,6 +18,7 @@ interface Props {
         jwt: string
         avatar : string
     }
+    onDeleteReview : () => void;
 }
 
 function CardReview(props: Props) {
@@ -28,8 +28,10 @@ function CardReview(props: Props) {
     const user = props.user
 
     const handleDelete = async () => {
+        setPopup(false)
         await Repo.Reviewdata.deleteReview(props.reviewData.id,user.jwt)
-        window.location.reload()
+        props.onDeleteReview()
+                
     }
 
     return (
