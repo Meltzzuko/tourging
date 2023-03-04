@@ -38,12 +38,10 @@ export default function RegisterPage() {
 
     const handleSignup = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        console.log(user);
         const url = "http://localhost:1337/api/auth/local/register";
         try {
           if (user.email && user.password && user.username) {
             const res = await axios.post(url, user)
-            console.log(res.data)
             navigate('/login', { replace: true })
         }
       }catch(err) {
@@ -112,6 +110,10 @@ export default function RegisterPage() {
                     label="Username"
                     name="username"
                     autoComplete="username"
+                    inputProps={{
+                      maxLength: 15,
+                      pattern: "^[a-zA-Z0-9]+([.][a-zA-Z0-9]+)*$",
+                    }}
                     onChange={handleChange}
                     autoFocus
                 />
@@ -123,6 +125,9 @@ export default function RegisterPage() {
                     label="Email Address"
                     name="email"
                     autoComplete="email"
+                    inputProps={{
+                      pattern: "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}",
+                    }}
                     onChange={handleChange}
                     autoFocus
                 />
@@ -145,6 +150,18 @@ export default function RegisterPage() {
                 >
                     สมัครสมาชิก
                 </Button>
+                <Grid container>
+                <Grid item xs>
+                  <Link href="forgot_password" variant="body2">
+                    ลืมรหัสผ่าน?
+                  </Link>
+                </Grid>
+                <Grid item>
+                  <Link href="login" variant="body2">
+                    เข้าสู่ระบบ
+                  </Link>
+                </Grid>
+              </Grid>
               <Copyright sx={{ mt: 5 }} />
             </Box>
           </Box>

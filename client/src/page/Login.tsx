@@ -38,12 +38,10 @@ export default function SignInSide() {
 
     const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
-      console.log(user);
       const url = "http://localhost:1337/api/auth/local"
       try {
         if (user.identifier && user.password) {
           const {data} = await axios.post(url, user)
-          console.log(data)
           if (data.jwt) {
             storeUser(data)
             toast.success('Login successful', {

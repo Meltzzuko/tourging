@@ -57,7 +57,6 @@ export default function ResetPasswordPage() {
           }
       
           const {data} = await axios.post(url, user)
-          console.log(data)
           if (data) {
             toast.success('Password has been reset', {
               hideProgressBar: true
