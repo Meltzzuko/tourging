@@ -11,8 +11,8 @@ import FigureImage from 'react-bootstrap/FigureImage'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify'
-import { useNavigate } from 'react-router-dom';
-import { userData } from '../helper';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { storeUser, userData } from '../helper';
 
 
 function Copyright(props: any) {
@@ -30,57 +30,75 @@ function Copyright(props: any) {
 
 const theme = createTheme();
 
-const initialUser = { email: '', password: '', username: '' };
 
-export default function RegisterPage() {
+
+
+const initialUser = {code:'', password: '',passwordConfirmation:''};
+
+export default function ResetPasswordPage() {
     const [user, setUser] = useState(initialUser)
-    const [checkPassword, setCheckPassword] = useState('')
-    const [checkEmail, setCheckEmail] = useState('')
+    const [passCheck, setPassCheck] = useState('')
+    const [passConfirm, setPassConfirm] = useState('')
+    const [resetdisabled, setResetDisabled] = useState(true)
+    const location = useLocation()
+    const search = new URLSearchParams(location.search)
+    const code = search.get('code') as string
     const navigate = useNavigate();
 
-    const handleSignup = async (event: React.FormEvent<HTMLFormElement>) => {
+    const handleResetPassword = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const url = "http://localhost:1337/api/auth/local/register";
+        const url = "http://localhost:1337/api/auth/reset-password"
         try {
-          if (user.email && user.password && user.username) {
-            await axios.post(url, user)
-            toast.success('Registion Successfully', {
+          if (!user.password || !user.passwordConfirmation) {
+            toast.error("Please fill in all the required fields", {
+              hideProgressBar: true
+            });
+            return;
+          }
+      
+          const {data} = await axios.post(url, user)
+          if (data) {
+            toast.success('Password has been reset', {
               hideProgressBar: true
             })
-            navigate('/login', { replace: true })
+            setUser(initialUser)
+            navigate('/login')
+          }
+        } catch (err) {
+          toast.error('An error occurred while resetting the password', {
+            hideProgressBar: true
+          })
         }
-      }catch(err) {
-        toast.error("Username or Email has already exist.", {
-          hideProgressBar: true
-        })
-      }}
-
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      const { name, value } = event.target;
-      const trimmedValue = value.trim();
-      setUser({
-        ...user,
-        [name]: trimmedValue,
-      });
-      if(name === 'email') {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if(!emailRegex.test(trimmedValue)) {
-          setCheckEmail('Email is not valid')
-        }else {
-          setCheckEmail('')
-        }
-      }  
-      if(name === 'password') {
-        const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-        if(!passRegex.test(trimmedValue)) {
-          setCheckPassword('Password must contain at least 8 characters, including at least one uppercase letter, one lowercase, one special character, and one number')
-        } else {
-          setCheckPassword('')
-        }
-      }
-  
     };
-
+      
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = event.target;
+        setUser({
+          ...user,
+          [name]: value,
+          code:code
+        });
+      
+        if (name === 'password') {
+          const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+          if (!regex.test(value)) {
+            setPassCheck('Password must contain at least 8 characters, including at least one uppercase letter, one lowercase, one special character, and one number');
+            return;
+          } else {
+            setPassCheck('');
+          }
+        }
+        
+        if (name === 'passwordConfirmation') {
+          if (value !== user.password) {
+            setPassConfirm("Password and Confirm Password doesn't match");
+          } else {
+            setPassConfirm('');
+            setResetDisabled(false);
+          }
+        }
+    };
+      
 
     useEffect(() => {
       const data = userData();
@@ -88,6 +106,7 @@ export default function RegisterPage() {
         navigate('/')
       }
     });
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -121,66 +140,53 @@ export default function RegisterPage() {
                 <FigureImage width={300} height={300} alt="171x180" src="logo.png" />
                 <Box height={20} />
                 <Typography component="h1" variant="h5">
-                    Register
+                    Reset Your Password
                 </Typography>
             </Box>
-            <Box component="form" noValidate onSubmit={handleSignup} sx={{ mt: 1 }}>
+            <Box component="form" noValidate onSubmit={handleResetPassword} sx={{ mt: 1 }}>
                 <TextField
                     margin="normal"
                     required
                     fullWidth
-                    id="username"
-                    label="Username"
-                    name="username"
-                    autoComplete="username"
-                    inputProps={{
-                      maxLength: 15,
-                      pattern: "^[a-zA-Z0-9]+([.][a-zA-Z0-9]+)*$",
-                    }}
-                    onChange={handleChange}
-                    autoFocus
-                />
-                <TextField
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="email"
-                    label="Email Address"
-                    name="email"
-                    autoComplete="email"
-                    onChange={handleChange}
-                    autoFocus
-                />
-                <Typography style={{fontSize:13, color:'red'}}>{checkEmail}</Typography>
-                <TextField
-                    margin="normal"
-                    required
-                    fullWidth
-                    name="password"
-                    label="Password"
-                    type="password"
                     id="password"
-                    autoComplete="current-password"
+                    label="New Password"
+                    type="password"
+                    name="password"
+                    autoComplete="password"
+                    onChange={handleChange}
+                    autoFocus
+                />
+                <Typography style={{fontSize:13, color:'red'}}>{passCheck}</Typography>
+                <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="passwordConfirmation"
+                    label="New password confirmation"
+                    type="password"
+                    id="passwordConfirmation"
+                    autoComplete="password"
                     onChange={handleChange}
                 />
-                <Typography style={{fontSize:13, color:'red'}}>{checkPassword}</Typography>
+                <Typography style={{fontSize:13, color:'red'}}>{passConfirm}</Typography>
                 <Button
                     type="submit"
                     fullWidth
                     variant="contained"
                     sx={{ mt: 3, mb: 2 }}
+                    disabled={resetdisabled}
                 >
-                    สมัครสมาชิก
+                    Reset Password
                 </Button>
-                <Grid container>
+              <Grid container>
                 <Grid item xs>
-                  <Link href="forgot_password" variant="body2">
-                    ลืมรหัสผ่าน?
+                  <Link href="login" variant="body2">
+                    {'เข้าสู่ระบบ'}
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="login" variant="body2">
-                    เข้าสู่ระบบ
+                  <Link href="register" variant="body2">
+                    {"สมัครสมาชิก"}
                   </Link>
                 </Grid>
               </Grid>

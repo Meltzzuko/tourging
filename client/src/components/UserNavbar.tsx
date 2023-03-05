@@ -48,7 +48,7 @@ function UserNavbar() {
         info = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
     }
 
-    info.avatar = `http://localhost:1337${data.image.formats.thumbnail.url}`;
+    info.avatar = `http://localhost:1337${data.image.url}`;
 
     const updatedEncryptedData = CryptoJS.AES.encrypt(JSON.stringify(info), secretKey).toString();
 

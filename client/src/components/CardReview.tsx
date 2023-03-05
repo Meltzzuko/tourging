@@ -9,8 +9,8 @@ import { DeleteForever, Close } from '@mui/icons-material';
 import Repo from '../repositories'
 import { Dialog, DialogActions, DialogContent, DialogTitle, IconButton} from "@mui/material"
 import { useState } from "react";
-import FigureImage from 'react-bootstrap/esm/FigureImage';
 import Button from '@mui/material/Button';
+import './CardReview.css'
 
 interface Props {
     reviewData: Review
@@ -19,6 +19,7 @@ interface Props {
         jwt: string
         avatar : string
     }
+    onDeleteReview : () => void;
 }
 
 function CardReview(props: Props) {
@@ -28,8 +29,10 @@ function CardReview(props: Props) {
     const user = props.user
 
     const handleDelete = async () => {
+        setPopup(false)
         await Repo.Reviewdata.deleteReview(props.reviewData.id,user.jwt)
-        window.location.reload()
+        props.onDeleteReview()
+                
     }
 
     return (
@@ -58,48 +61,61 @@ function CardReview(props: Props) {
                 </Card>
             </Row>
 
-            <Dialog PaperProps={{ sx: { width: "50%", maxHeight: "100%" , borderRadius: "30px"} }} open={popup} onClose={() => setPopup(false)}>
-                <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Dialog
+                PaperProps={{ className: "dialog-paper" }}
+                open={popup}
+                onClose={() => setPopup(false)}
+            >
+            <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Typography style={{ fontSize: 20, fontWeight: "bold", color: "black"}}>ยืนยันลบ Review</Typography>
                     <IconButton onClick={() => setPopup(false)}>
                         <Close />
                     </IconButton>
                 </DialogTitle>
-                <DialogContent dividers>
-                    <Typography style={{ fontSize: 15, fontWeight: "bold", color: "black"}}>
-                        คุณกำลังจะยกเลิก Review ซึ่งมีรายละเอียดดังนี้
-                    </Typography>
-                    <Container style={{ marginTop : 20}}>
-                        <Row>
-                            <Card  variant="outlined" sx={{ width: 270 , marginLeft: 15, backgroundColor:'white', border:3 }} size='lg'>
-                                <Row xs="2" style={{marginTop:"5px"}}>
-                                    <Col xs='3'>
-                                        <Avatar src={avatar_img}/>
-                                        <StarIcon style={{color:"yellow",marginTop:"6px", marginLeft:'15'}}/>
-                                    </Col>  
-                                    <Col xs='6'>
-                                        <Typography style={{fontWeight: "bold", color: "black"}}>{reviewData?.author}</Typography>
-                                        <Typography>{reviewData?.date}</Typography>
-                                        <Typography style={{marginTop:"1px"}}>{reviewData?.score}/10 คะแนน</Typography>
-                                    </Col>
-                                </Row>
-                                <Row style={{marginBottom:"15px"}}>
-                                    <Typography>{reviewData?.comment}</Typography>
-                                </Row>
-                            </Card>
-                        </Row>
-                    </Container>
-                </DialogContent>
-                <DialogActions>
-                    <Button
-                        variant = "contained"
-                        color="success"
-                        onClick={handleDelete}
-                        style={{marginRight: 20}}
-                    >
-                    ยืนยัน
-                    </Button>
-                </DialogActions>
+            <DialogContent dividers>
+                <Typography className="dialog-content-text">
+                คุณกำลังจะยกเลิก Review ซึ่งมีรายละเอียดดังนี้
+                </Typography>
+                <Container style={{ marginTop: 20 }}>
+                <Row>
+                    <Card className="dialog-card" variant="outlined" size="lg">
+                    <Row xs="2" style={{ marginTop: "5px" }}>
+                        <Col xs="3">
+                        <Avatar
+                            className="dialog-avatar"
+                            src={avatar_img}
+                        />
+                        <StarIcon style={{color:"yellow"}}/>
+                        </Col>
+                        <Col xs="6">
+                        <Typography className="dialog-author">
+                            {reviewData?.author}
+                        </Typography>
+                        <Typography className="dialog-date">
+                            {reviewData?.date}
+                        </Typography>
+                        <Typography style={{ marginTop: "1px" }}>
+                            {reviewData?.score}/10 คะแนน
+                        </Typography>
+                        </Col>
+                    </Row>
+                    <Row className="dialog-comment">
+                        <Typography>{reviewData?.comment}</Typography>
+                    </Row>
+                    </Card>
+                </Row>
+                </Container>
+            </DialogContent>
+            <DialogActions>
+                <Button
+                variant="contained"
+                color="success"
+                onClick={handleDelete}
+                style={{ marginRight: 20 }}
+                >
+                ยืนยัน
+                </Button>
+            </DialogActions>
             </Dialog>
         </Box>
     )

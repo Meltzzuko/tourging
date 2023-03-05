@@ -1,0 +1,56 @@
+@media screen and (max-width: 768px){
+    .dialog-paper {
+        width: 90%;
+        max-width: 500px;
+        max-height: 100%;
+        border-radius: 30px;
+      }
+      
+      .dialog-title {
+        display: flex;
+        justify-content: space-between;
+      }
+      
+      .dialog-title-text {
+        font-size: 20px;
+        font-weight: bold;
+        color: black;
+      }
+      
+      .dialog-content-text {
+        font-size: 15px;
+        font-weight: bold;
+        color: black;
+      }
+      
+      .dialog-card {
+        width: 270px;
+        margin-left: 15px;
+        background-color: white;
+        border: 3px solid;
+      }
+      
+      .dialog-avatar {
+        width: 50px;
+        height: 50px;
+        margin-right: 10px;
+      }
+      
+      .dialog-star {
+        margin-top: 6px;
+        margin-left: 15px;
+      }
+      
+      .dialog-author {
+        font-weight: bold;
+        color: black;
+      }
+      
+      .dialog-date {
+        margin-top: 1px;
+      }
+      
+      .dialog-comment {
+        margin-bottom: 15px;
+      }    
+}

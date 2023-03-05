@@ -19,6 +19,8 @@ interface Props {
         jwt : string
         avatar : string
     }
+    onCreatedReview : () => void;
+
 }
 
 function CardComment(props: Props) {
@@ -38,7 +40,9 @@ function CardComment(props: Props) {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         await Repo.Reviewdata.createReview(newReview,user.jwt)
-        window.location.reload()
+        setScoreReview(1);
+        setCommentText("");
+        props.onCreatedReview();
     }
 
     const today = new Date();

@@ -54,6 +54,10 @@ const ReviewPage = () => {
     }
   }
 
+  const handleReFetch = async () => {
+    await fetchData();
+  }
+
   const IsPaid = paymentData.filter(
     payment => payment.attributes.status === true && payment.attributes.tour_name === tourdata[0].attributes.Title
   );
@@ -88,7 +92,7 @@ const ReviewPage = () => {
       <Grid container spacing={{ xs: 2, md: 0 }} columns={{ xs: 2, sm: 8, md: 12, lg: 15, xl: 10}} className="review-container">
         {currentData.map((item, index) => 
           <Grid item xs={4} sm={4} md={4} lg={4} xl={4} key={index}>
-            <CardReview reviewData={item} user={user}/>
+            <CardReview reviewData={item} user={user} onDeleteReview={handleReFetch}/>
           </Grid>
         )}
       </Grid>
@@ -113,7 +117,7 @@ const ReviewPage = () => {
       </Container>
         {Array.isArray(IsPaid) && IsPaid.length > 0 &&
           <AppBar position="sticky" color='transparent' sx={{top: 'auto',bottom: 0}}>
-            <CardComment tourdata={tourdata[0]} user={user} />
+            <CardComment tourdata={tourdata[0]} user={user} onCreatedReview={handleReFetch} />
           </AppBar>
         }
     </React.Fragment>
