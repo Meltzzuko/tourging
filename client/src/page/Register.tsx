@@ -34,6 +34,8 @@ const initialUser = { email: '', password: '', username: '' };
 
 export default function RegisterPage() {
     const [user, setUser] = useState(initialUser)
+    const [checkPassword, setCheckPassword] = useState('')
+    const [checkEmail, setCheckEmail] = useState('')
     const navigate = useNavigate();
 
     const handleSignup = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -41,7 +43,10 @@ export default function RegisterPage() {
         const url = "http://localhost:1337/api/auth/local/register";
         try {
           if (user.email && user.password && user.username) {
-            const res = await axios.post(url, user)
+            await axios.post(url, user)
+            toast.success('Registion Successfully', {
+              hideProgressBar: true
+            })
             navigate('/login', { replace: true })
         }
       }catch(err) {
@@ -57,7 +62,25 @@ export default function RegisterPage() {
         ...user,
         [name]: trimmedValue,
       });
+      if(name === 'email') {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if(!emailRegex.test(trimmedValue)) {
+          setCheckEmail('Email is not valid')
+        }else {
+          setCheckEmail('')
+        }
+      }  
+      if(name === 'password') {
+        const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        if(!passRegex.test(trimmedValue)) {
+          setCheckPassword('Password must contain at least 8 characters, including at least one uppercase letter, one lowercase, one special character, and one number')
+        } else {
+          setCheckPassword('')
+        }
+      }
+  
     };
+
 
     useEffect(() => {
       const data = userData();
@@ -125,12 +148,10 @@ export default function RegisterPage() {
                     label="Email Address"
                     name="email"
                     autoComplete="email"
-                    inputProps={{
-                      pattern: "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}",
-                    }}
                     onChange={handleChange}
                     autoFocus
                 />
+                <Typography style={{fontSize:13, color:'red'}}>{checkEmail}</Typography>
                 <TextField
                     margin="normal"
                     required
@@ -142,6 +163,7 @@ export default function RegisterPage() {
                     autoComplete="current-password"
                     onChange={handleChange}
                 />
+                <Typography style={{fontSize:13, color:'red'}}>{checkPassword}</Typography>
                 <Button
                     type="submit"
                     fullWidth

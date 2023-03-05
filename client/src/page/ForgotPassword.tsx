@@ -153,6 +153,9 @@ export default function ForgotPasswordPage() {
                 </Button>
             <Grid container>
                 <Grid item xs>
+                <Link href="login" variant="body2">
+                    {"เข้าสู่ระบบ"}
+                </Link>
                 </Grid>
                 <Grid item>
                 <Link href="register" variant="body2">
