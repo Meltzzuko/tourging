@@ -41,7 +41,7 @@ function UserNavbar() {
 
     const data = await userInfo.json();
     const encryptedData = localStorage.getItem('user');
-    const secretKey = ''
+    const secretKey = (import.meta.env.VITE_SECRET_KEY)
     let info;
     if (encryptedData) {
         const bytes = CryptoJS.AES.decrypt(encryptedData, secretKey);
