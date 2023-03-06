@@ -31,16 +31,22 @@ const UserStatusPage = () => {
         }
     }
 
+    const handleReFetch = async () => {
+        await fetchData()
+    }
+
+
     useEffect(() => {
         fetchData();
     },[]);
+
+    
 
     const lastStatusIndex = currentPage * statusPerPage;
     const firstStatusIndex = lastStatusIndex - statusPerPage;
     const paymentData = paymentStatus.sort((a, b) => b.id - a.id)
     const currentData = paymentData.slice(firstStatusIndex, lastStatusIndex);
     const paginateValue = Math.ceil(paymentStatus.length/statusPerPage); 
-
     const handlePaginationChange = (event: React.ChangeEvent<unknown>, value: number) => {
         setCurrentPage(value);
       };
@@ -70,7 +76,7 @@ const UserStatusPage = () => {
                     <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" height="100%" bgcolor="white" sx={{borderRadius: 8}}>
                         {currentData.map((item) => (
                             <div key={item.id}>
-                                <CardTourstatus payment_status={item} />
+                                <CardTourstatus payment_status={item} onDeleted={handleReFetch} onConfirmPayment={handleReFetch} />
                                 <hr style={{  height: "5px", width: "100%", marginLeft: "5px", borderWidth: "5px",borderRadius:"5px",color:"#002B5C" }} />
                             </div>
                         ))}

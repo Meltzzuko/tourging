@@ -5,6 +5,7 @@ export default interface paymentStatus {
         tour_type: string,
         user : string,
         status: boolean,
+        createdAt: string,
         paylater : boolean | null,
         quantity: number,
         tour_start : string,

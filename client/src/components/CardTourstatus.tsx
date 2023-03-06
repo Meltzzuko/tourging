@@ -12,24 +12,30 @@ import { Close } from '@mui/icons-material';
 import Tours from '../models/tour';
 import Tourseat from '../models/tourseat';
 import { userData } from '../helper';
-import payment, { updatePayment } from '../models/payment';
+import { updatePayment } from '../models/payment';
 import '../UserStatus.css'
 
 
 interface Props {
     payment_status: paymentStatus
+    onDeleted: () => void;
+    onConfirmPayment: () => void;
 }
 
 function CardTourstatus(props: Props) {
     const [popup, setPopup] = useState(false);
     const [paymentPopup, setPaymentPopup] = useState(false);
     const [tourdata,setTourData] = useState<Tours[]>([])
+    const [autoCancel, setAutoCancel] = useState(false);
     const [showCancelButton, setShowCancelButton] = useState(false);
     const user = userData();
 
     const paymentData = props.payment_status.attributes
     const title = paymentData.tour_name
     const tourimg = paymentData.image_url
+
+    const autoCancelDateString = paymentData.createdAt
+    const autoCancelDate = new Date(autoCancelDateString)
 
     const bookingDateString = paymentData.tour_start
     const bookingDate = new Date(bookingDateString);
@@ -55,6 +61,13 @@ function CardTourstatus(props: Props) {
         }
     }
 
+    const ConfirmCancle = async () => {
+        await Repo.Paymentdata.deletePayment(props.payment_status.id,user.jwt)
+        await Repo.Tourdata.updateTour(tourdata[0].id,updateSeat)
+        setPopup(false)
+        props.onDeleted()
+    };
+
     useEffect(() => {
         fetchData()
     }, [])
@@ -64,14 +77,17 @@ function CardTourstatus(props: Props) {
         const timeDiff = bookingDate.getTime() - currentDate.getTime()         
         const daysDiff = timeDiff / (1000 * 3600 * 24);
         setShowCancelButton(daysDiff > 2);
-      }, [bookingDate]);
 
-    const ConfirmCancle = async () => {
-        await Repo.Paymentdata.deletePayment(props.payment_status.id,user.jwt)
-        await Repo.Tourdata.updateTour(tourdata[0].id,updateSeat)
-        setPopup(false)
-        window.location.reload()
-    };
+        const timeDiff_2 = currentDate.getTime() - autoCancelDate.getTime()
+        const daysDiff_2 = timeDiff_2 / (1000 * 3600 * 24)
+        setAutoCancel(daysDiff_2 > 1);     
+      }, [bookingDate]);
+    
+    useEffect(() => {
+        if (autoCancel && !paymentData.status){
+            ConfirmCancle()
+        }
+    })
 
     const updatePaylater : updatePayment = {
         data : {
@@ -85,7 +101,7 @@ function CardTourstatus(props: Props) {
         await Repo.Tourdata.updateTour(tourdata[0].id,updateSeat)
 
         setPaymentPopup(false)
-        window.location.reload()
+        props.onConfirmPayment()
     }
 
     return(
@@ -158,6 +174,9 @@ function CardTourstatus(props: Props) {
                                     <div style={{textAlign: 'center'}}>
                                         <Typography style={{ fontSize: 20,  textAlign: "left", fontWeight: "bold", color: "red"}}>
                                         กำลังยืนยันการชำระเงิน
+                                        </Typography>
+                                        <Typography style={{ fontSize: 13,  textAlign: "left", fontWeight: "bold", color: "blue"}}>
+                                        (ยกเลิกการจองอัตโนมัติภายใน 48 ชม. หากไม่มีการยืนยัน)
                                         </Typography>
 
                                         <Button 
@@ -251,10 +270,17 @@ function CardTourstatus(props: Props) {
                     >
                     ชำระเงินเสร็จสิ้น
                     </Button>
+                    <Button
+                        variant = "contained"
+                        color="error"
+                        onClick={ConfirmCancle}
+                        style={{marginRight: 20}}
+                    >
+                    ยกเลิกการจอง
+                    </Button>
                 </DialogActions>
             </Dialog>
         </>
-
     );
 }
 
