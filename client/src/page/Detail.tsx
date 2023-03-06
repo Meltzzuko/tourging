@@ -120,11 +120,11 @@ const Detailpage = () => {
                         </Row>
 
                         {data?.category?.data.attributes.type === "Many-day" &&
-                            <Row 
+                            <Row className="justify-content-md-center"
                                 xs="auto" 
-                                style={{ marginLeft: '100px'}}
+                                style={{ marginLeft: ''}}
                             >
-                                <Col>
+                                <Col style={{marginLeft:'20px'}}>
                                     <Typography 
                                         style={{ 
                                             fontSize: 22, 
@@ -135,7 +135,7 @@ const Detailpage = () => {
                                         }}>เดินทางกลับ
                                     </Typography>
                                 </Col>
-                                <Col>
+                                <Col style={{marginRight:'px',width:'40%'}}>
                                     <Form.Control 
                                     type="text" 
                                     placeholder={(selectedTourDate ? 
