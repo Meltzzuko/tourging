@@ -12,14 +12,16 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify'
 import { useLocation, useNavigate } from 'react-router-dom';
-import { storeUser, userData } from '../helper';
+import { userData } from '../helper';
+import conf from '../conf'
 
 
 function Copyright(props: any) {
+  const navigate = useNavigate();
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="http://localhost:3000/">
+      <Link color="inherit" onClick={() => navigate('/')}>
         Tour Ging
       </Link>{' '}
       {new Date().getFullYear()}
@@ -29,9 +31,6 @@ function Copyright(props: any) {
 }
 
 const theme = createTheme();
-
-
-
 
 const initialUser = {code:'', password: '',passwordConfirmation:''};
 
@@ -47,7 +46,7 @@ export default function ResetPasswordPage() {
 
     const handleResetPassword = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const url = "http://localhost:1337/api/auth/reset-password"
+        const url = `${conf.apiPrefix}/api/auth/reset-password`
         try {
           if (!user.password || !user.passwordConfirmation) {
             toast.error("Please fill in all the required fields", {

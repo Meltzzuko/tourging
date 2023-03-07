@@ -12,6 +12,7 @@ import Tours from "../models/tour";
 import Repo from '../repositories'
 import ReactMarkdown from "react-markdown";
 import '../Detail.css'
+import conf from '../conf'
 
 
 const Detailpage = () => {
@@ -45,7 +46,7 @@ const Detailpage = () => {
     }
     
     const data = tourdata.length > 0 ? tourdata[0].attributes : null;
-    const tourimg = `http://localhost:1337${data?.image.data.attributes.url}`
+    const tourimg = `${conf.apiPrefix}${data?.image.data.attributes.url}`
 
     const LinkToReview = () => {
         navigate(`/detail/${params.id}/review`);

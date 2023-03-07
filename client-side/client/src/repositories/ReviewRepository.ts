@@ -1,10 +1,10 @@
 import Review from "../models/review";
 import { IRepository } from "./IRepository";
-import { userData } from "../helper";
 import Postreview from "../models/postreview";
+import conf from '../conf'
 
 export class ReviewRepository implements IRepository<Review | Postreview>{
-    urlPrefix = "http://localhost:1337/api/reviews"
+    urlPrefix = `${conf.apiPrefix}/api/reviews`
 
     async getReview(tour_id: string | number): Promise<Review[] | null> {
         const res = await fetch(`${this.urlPrefix}?filters[tour_id][$eq]=${tour_id}`);

@@ -19,6 +19,7 @@ import { useMediaQuery } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { NavDropdown } from 'react-bootstrap';
+import conf from '../conf'
 
 function UserNavbar() {
   const user = userData();
@@ -33,7 +34,7 @@ function UserNavbar() {
   };
 
   const updateImage = async () => {
-    const userInfo = await fetch('http://localhost:1337/api/users/me?populate=*', {
+    const userInfo = await fetch(`${conf.apiPrefix}/api/users/me?populate=*`, {
       headers :{
         "Authorization" : `Bearer ${user.jwt}`
       }
@@ -48,7 +49,7 @@ function UserNavbar() {
         info = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
     }
 
-    info.avatar = `http://localhost:1337${data.image.url}`;
+    info.avatar = `${conf.apiPrefix}${data.image.url}`;
 
     const updatedEncryptedData = CryptoJS.AES.encrypt(JSON.stringify(info), secretKey).toString();
 
@@ -58,7 +59,7 @@ function UserNavbar() {
       avatar : info.avatar
     }
 
-    await fetch(`http://localhost:1337/api/users/${user.id}`, {
+    await fetch(`${conf.apiPrefix}/api/users/${user.id}`, {
       method : 'PUT',
       headers :{
         "Authorization" : `Bearer ${user.jwt}`,
@@ -81,7 +82,7 @@ function UserNavbar() {
     formData.append('field', 'image');
 
     try {
-      const response = await fetch('http://localhost:1337/api/upload',{
+      const response = await fetch(`${conf.apiPrefix}/api/upload`,{
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${user.jwt}`,

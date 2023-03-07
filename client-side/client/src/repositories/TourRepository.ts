@@ -1,14 +1,13 @@
-import axios from "axios";
-import payment from "../models/payment";
 import Tours from "../models/tour";
 import Tourseat from "../models/tourseat";
 import { IRepository } from "./IRepository";
 import { userData } from "../helper";
+import conf from '../conf'
 
 const user = userData()
 
 export class TourRepository implements IRepository<Tours | Tourseat>{
-    urlPrefix = "http://localhost:1337/api/user-tours?populate=*"
+    urlPrefix = `${conf.apiPrefix}/api/user-tours?populate=*`
     token = user.jwt
 
     async getAll(): Promise<Tours[] | null> {
@@ -37,7 +36,7 @@ export class TourRepository implements IRepository<Tours | Tourseat>{
 
 
     async updateTour(id: string | number, data: Tourseat): Promise<Tourseat> {
-        const resp = await fetch(`http://localhost:1337/api/user-tours/${id}`, {
+        const resp = await fetch(`${conf.apiPrefix}/api/user-tours/${id}`, {
             method: "PUT",
             headers: { 
                 "Authorization": `Bearer ${this.token}`,

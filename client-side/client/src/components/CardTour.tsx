@@ -5,7 +5,7 @@ import Card from '@mui/joy/Card';
 import Typography from '@mui/joy/Typography';
 import { useNavigate } from 'react-router-dom';
 import Tour from '../models/tour';
-
+import conf from '../conf'
 
 interface Props {
   Tours: Tour;
@@ -15,7 +15,7 @@ interface Props {
 const CardTour = (props: Props) => {
   const navigate = useNavigate();
   const item = props.Tours.attributes;
-  const tourimg = `http://localhost:1337${item.image.data.attributes.url}`;
+  const tourimg = `${conf.apiPrefix}${item.image.data.attributes.url}`;
   return (
     <Card variant="outlined" sx={{ width: '100%', maxWidth: 400,backgroundColor: 'white' }}>
       <Typography level="h2" fontSize="xl" fontWeight="xl" color="primary" sx={{ mb: 0.5 }}>

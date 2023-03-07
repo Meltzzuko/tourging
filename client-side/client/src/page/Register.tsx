@@ -13,13 +13,15 @@ import axios from 'axios';
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom';
 import { userData } from '../helper';
+import conf from '../conf'
 
 
 function Copyright(props: any) {
+  const navigate = useNavigate();
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="http://localhost:3000/">
+      <Link color="inherit" onClick={() => navigate('/')}>
         Tour Ging
       </Link>{' '}
       {new Date().getFullYear()}
@@ -42,7 +44,7 @@ export default function RegisterPage() {
 
     const handleSignup = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const url = "http://localhost:1337/api/auth/local/register";
+        const url = `${conf.apiPrefix}/api/auth/local/register`;
         try {
           if (passValid && emailValid) {
             if (user.email && user.password && user.username) {

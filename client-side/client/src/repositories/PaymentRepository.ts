@@ -1,10 +1,10 @@
 import payment, { updatePayment } from "../models/payment"
 import { IRepository } from "./IRepository"
-import { userData } from "../helper";
 import paymentStatus from "../models/paymentStatus";
+import conf from '../conf'
 
 export class PaymentRepository implements IRepository<payment | paymentStatus | updatePayment>{
-    urlPrefix = "http://localhost:1337/api/payment-statuses"
+    urlPrefix = `${conf.apiPrefix}/api/payment-statuses`
 
     async getPayment(user: string | number, token : string): Promise<paymentStatus[] | null> {
         const res = await fetch(`${this.urlPrefix}?populate=*&filters[user][$eq]=${user}`,{

@@ -10,6 +10,7 @@ import payment from '../models/payment';
 import { userData } from '../helper';
 import Tourseat from '../models/tourseat';
 import { Row, Col } from 'react-bootstrap';
+import conf from '../conf'
 
 const PaymentPage = () => {
     const location = useLocation();
@@ -24,7 +25,7 @@ const PaymentPage = () => {
     const tour_end = (selected_date === tourdata.tour_date.data.attributes.first_trip ? 
                     tourdata.tour_date.data.attributes.first_trip_end : tourdata.tour_date.data.attributes.second_trip_end)
     
-    const tourimg = `http://localhost:1337${tourdata.image.data.attributes.url}`
+    const tourimg = `${conf.apiPrefix}${tourdata.image.data.attributes.url}`
     const tour_type = tourdata.category.data.attributes.type === "One-day" ? "ทัวร์ภูเก็ต One Day Trip" : "ทัวร์ภูเก็ตพร้อมที่พัก"
 
     const newPayment: payment = {
