@@ -36,18 +36,22 @@ export default function RegisterPage() {
     const [user, setUser] = useState(initialUser)
     const [checkPassword, setCheckPassword] = useState('')
     const [checkEmail, setCheckEmail] = useState('')
+    const [passValid, setPassValid] = useState(false)
+    const [emailValid, setEmailValid] = useState(false)
     const navigate = useNavigate();
 
     const handleSignup = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const url = "http://localhost:1337/api/auth/local/register";
         try {
-          if (user.email && user.password && user.username) {
-            await axios.post(url, user)
-            toast.success('Registion Successfully', {
-              hideProgressBar: true
-            })
-            navigate('/login', { replace: true })
+          if (passValid && emailValid) {
+            if (user.email && user.password && user.username) {
+              await axios.post(url, user)
+              toast.success('Registion Successfully', {
+                hideProgressBar: true
+              })
+              navigate('/login', { replace: true })
+          }
         }
       }catch(err) {
         toast.error("Username or Email has already exist.", {
@@ -65,16 +69,25 @@ export default function RegisterPage() {
       if(name === 'email') {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if(!emailRegex.test(trimmedValue)) {
+          setEmailValid(false)
           setCheckEmail('Email is not valid')
         }else {
+          setEmailValid(true)
           setCheckEmail('')
         }
       }  
       if(name === 'password') {
         const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
         if(!passRegex.test(trimmedValue)) {
-          setCheckPassword('Password must contain at least 8 characters, including at least one uppercase letter, one lowercase, one special character, and one number')
+          setPassValid(false)
+          setCheckPassword(`Password must contain
+            ,At least 8 characters
+            ,At least one uppercase letter
+            ,At least one lowercase letter
+            ,At least one special character
+            ,At least one number`);
         } else {
+          setPassValid(true)
           setCheckPassword('')
         }
       }
@@ -169,6 +182,7 @@ export default function RegisterPage() {
                     fullWidth
                     variant="contained"
                     sx={{ mt: 3, mb: 2 }}
+                    disabled={!passValid || !emailValid}
                 >
                     สมัครสมาชิก
                 </Button>
