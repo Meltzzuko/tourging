@@ -84,6 +84,7 @@ const Detailpage = () => {
                                 <Typography style={{ fontSize: 20, textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>วิธีการเดินทางระหว่างท่องเที่ยว: {data?.vehicle}</Typography>
                                 { data?.hotel && 
                                     <Typography style={{ fontSize: 20, textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>ที่พัก : {data?.hotel}</Typography>
+
                                 }
                                 <Typography style={{ fontSize: 20, textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>ราคาต่อท่าน: {data?.price.toLocaleString()} บาท</Typography>
                                 <div style={{ display: "flex", justifyContent: "center", marginTop: "30px"}}>
@@ -95,7 +96,7 @@ const Detailpage = () => {
                     </div>
                 
                 <div className="third">
-                <Card variant='outlined' sx = {{backgroundColor: 'white', marginTop: "35px"}}  padding-left = "50px" padding-right = "50px">
+                <Card variant='outlined' sx = {{backgroundColor: 'white', marginTop: "70px"}}  padding-left = "50px" padding-right = "50px">
                         <Typography style={{ fontSize: 30, textAlign: "left", fontWeight: "bold", color: "black", textAlignLast: "center"}}>รายละเอียด</Typography>
                             <Box width="100%" height="50vh"sx={{overflow:"auto"}}>
                                 <ReactMarkdown>{data?.Longdescription as string}</ReactMarkdown>
