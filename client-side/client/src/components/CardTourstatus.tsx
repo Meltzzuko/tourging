@@ -149,7 +149,7 @@ function CardTourstatus(props: Props) {
                                             color="error"
                                             className="my-button"
                                             style={{marginTop: 15}}
-                                            onClick={() => setPaymentPopup(true)}
+                                            onClick={() => setPopup(true)}
                                             >
                                                 ยกเลิกการจอง
                                             </Button>
