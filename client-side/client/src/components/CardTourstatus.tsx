@@ -253,7 +253,7 @@ function CardTourstatus(props: Props) {
                 <DialogActions>
                     <Button
                         variant = "contained"
-                        color="success"
+                        color="error"
                         onClick={() => ConfirmCancel(false)}
                         style={{marginRight: 20}}
                     >
