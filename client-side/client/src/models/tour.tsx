@@ -6,6 +6,7 @@ export default interface Tours{
         price: number;
         available_seat: number;
         vehicle: string | null;
+        hotel: string | null;
         image: {
             data: {
                 attributes: {

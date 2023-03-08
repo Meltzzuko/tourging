@@ -28,9 +28,19 @@ const CardTour = (props: Props) => {
         <Typography fontSize="lg" fontWeight="lg" color="success" sx={{ mt: 2 }}>
           ราคา {item.price.toLocaleString()} บาท/ท่าน
         </Typography>
-        <Typography level="body3" color="danger" sx={{ mt: 1, mb: 2 }}>
+
+        {item.available_seat > 0 &&
+          <Typography level="body3" color="danger" sx={{ mt: 1, mb: 2 }}>
           เหลือ {item.available_seat} ที่
-        </Typography>
+          </Typography>
+        }
+        
+        {item.available_seat === 0 &&
+          <Typography level="body3" color="danger"  sx={{ mt: 1, mb: 2 ,fontWeight: "bold"}}>
+          เต็มแล้ว !!!
+          </Typography>
+        }
+
         <Button
           href="similan"
           variant="outlined"
