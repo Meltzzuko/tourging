@@ -14,6 +14,7 @@ import Tourseat from '../models/tourseat';
 import { userData } from '../helper';
 import { updatePayment } from '../models/payment';
 import '../UserStatus.css'
+import { toast } from 'react-toastify';
 
 
 interface Props {
@@ -28,6 +29,7 @@ function CardTourstatus(props: Props) {
     const [tourdata,setTourData] = useState<Tours[]>([])
     const [autoCancel, setAutoCancel] = useState(false);
     const [showCancelButton, setShowCancelButton] = useState(false);
+    const [noSeat, setNoSeat] = useState(false);
     const user = userData();
 
     const paymentData = props.payment_status.attributes
@@ -61,12 +63,15 @@ function CardTourstatus(props: Props) {
         }
     }
 
-    const ConfirmCancle = async () => {
+    const ConfirmCancel = async (paylaterCancel : boolean) => {
         await Repo.Paymentdata.deletePayment(props.payment_status.id,user.jwt)
-        await Repo.Tourdata.updateTour(tourdata[0].id,updateSeat)
+        if (!paylaterCancel) {
+            await Repo.Tourdata.updateTour(tourdata[0].id,updateSeat)
+        }
         setPopup(false)
         props.onDeleted()
     };
+    
 
     useEffect(() => {
         fetchData()
@@ -84,8 +89,9 @@ function CardTourstatus(props: Props) {
       }, [bookingDate]);
     
     useEffect(() => {
+        setNoSeat(tour?.available_seat === 0 || tour?.available_seat as number < paymentData.quantity)
         if (autoCancel && !paymentData.status){
-            ConfirmCancle()
+            ConfirmCancel(false)
         }
     })
 
@@ -99,7 +105,6 @@ function CardTourstatus(props: Props) {
         await Repo.Paymentdata.updatePayment(props.payment_status.id,updatePaylater,user.jwt)
         updateSeat.data.available_seat = tour?.available_seat as number - paymentData.quantity
         await Repo.Tourdata.updateTour(tourdata[0].id,updateSeat)
-
         setPaymentPopup(false)
         props.onConfirmPayment()
     }
@@ -122,7 +127,7 @@ function CardTourstatus(props: Props) {
                             <Typography style={{  textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>เดินทาง : {paymentData.tour_start}</Typography>
                             <Typography style={{  textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>กลับ : {paymentData.tour_end === null ? paymentData.tour_start : paymentData.tour_end }</Typography>
                             <Typography style={{  textAlign: "left", fontWeight: "bold", color: "#0147AB"}}>ราคารวม : {paymentData.total_price.toLocaleString()} บาท</Typography>
-                            <Typography style={{  fontSize: 15,textAlign: "left", fontWeight: "bold", color: "red"}}>*หากไม่ยกเลิกการจอง 3 วันก่อนเดินทางจะไม่มีการคืนค่าธรรมเนียมและไม่สามารถยกเลิกการจองได้</Typography>
+                            <Typography style={{  textAlign: "left", fontWeight: "bold", color: "red"}}>*หากไม่ยกเลิกการจอง 3 วันก่อนเดินทางจะไม่มีการคืนค่าธรรมเนียมและไม่สามารถยกเลิกการจองได้</Typography>
                         </Col>
                         <Col>
                             <Box 
@@ -153,7 +158,7 @@ function CardTourstatus(props: Props) {
                                     
                                 }
 
-                                {!paymentData.status && paymentData.paylater &&
+                                {!paymentData.status && paymentData.paylater && !noSeat &&
                                     <div style={{ textAlign:'center'}}>
                                         <Typography style={{ fontSize: 20, textAlign: "left", fontWeight: "bold", color: "red"}}>
                                         รอการชำระเงิน
@@ -166,6 +171,23 @@ function CardTourstatus(props: Props) {
                                         onClick={() => setPaymentPopup(true)}
                                         >
                                             ดำเนินการชำระเงิน
+                                        </Button>
+                                    </div>
+                                }
+
+                                {paymentData.paylater && noSeat && !paymentData.status &&
+                                    <div style={{ textAlign:'center'}}>
+                                        <Typography style={{ fontSize: 15, textAlign: "left", fontWeight: "bold", color: "red"}}>
+                                        ทัวร์เต็มแล้วหรือจำนวนที่นั่งไม่เพียงพอสำหรับท่าน, กรุณาตรวจสอบอีกครั้งใหม่อีกครั้งค่ะ
+                                        </Typography>
+
+                                        <Button 
+                                        variant="contained" 
+                                        color="error"
+                                        style={{marginTop: 15}}
+                                        onClick={() => ConfirmCancel(true)}
+                                        >
+                                            ลบ
                                         </Button>
                                     </div>
                                 }
@@ -232,7 +254,7 @@ function CardTourstatus(props: Props) {
                     <Button
                         variant = "contained"
                         color="success"
-                        onClick={ConfirmCancle}
+                        onClick={() => ConfirmCancel(false)}
                         style={{marginRight: 20}}
                     >
                     ยกเลิกการจอง
@@ -273,7 +295,7 @@ function CardTourstatus(props: Props) {
                     <Button
                         variant = "contained"
                         color="error"
-                        onClick={ConfirmCancle}
+                        onClick={() => ConfirmCancel(true)}
                         style={{marginRight: 20}}
                     >
                     ยกเลิกการจอง
