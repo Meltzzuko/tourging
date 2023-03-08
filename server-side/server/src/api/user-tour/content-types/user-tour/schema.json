@@ -27,7 +27,8 @@
       "type": "richtext"
     },
     "price": {
-      "type": "integer"
+      "type": "integer",
+      "min": 0
     },
     "Title": {
       "type": "string"
@@ -39,7 +40,8 @@
       "inversedBy": "user_tours"
     },
     "available_seat": {
-      "type": "integer"
+      "type": "integer",
+      "min": 0
     },
     "vehicle": {
       "type": "string"
@@ -49,6 +51,9 @@
       "relation": "manyToOne",
       "target": "api::tour-date.tour-date",
       "inversedBy": "user_tours"
+    },
+    "hotel": {
+      "type": "string"
     }
   }
 }
