@@ -149,7 +149,7 @@ function CardTourstatus(props: Props) {
                                             color="error"
                                             className="my-button"
                                             style={{marginTop: 15}}
-                                            onClick={() => setPaymentPopup(true)}
+                                            onClick={() => setPopup(true)}
                                             >
                                                 ยกเลิกการจอง
                                             </Button>
@@ -253,7 +253,7 @@ function CardTourstatus(props: Props) {
                 <DialogActions>
                     <Button
                         variant = "contained"
-                        color="success"
+                        color="error"
                         onClick={() => ConfirmCancel(false)}
                         style={{marginRight: 20}}
                     >

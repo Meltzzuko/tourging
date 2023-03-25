@@ -15,7 +15,7 @@
     "image": {
       "type": "media",
       "multiple": false,
-      "required": false,
+      "required": true,
       "allowedTypes": [
         "images",
         "files",
@@ -24,14 +24,17 @@
       ]
     },
     "Longdescription": {
-      "type": "richtext"
+      "type": "richtext",
+      "required": true
     },
     "price": {
       "type": "integer",
-      "min": 0
+      "min": 0,
+      "required": true
     },
     "Title": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "category": {
       "type": "relation",
@@ -41,10 +44,12 @@
     },
     "available_seat": {
       "type": "integer",
-      "min": 0
+      "min": 0,
+      "required": true
     },
     "vehicle": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "tour_date": {
       "type": "relation",
